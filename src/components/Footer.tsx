@@ -80,17 +80,17 @@ function TwitterIcon(props: any) {
 }
 const Footer = () => {
   return (
-    <div className="w-full flex flex-col justify-center bg-[#e1d7d5] h-[10vh]">
+    <div className="w-full flex flex-col justify-center h-[10vh]">
       <div className=" flex  justify-between w-[60%] mx-auto ">
         <div className="flex h-[25px] w-[350px] justify-center">
-          <LinkedInIcon className="fill-black hover:fill-[#A9A9A9] hover:cursor-pointer mx-2 w-[20px]" />
-          <DiscordIcon className="fill-black hover:fill-[#A9A9A9] hover:cursor-pointer mx-2 w-[20px]" />
-          <GitHubIcon className="fill-black hover:fill-[#A9A9A9] hover:cursor-pointer mx-2 w-[20px]" />
-          <InstagramIcon className="fill-black hover:fill-[#A9A9A9] hover:cursor-pointer mx-2 w-[20px]" />
-          <TwitterIcon className="fill-black hover:fill-[#A9A9A9] hover:cursor-pointer mx-2 w-[20px]" />
+          <LinkedInIcon className="fill-[#9c9e9e] hover:fill-white hover:cursor-pointer mx-2 w-[20px]" />
+          <DiscordIcon className="fill-[#9c9e9e] hover:fill-white hover:cursor-pointer mx-2 w-[20px]" />
+          <GitHubIcon className="fill-[#9c9e9e] hover:fill-white hover:cursor-pointer mx-2 w-[20px]" />
+          <InstagramIcon className="fill-[#9c9e9e] hover:fill-white hover:cursor-pointer mx-2 w-[20px]" />
+          <TwitterIcon className="fill-[#9c9e9e] hover:fill-white hover:cursor-pointer mx-2 w-[20px]" />
         </div>
         <div>
-          <p className="mr-4 text-black text-[7px] md:text-base text-center font-semibold ">
+          <p className="mr-4 text-[#9c9e9e] text-[7px] md:text-base text-center font-semibold ">
             © 2023 ZexCraft. All rights reserved.
           </p>
         </div>

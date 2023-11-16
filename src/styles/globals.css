@@ -27,7 +27,7 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: white;
+  background: #201c1c;
   overflow-x: hidden;
 }
 

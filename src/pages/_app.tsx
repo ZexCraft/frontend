@@ -37,9 +37,11 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <WagmiConfig config={wagmiConfig}>
       <RainbowKitProvider chains={chains}>
-        <Navbar />
-        <Component {...pageProps} />
-        <Footer />
+        <div className="mx-8 my-4">
+          <Navbar />
+          <Component {...pageProps} />
+          <Footer />
+        </div>
       </RainbowKitProvider>
     </WagmiConfig>
   );

@@ -13,13 +13,13 @@ const NavItem = ({
   return (
     <Link
       href={link}
-      className="flex items-center justify-center rounded-lg border-[1px] border-[#cfbdba] px-3 mx-2 my-1 py-1"
+      className="flex items-center justify-center rounded-lg  px-3 mx-2 my-1 py-1"
     >
       <FontAwesomeIcon
         icon={icon}
-        className=" text-black text-md font-bold mr-2"
+        className=" text-[#9c9e9e] text-md font-bold mr-2"
       />
-      <p className="font-theme text-black text-md font-bold">{content}</p>
+      <p className="font-theme text-[#9c9e9e] text-md font-bold">{content}</p>
     </Link>
   );
 };

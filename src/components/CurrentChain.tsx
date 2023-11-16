@@ -13,7 +13,7 @@ const CurrentChain = () => {
   });
   return isConnected ? (
     <div
-      className="flex items-center justify-center rounded-lg border-[1px] bg-white border-[#cfbdba] px-3 mx-2 my-1 cursor-pointer"
+      className="flex items-center justify-center rounded-lg bg-[#d0d1d1] px-3 mx-2 my-1 cursor-pointer"
       onClick={() => {
         if (openChainModal) {
           openChainModal();
@@ -37,14 +37,14 @@ const CurrentChain = () => {
         alt="chain"
         className="mr-2"
       />
-      <p className="font-theme text-black text-md font-bold">
+      <p className="font-theme text-[#201c1c] text-md font-bold">
         {chain == undefined ? "" : chain.name}
       </p>
-      <div className="h-full border-r border-[#cfbdba] mx-2"></div>
-      <p className="font-theme text-black text-md font-bold mr-2">
+      <div className="h-full  w-[1px] bg-[#201c1c] mx-2"></div>
+      <p className="font-theme text-[#201c1c] text-md font-bold mr-2">
         {balance?.formatted.slice(0, 5) ?? "0"}
       </p>
-      <p className="font-theme text-black text-md font-bold">
+      <p className="font-theme text-[#201c1c] text-md font-bold">
         {chain == undefined
           ? ""
           : chain.name == "Sepolia" || chain.name == "Goerli"

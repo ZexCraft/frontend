@@ -15,9 +15,6 @@ import CurrentChain from "./CurrentChain";
 const NavItems: React.FC = () => {
   return (
     <div className="flex">
-      <NavItem content={"Create"} link={"/create"} icon={faHammer} />
-      <NavItem content={"Relationships"} link={"/"} icon={faHeart} />
-      <NavItem content={"Profile"} link={"/profile"} icon={faUser} />
       <CurrentChain />
       <ConnectButton />
     </div>
