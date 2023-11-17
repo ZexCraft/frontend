@@ -28,11 +28,15 @@ const Navbar: React.FC = () => {
           className="font-theme font-semibold placeholder:text-[#6c6f70] text-md placeholder:text-sm bg-[#25272b] my-1 pl-6 text-white p-2 rounded-xl focus:outline-none  focus:border-black w-[50%] flex-shrink-0 mr-2"
         />
         <NavItem content={"Create"} link={"/create"} icon={faHammer} />
-        <NavItem content={"NFTs"} link={"/profile"} icon={faImage} />
-        <NavItem content={"Relationships"} link={"/"} icon={faHeart} />
+        <NavItem content={"NFTs"} link={"/nfts"} icon={faImage} />
+        <NavItem content={"Relationships"} link={"/relations"} icon={faHeart} />
 
-        <NavItem content={"Trees"} link={"/"} icon={faTree} />
-        <NavItem content={"Powerups"} link={"/"} icon={faBoltLightning} />
+        <NavItem content={"Trees"} link={"/trees"} icon={faTree} />
+        <NavItem
+          content={"Powerups"}
+          link={"/powerups"}
+          icon={faBoltLightning}
+        />
       </div>
       <NavItems />
     </div>
