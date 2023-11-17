@@ -19,8 +19,8 @@ export default function Nfts() {
   const [collectionDropdown, setCollectionDropdown] = useState(false);
 
   return (
-    <div>
-      <div className="flex  mt-20 font-theme">
+    <div className="min-h-[90vh]">
+      <div className="flex  mt-20 font-theme ">
         <div className="flex w-full">
           <button className="bg-[#25272b] flex p-3 rounded-lg text-[#d0d1d1] hover:bg-[#303238]">
             <FontAwesomeIcon
@@ -336,7 +336,82 @@ export default function Nfts() {
               flip={rarityDropdown ? "vertical" : "horizontal"}
             ></FontAwesomeIcon>
           </button>
-
+          {rarityDropdown && (
+            <div className="grid grid-cols-3 gap-2 mb-4">
+              <button
+                className={` rounded-lg p-3  text-lg font-semibold ${
+                  rarity == "Uncommon"
+                    ? "bg-[#d0d1d1] text-black"
+                    : "bg-[#25272b] text-white"
+                }`}
+                onClick={() => {
+                  setRarity("Uncommon");
+                }}
+              >
+                Uncommon
+              </button>
+              <button
+                className={` rounded-lg p-3  text-lg font-semibold ${
+                  rarity == "Common"
+                    ? "bg-[#d0d1d1] text-black"
+                    : "bg-[#25272b] text-white"
+                }`}
+                onClick={() => {
+                  setRarity("Common");
+                }}
+              >
+                Common
+              </button>
+              <button
+                className={` rounded-lg p-3  text-lg font-semibold ${
+                  rarity == "Rare"
+                    ? "bg-[#d0d1d1] text-black"
+                    : "bg-[#25272b] text-white"
+                }`}
+                onClick={() => {
+                  setRarity("Rare");
+                }}
+              >
+                Rare
+              </button>
+              <button
+                className={` rounded-lg p-3  text-lg font-semibold ${
+                  rarity == "Epic"
+                    ? "bg-[#d0d1d1] text-black"
+                    : "bg-[#25272b] text-white"
+                }`}
+                onClick={() => {
+                  setRarity("Epic");
+                }}
+              >
+                Epic
+              </button>
+              <button
+                className={` rounded-lg p-3  text-lg font-semibold ${
+                  rarity == "Legendary"
+                    ? "bg-[#d0d1d1] text-black"
+                    : "bg-[#25272b] text-white"
+                }`}
+                onClick={() => {
+                  setRarity("Legendary");
+                }}
+              >
+                Legendary
+              </button>
+              <button
+                className={` rounded-lg p-3  text-lg font-semibold ${
+                  rarity == "ZexStar"
+                    ? "bg-[#d0d1d1] text-black"
+                    : "bg-[#25272b] text-white"
+                }`}
+                onClick={() => {
+                  setRarity("ZexStar");
+                }}
+              >
+                ZexStar
+              </button>
+            </div>
+          )}
           <div className="h-[1px] bg-[#3c3f41]  "></div>
           <button
             className="text-white font-semibold text-xl text-left flex justify-between my-6 mx-1"
@@ -353,6 +428,118 @@ export default function Nfts() {
               flip={powerupDropdown ? "vertical" : "horizontal"}
             ></FontAwesomeIcon>
           </button>
+          {powerupDropdown && (
+            <div className="grid grid-cols-3 gap-2 mb-4">
+              <button
+                className={` rounded-lg p-3  text-lg font-semibold ${
+                  powerup == "+1 Boost"
+                    ? "bg-[#d0d1d1] text-black"
+                    : "bg-[#25272b] text-white"
+                }`}
+                onClick={() => {
+                  setPowerup("+1 Boost");
+                }}
+              >
+                +1 Boost
+              </button>
+              <button
+                className={` rounded-lg p-3  text-lg font-semibold ${
+                  powerup == "+2 Boost"
+                    ? "bg-[#d0d1d1] text-black"
+                    : "bg-[#25272b] text-white"
+                }`}
+                onClick={() => {
+                  setPowerup("+2 Boost");
+                }}
+              >
+                +2 Boost
+              </button>
+              <button
+                className={` rounded-lg p-3  text-lg font-semibold ${
+                  powerup == "+5 Boost"
+                    ? "bg-[#d0d1d1] text-black"
+                    : "bg-[#25272b] text-white"
+                }`}
+                onClick={() => {
+                  setPowerup("+5 Boost");
+                }}
+              >
+                +5 Boost
+              </button>
+              <button
+                className={` rounded-lg p-3  text-lg font-semibold ${
+                  powerup == "+10 Boost"
+                    ? "bg-[#d0d1d1] text-black"
+                    : "bg-[#25272b] text-white"
+                }`}
+                onClick={() => {
+                  setPowerup("+10 Boost");
+                }}
+              >
+                +10 Boost
+              </button>
+              <button
+                className={` rounded-lg p-3  text-lg font-semibold ${
+                  powerup == "+1 Rare"
+                    ? "bg-[#d0d1d1] text-black"
+                    : "bg-[#25272b] text-white"
+                }`}
+                onClick={() => {
+                  setPowerup("+1 Rare");
+                }}
+              >
+                +1 Rare
+              </button>
+              <button
+                className={` rounded-lg p-3  text-lg font-semibold ${
+                  powerup == "+1 Epic"
+                    ? "bg-[#d0d1d1] text-black"
+                    : "bg-[#25272b] text-white"
+                }`}
+                onClick={() => {
+                  setPowerup("+1 Epic");
+                }}
+              >
+                +1 Epic
+              </button>
+              <button
+                className={` rounded-lg p-3  text-lg font-semibold ${
+                  powerup == "+1 Legend"
+                    ? "bg-[#d0d1d1] text-black"
+                    : "bg-[#25272b] text-white"
+                }`}
+                onClick={() => {
+                  setPowerup("+1 Legend");
+                }}
+              >
+                +1 Legend
+              </button>
+              <button
+                className={` rounded-lg p-3  text-lg font-semibold ${
+                  powerup == "+1 Star"
+                    ? "bg-[#d0d1d1] text-black"
+                    : "bg-[#25272b] text-white"
+                }`}
+                onClick={() => {
+                  setPowerup("+1 Star");
+                }}
+              >
+                +1 Star
+              </button>
+              <button
+                className={` rounded-lg p-3  text-lg font-semibold ${
+                  powerup == "+1 Twins"
+                    ? "bg-[#d0d1d1] text-black"
+                    : "bg-[#25272b] text-white"
+                }`}
+                onClick={() => {
+                  setPowerup("Twins");
+                }}
+              >
+                Twins
+              </button>
+            </div>
+          )}
           <div className="h-[1px] bg-[#3c3f41]  "></div>
           <button
             className="text-white font-semibold text-xl text-left flex justify-between my-6 mx-1"
