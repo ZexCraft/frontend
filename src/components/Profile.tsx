@@ -87,7 +87,7 @@ export default function Profile(props: { address: string }) {
       </div>
       <div className="mx-6 h-[1px] bg-[#3c3f41] mt-6"></div>
       <div className="flex justify-between mt-10">
-        <div className="w-[20%]">
+        <div className="w-[25%]">
           <Dropdown />
         </div>
         <div>
