@@ -25,10 +25,10 @@ export default function Generate() {
                 <Image
                   src={
                     chain == "fuji"
-                      ? "/avalanche.png"
+                      ? "/tech/avalanche.png"
                       : chain == "mumbai"
-                      ? "/polygon.png"
-                      : "/blue-ethereum.png"
+                      ? "/tech/polygon.png"
+                      : "/tech/blue-ethereum.png"
                   }
                   width={50}
                   height={50}

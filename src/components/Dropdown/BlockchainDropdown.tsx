@@ -9,7 +9,7 @@ export default function BlockchainDropdown() {
   return (
     <>
       <button
-        className="text-white font-semibold text-xl text-left flex justify-between my-6 mx-1"
+        className="text-white font-semibold text-xl text-left flex justify-between my-6 mx-1 "
         onClick={() => {
           if (blockchainDropdown) setBlockchainDropdown(false);
           else setBlockchainDropdown(true);
@@ -54,7 +54,7 @@ export default function BlockchainDropdown() {
             }}
           >
             <Image
-              src={"/avalanche.png"}
+              src={"/tech/avalanche.png"}
               height={20}
               width={20}
               alt="avalanche"
@@ -71,7 +71,7 @@ export default function BlockchainDropdown() {
             }}
           >
             <Image
-              src={"/blue-ethereum.png"}
+              src={"/tech/blue-ethereum.png"}
               height={20}
               width={20}
               alt="sepolia"
@@ -87,7 +87,12 @@ export default function BlockchainDropdown() {
               setBlockchain("polygon");
             }}
           >
-            <Image src={"/polygon.png"} height={20} width={20} alt="polygon" />
+            <Image
+              src={"/tech/polygon.png"}
+              height={20}
+              width={20}
+              alt="polygon"
+            />
           </button>
         </div>
       )}

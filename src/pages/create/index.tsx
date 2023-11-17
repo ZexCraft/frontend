@@ -22,7 +22,7 @@ export default function Create() {
                 className="border-[2px] border-[#3c3f41] flex flex-col justify-center items-center h-[300px] rounded-2xl"
               >
                 <Image
-                  src="/avalanche.png"
+                  src="/tech/avalanche.png"
                   width={100}
                   height={100}
                   alt="mumbai"
@@ -36,7 +36,7 @@ export default function Create() {
                 className="border-[2px] border-[#3c3f41] flex flex-col justify-center items-center h-[300px] rounded-2xl"
               >
                 <Image
-                  src="/blue-ethereum.png"
+                  src="/tech/blue-ethereum.png"
                   width={100}
                   height={100}
                   alt="sepolia"
@@ -48,7 +48,7 @@ export default function Create() {
                 className="border-[2px] border-[#3c3f41] flex flex-col justify-center items-center h-[300px] rounded-2xl"
               >
                 <Image
-                  src="/polygon.png"
+                  src="/tech/polygon.png"
                   width={100}
                   height={100}
                   alt="mumbai"

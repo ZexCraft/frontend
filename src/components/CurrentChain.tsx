@@ -27,11 +27,11 @@ const CurrentChain = () => {
           chain == undefined
             ? ""
             : chain.name == "Sepolia" || chain.name == "Goerli"
-            ? "/ethereum.png"
+            ? "/tech/ethereum.png"
             : chain.name == "Polygon Mumbai"
-            ? "/polygon.png"
+            ? "/tech/polygon.png"
             : chain.name == "Avalanche Fuji"
-            ? "/avalanche.png"
+            ? "/tech/avalanche.png"
             : "/wrong.png"
         }
         width={25}
