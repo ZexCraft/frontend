@@ -34,7 +34,7 @@ export default function Generate() {
               ></Image>
               <div className="flex flex-col justify-around ml-3">
                 <p className="font-bold">
-                  {shortenEthereumAddress(address as `0x${string}`)}
+                  {shortenEthereumAddress(address as string)}
                 </p>
                 <p className="text-[#9c9e9e] font-semibold">
                   {capitalizeString(chain as string)}

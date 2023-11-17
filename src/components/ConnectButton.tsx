@@ -24,7 +24,7 @@ const ConnectButton = () => {
         className=" text-[#201c1c] text-md font-bold mr-2"
       />
       <p className="font-theme text-[#201c1c] text-md font-bold">
-        {shortenEthereumAddress(address ?? "")}
+        {shortenEthereumAddress((address as string) ?? "")}
       </p>
     </button>
   ) : (
