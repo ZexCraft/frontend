@@ -26,7 +26,7 @@ export default function Generate() {
                     ? "/avalanche.png"
                     : chain == "mumbai"
                     ? "/polygon.png"
-                    : "/blue-etheruem.png"
+                    : "/blue-ethereum.png"
                 }
                 width={50}
                 height={50}

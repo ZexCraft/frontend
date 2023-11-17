@@ -6,11 +6,10 @@ import NavItems from "./NavItems";
 import { useState } from "react";
 import NavItem from "./NavItem";
 import {
-  faChartLine,
+  faBoltLightning,
   faHammer,
   faHeart,
   faImage,
-  faLevelUp,
   faTree,
 } from "@fortawesome/free-solid-svg-icons";
 const Navbar: React.FC = () => {
@@ -33,7 +32,7 @@ const Navbar: React.FC = () => {
         <NavItem content={"Relationships"} link={"/"} icon={faHeart} />
 
         <NavItem content={"Trees"} link={"/"} icon={faTree} />
-        <NavItem content={"Powerups"} link={"/"} icon={faChartLine} />
+        <NavItem content={"Powerups"} link={"/"} icon={faBoltLightning} />
       </div>
       <NavItems />
     </div>
