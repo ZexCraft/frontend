@@ -32,16 +32,10 @@ const wagmiConfig = createConfig({
   publicClient,
 });
 export default function App({ Component, pageProps }: AppProps) {
-  const [ready, setReady] = useState(false);
-
   return (
     <WagmiConfig config={wagmiConfig}>
       <RainbowKitProvider chains={chains}>
-        <div className="mx-8 my-4">
-          <Navbar />
-          <Component {...pageProps} />
-          <Footer />
-        </div>
+        <Component {...pageProps} />
       </RainbowKitProvider>
     </WagmiConfig>
   );

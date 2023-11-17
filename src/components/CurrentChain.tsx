@@ -30,7 +30,9 @@ const CurrentChain = () => {
             ? "/ethereum.png"
             : chain.name == "Polygon Mumbai"
             ? "/polygon.png"
-            : "/avalanche.png"
+            : chain.name == "Avalanche Fuji"
+            ? "/avalanche.png"
+            : "/wrong.png"
         }
         width={25}
         height={25}
@@ -38,12 +40,20 @@ const CurrentChain = () => {
         className="mr-2"
       />
       <p className="font-theme text-[#201c1c] text-md font-bold">
-        {chain == undefined ? "" : chain.name}
+        {chain == undefined
+          ? ""
+          : chain.unsupported
+          ? "Wrong Network"
+          : chain.name}
       </p>
-      <div className="h-full  w-[1px] bg-[#201c1c] mx-2"></div>
-      <p className="font-theme text-[#201c1c] text-md font-bold mr-2">
-        {balance?.formatted.slice(0, 5) ?? "0"}
-      </p>
+      {!chain?.unsupported && (
+        <div className="h-full  w-[1px] bg-[#201c1c] mx-2"></div>
+      )}
+      {!chain?.unsupported && (
+        <p className="font-theme text-[#201c1c] text-md font-bold mr-2">
+          {balance?.formatted.slice(0, 5) ?? "0"}
+        </p>
+      )}
       <p className="font-theme text-[#201c1c] text-md font-bold">
         {chain == undefined
           ? ""
@@ -51,7 +61,9 @@ const CurrentChain = () => {
           ? "ETH"
           : chain.name == "Polygon Mumbai"
           ? "MATIC"
-          : "AVAX"}
+          : chain.name == "Avalanche Fuji"
+          ? "AVAX"
+          : ""}
       </p>
     </div>
   ) : (

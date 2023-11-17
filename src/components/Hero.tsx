@@ -22,7 +22,7 @@ export default function Hero() {
     <main
       className="flex justify-center h-[70vh] my-8 rounded-xl"
       style={{
-        backgroundImage: 'url("/hero.gif")',
+        backgroundImage: 'url("/animations/hero.gif")',
         backgroundSize: "cover",
         filter: "brightness(1.5)",
       }}

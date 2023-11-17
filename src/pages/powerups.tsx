@@ -1,3 +1,9 @@
+import Layout from "@/components/Layout";
+
 export default function Powerups() {
-  return <div></div>;
+  return (
+    <Layout>
+      <div></div>
+    </Layout>
+  );
 }

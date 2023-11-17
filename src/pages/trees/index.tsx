@@ -1,3 +1,9 @@
+import Layout from "@/components/Layout";
+
 export default function Trees() {
-  return <div></div>;
+  return (
+    <Layout>
+      <div></div>
+    </Layout>
+  );
 }
