@@ -29,7 +29,11 @@ export default function CollectionDropdown() {
               collection == "bayc" ? "bg-[#d0d1d1] text-black" : "text-white"
             }`}
             onClick={() => {
-              setCollection("bayc");
+              if (collection == "bayc") {
+                setCollection("");
+              } else {
+                setCollection("bayc");
+              }
             }}
           >
             <Image
@@ -49,7 +53,11 @@ export default function CollectionDropdown() {
               collection == "punk" ? "bg-[#d0d1d1] text-black" : "text-white"
             }`}
             onClick={() => {
-              setCollection("punk");
+              if (collection == "punk") {
+                setCollection("");
+              } else {
+                setCollection("punk");
+              }
             }}
           >
             <Image
@@ -70,7 +78,11 @@ export default function CollectionDropdown() {
               collection == "beanz" ? "bg-[#d0d1d1] text-black" : "text-white"
             }`}
             onClick={() => {
-              setCollection("beanz");
+              if (collection == "beanz") {
+                setCollection("");
+              } else {
+                setCollection("beanz");
+              }
             }}
           >
             <Image
@@ -88,7 +100,11 @@ export default function CollectionDropdown() {
               collection == "nouns" ? "bg-[#d0d1d1] text-black" : "text-white"
             }`}
             onClick={() => {
-              setCollection("nouns");
+              if (collection == "nouns") {
+                setCollection("");
+              } else {
+                setCollection("nouns");
+              }
             }}
           >
             <Image
@@ -106,7 +122,11 @@ export default function CollectionDropdown() {
               collection == "azuki" ? "bg-[#d0d1d1] text-black" : "text-white"
             }`}
             onClick={() => {
-              setCollection("azuki");
+              if (collection == "azuki") {
+                setCollection("");
+              } else {
+                setCollection("azuki");
+              }
             }}
           >
             <Image

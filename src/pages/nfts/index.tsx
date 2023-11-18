@@ -1,6 +1,7 @@
 import Dropdown from "@/components/Dropdown";
 import Layout from "@/components/Layout";
 import NFTCard from "@/components/NFTCard";
+import PageNavigation from "@/components/PageNavigation";
 import { faArrowRight, faFilter } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
@@ -9,11 +10,12 @@ import { useState } from "react";
 
 export default function Nfts() {
   const [search, setSearch] = useState("");
-  const [filters, setFilters] = useState(false);
+  const [filters, setFilters] = useState(true);
   return (
     <Layout>
-      <div className="min-h-[90vh] ">
-        <div className="flex  mt-20 font-theme ">
+      <div className="min-h-[90vh] mt-20">
+        <PageNavigation />
+        <div className="flex   font-theme ">
           <div className="flex w-full">
             <button
               className={`${

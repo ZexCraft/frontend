@@ -29,7 +29,11 @@ export default function OriginDropdown() {
               origin == "bayc" ? "bg-[#d0d1d1] text-black" : "text-white"
             }`}
             onClick={() => {
-              setOrigin("bayc");
+              if (origin == "bayc") {
+                setOrigin("");
+              } else {
+                setOrigin("bayc");
+              }
             }}
           >
             <Image
@@ -49,7 +53,11 @@ export default function OriginDropdown() {
               origin == "punk" ? "bg-[#d0d1d1] text-black" : "text-white"
             }`}
             onClick={() => {
-              setOrigin("punk");
+              if (origin == "punk") {
+                setOrigin("");
+              } else {
+                setOrigin("punk");
+              }
             }}
           >
             <Image
@@ -70,7 +78,11 @@ export default function OriginDropdown() {
               origin == "beanz" ? "bg-[#d0d1d1] text-black" : "text-white"
             }`}
             onClick={() => {
-              setOrigin("beanz");
+              if (origin == "beanz") {
+                setOrigin("");
+              } else {
+                setOrigin("beanz");
+              }
             }}
           >
             <Image
@@ -88,7 +100,11 @@ export default function OriginDropdown() {
               origin == "nouns" ? "bg-[#d0d1d1] text-black" : "text-white"
             }`}
             onClick={() => {
-              setOrigin("nouns");
+              if (origin == "nouns") {
+                setOrigin("");
+              } else {
+                setOrigin("nouns");
+              }
             }}
           >
             <Image
@@ -106,7 +122,11 @@ export default function OriginDropdown() {
               origin == "azuki" ? "bg-[#d0d1d1] text-black" : "text-white"
             }`}
             onClick={() => {
-              setOrigin("azuki");
+              if (origin == "azuki") {
+                setOrigin("");
+              } else {
+                setOrigin("azuki");
+              }
             }}
           >
             <Image
