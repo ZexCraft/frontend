@@ -1,6 +1,7 @@
 import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
+import Link from "next/link";
 type NFT = {
   image: string;
   rarity: string;
@@ -22,13 +23,15 @@ export default function RelationshipCard({
     <div className="border-[1px] border-[#3c3f41] p-2 rounded-lg font-theme">
       <div className="flex">
         <div>
-          <Image
-            src={nft1.image}
-            width={200}
-            height={200}
-            alt="logo"
-            className="bg-white rounded-l-lg"
-          />
+          <Link href={"/relations/" + relationship}>
+            <Image
+              src={nft1.image}
+              width={200}
+              height={200}
+              alt="logo"
+              className="bg-white rounded-l-lg"
+            />
+          </Link>
           <p className="text-[#9c9e9e] font-semibold text-sm mt-2 mx-2 text-center">
             by {nft1.mode}
           </p>
@@ -75,13 +78,16 @@ export default function RelationshipCard({
           </div>
         </div>
         <div>
-          <Image
-            src={nft2.image}
-            width={200}
-            height={200}
-            alt="logo"
-            className="bg-white rounded-r-lg"
-          />
+          <Link href={"/relations/" + relationship}>
+            <Image
+              src={nft2.image}
+              width={200}
+              height={200}
+              alt="logo"
+              className="bg-white rounded-r-lg"
+            />
+          </Link>
+
           <p className="text-[#9c9e9e] font-semibold text-sm mt-2 mx-2 text-center">
             by {nft2.mode}
           </p>

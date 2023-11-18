@@ -9,6 +9,7 @@ export default function NFTCard({
   rarity,
   tokenId,
   mode,
+  size,
 }: {
   image: string;
   owner: string;
@@ -16,13 +17,14 @@ export default function NFTCard({
   rarity: string;
   tokenId: string;
   mode: string;
+  size: number;
 }) {
   return (
     <div className="border-[1px] border-[#3c3f41] p-2 rounded-lg font-theme">
       <Image
         src={image}
-        width={400}
-        height={400}
+        width={size}
+        height={size}
         alt="logo"
         className="bg-white rounded-lg"
       />

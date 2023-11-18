@@ -59,6 +59,7 @@ export default function Nfts() {
               } gap-3 mx-8`}
             >
               <NFTCard
+                size={400}
                 image={"/sample-generated/1.png"}
                 owner={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
                 address={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
@@ -67,6 +68,7 @@ export default function Nfts() {
                 mode={"create ✨"}
               />
               <NFTCard
+                size={400}
                 image={"/sample-generated/2.png"}
                 owner={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
                 address={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
@@ -75,6 +77,7 @@ export default function Nfts() {
                 mode={"breed ❤️"}
               />
               <NFTCard
+                size={400}
                 image={"/sample-generated/3.png"}
                 owner={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
                 address={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
@@ -83,6 +86,7 @@ export default function Nfts() {
                 mode={"create ✨"}
               />
               <NFTCard
+                size={400}
                 image={"/sample-generated/4.png"}
                 owner={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
                 address={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
@@ -91,6 +95,7 @@ export default function Nfts() {
                 mode={"create ✨"}
               />
               <NFTCard
+                size={400}
                 image={"/sample-generated/5.png"}
                 owner={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
                 address={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
@@ -99,6 +104,7 @@ export default function Nfts() {
                 mode={"create ✨"}
               />
               <NFTCard
+                size={400}
                 image={"/sample-generated/1.png"}
                 owner={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
                 address={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
@@ -107,6 +113,7 @@ export default function Nfts() {
                 mode={"create ✨"}
               />
               <NFTCard
+                size={400}
                 image={"/sample-generated/2.png"}
                 owner={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
                 address={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
@@ -115,6 +122,7 @@ export default function Nfts() {
                 mode={"create ✨"}
               />
               <NFTCard
+                size={400}
                 image={"/sample-generated/3.png"}
                 owner={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
                 address={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
@@ -123,6 +131,7 @@ export default function Nfts() {
                 mode={"create ✨"}
               />
               <NFTCard
+                size={400}
                 image={"/sample-generated/4.png"}
                 owner={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
                 address={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
@@ -131,6 +140,7 @@ export default function Nfts() {
                 mode={"create ✨"}
               />
               <NFTCard
+                size={400}
                 image={"/sample-generated/5.png"}
                 owner={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
                 address={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
@@ -139,6 +149,7 @@ export default function Nfts() {
                 mode={"create ✨"}
               />
               <NFTCard
+                size={400}
                 image={"/sample-generated/4.png"}
                 owner={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
                 address={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
@@ -147,6 +158,7 @@ export default function Nfts() {
                 mode={"create ✨"}
               />
               <NFTCard
+                size={400}
                 image={"/sample-generated/5.png"}
                 owner={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
                 address={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
