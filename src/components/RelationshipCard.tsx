@@ -73,9 +73,11 @@ export default function RelationshipCard({
           </div>
         </div>
         <div className="relative">
-          <div className="absolute top-16 right-[30px]  w-full h-full">
-            <p className="text-5xl">❤️</p>
-          </div>
+          <Link href={"/relations/" + relationship}>
+            <div className="absolute top-16 right-[30px]  w-full h-full">
+              <p className="text-5xl">❤️</p>
+            </div>
+          </Link>
         </div>
         <div>
           <Link href={"/relations/" + relationship}>

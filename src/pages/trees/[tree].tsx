@@ -1,3 +1,208 @@
-export default function Tree() {
-  return <div></div>;
+import Layout from "@/components/Layout";
+import React from "react";
+import Tree from "react-d3-tree";
+import TreeElement from "@/components/TreeElement";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
+import TreeNodeElement from "@/components/TreeNodeElement";
+// This is a simplified example of an org chart with a depth of 2.
+// Note how deeper levels are defined recursively via the `children` property.
+const orgChart = {
+  name: "root",
+  attributes: {
+    relationship: "0x71B43a66324C7b80468F1eE676E7FCDaF63eB6Ac",
+    nft1: {
+      image: "/sample-nfts/noun.png",
+      isChild: false,
+      rarity: "Rare",
+      tokenId: "45362345",
+      mode: "create ✨",
+
+      tokenAddress: "0x71B43a66324C7b80468F1eE676E7FCDaF63eB6Ac",
+    },
+    nft2: {
+      image: "/sample-nfts/noun.png",
+      isChild: false,
+      rarity: "Rare",
+      tokenId: "45362345",
+      mode: "create ✨",
+
+      tokenAddress: "0x71B43a66324C7b80468F1eE676E7FCDaF63eB6Ac",
+    },
+  },
+  children: [
+    {
+      name: "Manager",
+      attributes: {
+        relationship: "0x71B43a66324C7b80468F1eE676E7FCDaF63eB6Ac",
+        nft1: {
+          image: "/sample-nfts/noun.png",
+          isChild: false,
+          rarity: "Rare",
+          tokenId: "45362345",
+          mode: "create ✨",
+
+          tokenAddress: "0x71B43a66324C7b80468F1eE676E7FCDaF63eB6Ac",
+        },
+        nft2: {
+          image: "/sample-nfts/noun.png",
+          isChild: false,
+          rarity: "Rare",
+          tokenId: "45362345",
+          mode: "create ✨",
+
+          tokenAddress: "0x71B43a66324C7b80468F1eE676E7FCDaF63eB6Ac",
+        },
+      },
+      children: [
+        {
+          name: "Foreman",
+          attributes: {
+            relationship: "0x71B43a66324C7b80468F1eE676E7FCDaF63eB6Ac",
+            nft1: {
+              image: "/sample-nfts/noun.png",
+              isChild: false,
+              rarity: "Rare",
+              tokenId: "45362345",
+              mode: "create ✨",
+
+              tokenAddress: "0x71B43a66324C7b80468F1eE676E7FCDaF63eB6Ac",
+            },
+            nft2: {
+              image: "/sample-nfts/noun.png",
+              isChild: false,
+              rarity: "Rare",
+              tokenId: "45362345",
+              mode: "create ✨",
+
+              tokenAddress: "0x71B43a66324C7b80468F1eE676E7FCDaF63eB6Ac",
+            },
+          },
+          children: [
+            {
+              name: "Worker",
+              attributes: {
+                relationship: "0x71B43a66324C7b80468F1eE676E7FCDaF63eB6Ac",
+                nft1: {
+                  image: "/sample-nfts/noun.png",
+                  isChild: false,
+                  rarity: "Rare",
+                  tokenId: "45362345",
+                  mode: "create ✨",
+
+                  tokenAddress: "0x71B43a66324C7b80468F1eE676E7FCDaF63eB6Ac",
+                },
+                nft2: {
+                  image: "/sample-nfts/noun.png",
+                  isChild: false,
+                  rarity: "Rare",
+                  tokenId: "45362345",
+                  mode: "create ✨",
+
+                  tokenAddress: "0x71B43a66324C7b80468F1eE676E7FCDaF63eB6Ac",
+                },
+              },
+            },
+          ],
+        },
+        {
+          name: "Foreman",
+          attributes: {
+            relationship: "0x71B43a66324C7b80468F1eE676E7FCDaF63eB6Ac",
+            nft1: {
+              image: "/sample-nfts/noun.png",
+              isChild: false,
+              rarity: "Rare",
+              tokenId: "45362345",
+              mode: "create ✨",
+
+              tokenAddress: "0x71B43a66324C7b80468F1eE676E7FCDaF63eB6Ac",
+            },
+            nft2: {
+              image: "/sample-nfts/noun.png",
+              isChild: false,
+              rarity: "Rare",
+              tokenId: "45362345",
+              mode: "create ✨",
+
+              tokenAddress: "0x71B43a66324C7b80468F1eE676E7FCDaF63eB6Ac",
+            },
+          },
+          children: [
+            {
+              name: "Worker",
+              attributes: {
+                relationship: "0x71B43a66324C7b80468F1eE676E7FCDaF63eB6Ac",
+                nft1: {
+                  image: "/sample-nfts/noun.png",
+                  isChild: false,
+                  rarity: "Rare",
+                  tokenId: "45362345",
+                  mode: "create ✨",
+
+                  tokenAddress: "0x71B43a66324C7b80468F1eE676E7FCDaF63eB6Ac",
+                },
+                nft2: {
+                  image: "/sample-nfts/noun.png",
+                  isChild: false,
+                  rarity: "Rare",
+                  tokenId: "45362345",
+                  mode: "create ✨",
+
+                  tokenAddress: "0x71B43a66324C7b80468F1eE676E7FCDaF63eB6Ac",
+                },
+              },
+            },
+          ],
+        },
+      ],
+    },
+  ],
+};
+
+export default function TreePage() {
+  return (
+    <Layout>
+      <div className="mt-20 h-[90vh]">
+        <p>Family Tree</p>
+        <div id="treeWrapper" className="w-full h-full">
+          <Tree
+            orientation="vertical"
+            hasInteractiveNodes="true"
+            data={orgChart}
+            depthFactor={420}
+            separation={{ siblings: 5, nonSiblings: 1 }}
+            renderCustomNodeElement={(rd3tProps: any) =>
+              renderRectSvgNode({
+                ...rd3tProps,
+                foreignObjectProps: {
+                  width: 400,
+                  height: 400,
+                  position: "absolute",
+                  top: "100px",
+                },
+              })
+            }
+            rootNodeClassName={"bg-white text-white"}
+          />
+        </div>
+      </div>
+    </Layout>
+    // `<Tree />` will fill width/height of its container; in this case `#treeWrapper`.
+  );
 }
+
+const renderRectSvgNode = ({
+  nodeDatum,
+  toggleNode,
+  foreignObjectProps,
+}: any) => (
+  <g>
+    <circle r={5}></circle>
+    <foreignObject {...foreignObjectProps}>
+      <>
+        <TreeNodeElement nodeDatum={nodeDatum} toggleNode={toggleNode} />
+      </>
+    </foreignObject>
+  </g>
+);

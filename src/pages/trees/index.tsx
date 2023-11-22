@@ -61,7 +61,7 @@ export default function Trees() {
                 nft1={"/sample-generated/1.png"}
                 nft2={"/sample-generated/2.png"}
                 count="10"
-                family="ZexStar"
+                family="0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"
                 race="BAYC / ZEX"
                 relationship="Brother"
               />
@@ -69,7 +69,7 @@ export default function Trees() {
                 nft1={"/sample-generated/1.png"}
                 nft2={"/sample-generated/2.png"}
                 count="10"
-                family="ZexStar"
+                family="0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"
                 race="BAYC / ZEX"
                 relationship="Brother"
               />
@@ -77,7 +77,7 @@ export default function Trees() {
                 nft1={"/sample-generated/1.png"}
                 nft2={"/sample-generated/2.png"}
                 count="10"
-                family="ZexStar"
+                family="0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"
                 race="BAYC / ZEX"
                 relationship="Brother"
               />
@@ -85,7 +85,7 @@ export default function Trees() {
                 nft1={"/sample-generated/1.png"}
                 nft2={"/sample-generated/2.png"}
                 count="10"
-                family="ZexStar"
+                family="0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"
                 race="BAYC / ZEX"
                 relationship="Brother"
               />
