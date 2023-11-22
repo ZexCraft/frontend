@@ -99,6 +99,7 @@ export default function Profile(props: { address: string }) {
               rarity={"ZexStar"}
               tokenId={"69"}
               mode={"create ✨"}
+              size={300}
             />
             <NFTCard
               image={"/sample-generated/2.png"}
@@ -107,6 +108,7 @@ export default function Profile(props: { address: string }) {
               rarity={"ZexStar"}
               tokenId={"69"}
               mode={"breed ❤️"}
+              size={300}
             />
             <NFTCard
               image={"/sample-generated/3.png"}
@@ -115,6 +117,7 @@ export default function Profile(props: { address: string }) {
               rarity={"ZexStar"}
               tokenId={"69"}
               mode={"create ✨"}
+              size={300}
             />
             <NFTCard
               image={"/sample-generated/4.png"}
@@ -123,6 +126,7 @@ export default function Profile(props: { address: string }) {
               rarity={"ZexStar"}
               tokenId={"69"}
               mode={"create ✨"}
+              size={300}
             />
             <NFTCard
               image={"/sample-generated/5.png"}
@@ -131,6 +135,7 @@ export default function Profile(props: { address: string }) {
               rarity={"ZexStar"}
               tokenId={"69"}
               mode={"create ✨"}
+              size={300}
             />
             <NFTCard
               image={"/sample-generated/1.png"}
@@ -139,6 +144,7 @@ export default function Profile(props: { address: string }) {
               rarity={"ZexStar"}
               tokenId={"69"}
               mode={"create ✨"}
+              size={300}
             />
             <NFTCard
               image={"/sample-generated/2.png"}
@@ -147,6 +153,7 @@ export default function Profile(props: { address: string }) {
               rarity={"ZexStar"}
               tokenId={"69"}
               mode={"create ✨"}
+              size={300}
             />
             <NFTCard
               image={"/sample-generated/3.png"}
@@ -155,6 +162,7 @@ export default function Profile(props: { address: string }) {
               rarity={"ZexStar"}
               tokenId={"69"}
               mode={"create ✨"}
+              size={300}
             />
             <NFTCard
               image={"/sample-generated/4.png"}
@@ -163,6 +171,7 @@ export default function Profile(props: { address: string }) {
               rarity={"ZexStar"}
               tokenId={"69"}
               mode={"create ✨"}
+              size={300}
             />
             <NFTCard
               image={"/sample-generated/5.png"}
@@ -171,6 +180,7 @@ export default function Profile(props: { address: string }) {
               rarity={"ZexStar"}
               tokenId={"69"}
               mode={"create ✨"}
+              size={300}
             />
             <NFTCard
               image={"/sample-generated/4.png"}
@@ -179,6 +189,7 @@ export default function Profile(props: { address: string }) {
               rarity={"ZexStar"}
               tokenId={"69"}
               mode={"create ✨"}
+              size={300}
             />
             <NFTCard
               image={"/sample-generated/5.png"}
@@ -187,6 +198,7 @@ export default function Profile(props: { address: string }) {
               rarity={"ZexStar"}
               tokenId={"69"}
               mode={"create ✨"}
+              size={300}
             />
           </div>
         </div>
