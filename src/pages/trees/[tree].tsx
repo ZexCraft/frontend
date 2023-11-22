@@ -6,6 +6,7 @@ import TreeElement from "@/components/TreeElement";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 import TreeNodeElement from "@/components/TreeNodeElement";
+import useWindowSize from "@/hooks/useWindowSize";
 // This is a simplified example of an org chart with a depth of 2.
 // Note how deeper levels are defined recursively via the `children` property.
 const orgChart = {
@@ -162,6 +163,7 @@ const orgChart = {
 };
 
 export default function TreePage() {
+  const size = useWindowSize();
   return (
     <Layout>
       <div className="mt-10 h-[80vh] mb-12">
@@ -173,7 +175,7 @@ export default function TreePage() {
             hasInteractiveNodes="true"
             data={orgChart}
             depthFactor={420}
-            translate={{ x: window.screen.width / 2 - 200, y: 50 }}
+            translate={{ x: size.width / 2 - 200, y: 50 }}
             separation={{ siblings: 5, nonSiblings: 1 }}
             renderCustomNodeElement={(rd3tProps: any) =>
               renderRectSvgNode({
