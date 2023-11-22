@@ -163,14 +163,16 @@ const orgChart = {
 export default function TreePage() {
   return (
     <Layout>
-      <div className="mt-20 h-[90vh]">
-        <p>Family Tree</p>
+      <div className="mt-10 h-[80vh] mb-12">
+        <p className="ml-6 text-4xl font-bold">Family Tree</p>
+
         <div id="treeWrapper" className="w-full h-full">
           <Tree
             orientation="vertical"
             hasInteractiveNodes="true"
             data={orgChart}
             depthFactor={420}
+            translate={{ x: window.screen.width / 2 - 200, y: 50 }}
             separation={{ siblings: 5, nonSiblings: 1 }}
             renderCustomNodeElement={(rd3tProps: any) =>
               renderRectSvgNode({
@@ -183,6 +185,8 @@ export default function TreePage() {
                 },
               })
             }
+            scaleExtent={{ max: 2, min: 0.5 }}
+            zoom={0.8}
             rootNodeClassName={"bg-white text-white"}
           />
         </div>
