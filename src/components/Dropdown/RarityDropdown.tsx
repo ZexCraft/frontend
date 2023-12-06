@@ -25,18 +25,6 @@ export default function RarityDropdown() {
         <div className="grid grid-cols-3 gap-2 mb-4">
           <button
             className={` rounded-lg p-3  text-lg font-semibold ${
-              rarity == "Uncommon"
-                ? "bg-[#d0d1d1] text-black"
-                : "bg-[#25272b] text-white"
-            }`}
-            onClick={() => {
-              setRarity("Uncommon");
-            }}
-          >
-            Uncommon
-          </button>
-          <button
-            className={` rounded-lg p-3  text-lg font-semibold ${
               rarity == "Common"
                 ? "bg-[#d0d1d1] text-black"
                 : "bg-[#25272b] text-white"
@@ -46,6 +34,18 @@ export default function RarityDropdown() {
             }}
           >
             Common
+          </button>
+          <button
+            className={` rounded-lg p-3  text-lg font-semibold ${
+              rarity == "Basic"
+                ? "bg-[#d0d1d1] text-black"
+                : "bg-[#25272b] text-white"
+            }`}
+            onClick={() => {
+              setRarity("Basic");
+            }}
+          >
+            Basic
           </button>
           <button
             className={` rounded-lg p-3  text-lg font-semibold ${
