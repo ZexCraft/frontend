@@ -13,7 +13,7 @@ const CurrentChain = () => {
   });
   return isConnected ? (
     <div
-      className="flex items-center justify-center rounded-lg bg-[#d0d1d1] px-3 mx-2 my-1 cursor-pointer"
+      className="flex items-center justify-center rounded-lg bg-[#d0d1d1] px-3 mx-2 my-1 cursor-pointer "
       onClick={() => {
         if (openChainModal) {
           openChainModal();
