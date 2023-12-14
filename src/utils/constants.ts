@@ -2,7 +2,9 @@ const mumbaiDeployments = {
   craftToken: "0x1808E7e25FC390D959932CAc266EB398eEA4e58B",
   pegocraft: "",
 };
-const pegoDeployments = {};
+const pegoDeployments = {
+  craftToken: "",
+};
 const abi = {
   craftToken: [
     {

@@ -7,13 +7,14 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useConnectModal, useAccountModal } from "@rainbow-me/rainbowkit";
 import { useState } from "react";
-import { useAccount, useContractWrite } from "wagmi";
+import { useAccount, useContractWrite, useNetwork } from "wagmi";
 import NavItem from "./NavItem";
-import { abi, mumbaiDeployments } from "@/utils/constants";
+import { abi, mumbaiDeployments, pegoDeployments } from "@/utils/constants";
 const ConnectButton = () => {
   const { openConnectModal } = useConnectModal();
   const { openAccountModal } = useAccountModal();
   const { isConnected, address } = useAccount();
+  const { chain } = useNetwork();
   const [dropdown, setDropdown] = useState(false);
 
   const {
@@ -22,7 +23,10 @@ const ConnectButton = () => {
     isSuccess,
     write: mint,
   } = useContractWrite({
-    address: mumbaiDeployments.craftToken as `0x${string}`,
+    address:
+      chain?.id == 80001
+        ? (mumbaiDeployments.craftToken as `0x${string}`)
+        : (pegoDeployments.craftToken as `0x${string}`),
     abi: abi.craftToken,
     functionName: "mint",
   });
