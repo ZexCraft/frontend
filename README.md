@@ -21,6 +21,8 @@
 15. Fetch Relationship Data in Relationship page
 16. Fetch Tree data in Trees Page
 
+17. Show transaction status popup
+
 ### Integrations
 
 1. Integrate APPROVE CALL
@@ -32,6 +34,7 @@
 
 1. Fix sig validation
 2. Create NFT should create an account too
+3. Next depoy remove mint(to,=>amount<=)
 
 ### Backend
 

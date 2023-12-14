@@ -9,11 +9,24 @@ import { useConnectModal, useAccountModal } from "@rainbow-me/rainbowkit";
 import { useState } from "react";
 import { useAccount, useContractWrite } from "wagmi";
 import NavItem from "./NavItem";
+import { abi, mumbaiDeployments } from "@/utils/constants";
 const ConnectButton = () => {
   const { openConnectModal } = useConnectModal();
   const { openAccountModal } = useAccountModal();
   const { isConnected, address } = useAccount();
   const [dropdown, setDropdown] = useState(false);
+
+  const {
+    data,
+    isLoading,
+    isSuccess,
+    write: mint,
+  } = useContractWrite({
+    address: mumbaiDeployments.craftToken as `0x${string}`,
+    abi: abi.craftToken,
+    functionName: "mint",
+  });
+
   return isConnected ? (
     <>
       <button
@@ -53,8 +66,7 @@ const ConnectButton = () => {
             </button>
             <button
               onClick={() => {
-                // trigger
-                setDropdown(false);
+                mint({ args: [address, "1000000000000000000"] });
               }}
               className={`flex items-center  rounded-lg  px-3 mx-2 my-1 py-1   w-full`}
             >
