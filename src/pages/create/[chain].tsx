@@ -25,8 +25,8 @@ export default function Generate() {
               <div className="flex">
                 <Image
                   src={
-                    chain?.name == "Avalanche Fuji"
-                      ? "/tech/avalanche.png"
+                    chain?.name == "PEGO Mainnet"
+                      ? "/tech/pego.png"
                       : chain?.name == "Polygon Mumbai"
                       ? "/tech/polygon.png"
                       : "/tech/blue-ethereum.png"

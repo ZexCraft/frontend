@@ -26,12 +26,10 @@ const CurrentChain = () => {
         src={
           chain == undefined
             ? ""
-            : chain.name == "Sepolia" || chain.name == "Goerli"
-            ? "/tech/ethereum.png"
             : chain.name == "Polygon Mumbai"
             ? "/tech/polygon.png"
-            : chain.name == "Avalanche Fuji"
-            ? "/tech/avalanche.png"
+            : chain.name == "PEGO Mainnet"
+            ? "/tech/pego.png"
             : "/wrong.png"
         }
         width={25}
@@ -57,12 +55,10 @@ const CurrentChain = () => {
       <p className="font-theme text-[#201c1c] text-md font-bold">
         {chain == undefined
           ? ""
-          : chain.name == "Sepolia" || chain.name == "Goerli"
-          ? "ETH"
           : chain.name == "Polygon Mumbai"
           ? "MATIC"
-          : chain.name == "Avalanche Fuji"
-          ? "AVAX"
+          : chain.name == "PEGO Mainnet"
+          ? "PG"
           : ""}
       </p>
     </div>
