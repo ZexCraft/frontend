@@ -5,9 +5,9 @@
 1. Change Hero - LOW
 2. DONE
 3. DONE
-4. Add a new box indicating Purchase tokens | no need seperate page - HIGH
-5. Inside Create NFT page - Add approve and mint NFT feature
-6. Confetti animation redirecting to the NFT page
+4. DONE
+5. DONE
+6. Confetti animation redirecting to the NFT page - LOW
 
 7. Create relationship feature - MORE
 8. Create baby feature - MORE

@@ -90,7 +90,7 @@ const Navbar: React.FC = () => {
             className=" text-[#9c9e9e] text-md font-bold mx-2 "
           />
           {dropdown && (
-            <div className="absolute right-0 mt-2 top-10  w-56 rounded-md shadow-lg bg-[#] ring-1 ring-black ring-opacity-5  z-20 ">
+            <div className="absolute right-0 mt-2 top-10  w-56 rounded-md shadow-lg bg-[#25272b] ring-1 ring-black ring-opacity-5  z-20 ">
               <div className="py-1">
                 <NavItem
                   content={"Create"}

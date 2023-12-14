@@ -2,7 +2,6 @@ import Layout from "@/components/Layout";
 import React from "react";
 // @ts-ignore
 import Tree from "react-d3-tree";
-import TreeElement from "@/components/TreeElement";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 import TreeNodeElement from "@/components/TreeNodeElement";
