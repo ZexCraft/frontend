@@ -12,17 +12,18 @@
 
 8. Create relationship feature - MORE
 9. Create baby feature - MORE
+10. Create profile Modal
 
-10. Fetch your NFTs in your profile
-11. Fetch all NFTs in home and NFTs page
-12. Fetch all Relationships in Relationships page
-13. Fetch all Families in Family Page
-14. Fetch trees in Family Trees Page
-15. Fetch NFT data in NFT page
-16. Fetch Relationship Data in Relationship page
-17. Fetch Tree data in Trees Page
+11. Fetch your NFTs in your profile
+12. Fetch all NFTs in home and NFTs page
+13. Fetch all Relationships in Relationships page
+14. Fetch all Families in Family Page
+15. Fetch trees in Family Trees Page
+16. Fetch NFT data in NFT page
+17. Fetch Relationship Data in Relationship page
+18. Fetch Tree data in Trees Page
 
-18. Show transaction status popup
+19. Show transaction status popup
 
 ### Integrations
 
