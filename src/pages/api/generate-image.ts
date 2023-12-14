@@ -1,16 +1,22 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
-const API_KEY = process.env.NEXT_PUBLIC_MIDJOURNEY_API_KEY;
-const BASE_URL = "https://api.thenextleg.io/v2";
-const AUTH_HEADERS = {
-  Authorization: `Bearer ${API_KEY}`,
-  "Content-Type": "application/json",
-};
-
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  const API_KEY =
+    req.headers.authorization != null
+      ? req.headers.authorization.replace("Bearer ", "")
+      : "";
+  if (API_KEY === "") {
+    res.status(401).send({ error: "Unauthorized" });
+  }
+  const AUTH_HEADERS = {
+    Authorization: `Bearer ${API_KEY}`,
+    "Content-Type": "application/json",
+  };
+  const BASE_URL = "https://api.thenextleg.io/v2";
+
   const { prompt } = JSON.parse(req.body);
   console.log(API_KEY);
 
@@ -27,6 +33,8 @@ export default async function handler(
   console.log("=====================");
 
   const completedImageData = await fetchToCompletion(
+    AUTH_HEADERS,
+    BASE_URL,
     imageResponseData.messageId,
     0
   );
@@ -44,6 +52,8 @@ function sleep(milliseconds: number) {
 }
 
 const fetchToCompletion = async (
+  AUTH_HEADERS: any,
+  BASE_URL: string,
   messageId: string,
   retryCount: number,
   maxRetry = 20
@@ -75,5 +85,5 @@ const fetchToCompletion = async (
   }
 
   await sleep(5000);
-  return fetchToCompletion(messageId, retryCount + 1);
+  return fetchToCompletion(AUTH_HEADERS, BASE_URL, messageId, retryCount + 1);
 };

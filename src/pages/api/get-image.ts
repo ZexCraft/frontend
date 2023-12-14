@@ -1,16 +1,21 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import fs from "fs";
-const API_KEY = process.env.NEXT_PUBLIC_MIDJOURNEY_API_KEY;
-const BASE_URL = "https://api.thenextleg.io/v2";
-const AUTH_HEADERS = {
-  Authorization: `Bearer ${API_KEY}`,
-  "Content-Type": "application/json",
-};
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  const API_KEY =
+    req.headers.authorization != null
+      ? req.headers.authorization.replace("Bearer ", "")
+      : "";
+  if (API_KEY === "") {
+    res.status(401).send({ error: "Unauthorized" });
+  }
+  const BASE_URL = "https://api.thenextleg.io/v2";
+  const AUTH_HEADERS = {
+    Authorization: `Bearer ${API_KEY}`,
+    "Content-Type": "application/json",
+  };
   const { messageId } = JSON.parse(req.body);
   const imageRes = await fetch(`${BASE_URL}/message/${messageId}`, {
     method: "GET",
