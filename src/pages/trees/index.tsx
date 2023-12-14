@@ -97,7 +97,7 @@ export default function Trees() {
           className="bg-[#25272b] m-8 py-4 flex justify-center rounded-xl"
         >
           <p className="mr-2 font-semibold text-lg font-theme">
-            View all ZexNFTs
+            View all CraftNFTs
           </p>
           <FontAwesomeIcon icon={faArrowRight} className="text-lg my-auto" />
         </Link> */}

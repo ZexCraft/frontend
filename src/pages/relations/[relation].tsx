@@ -18,7 +18,7 @@ export default function Relation() {
             image="/sample-nfts/noun.png"
             owner="0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"
             address="0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"
-            rarity="ZexStar"
+            rarity="PegoStar"
             tokenId="79"
             size={200}
             mode="create ✨"

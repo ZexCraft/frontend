@@ -14,7 +14,7 @@ export default function Create() {
               Choose the most suitable blockchain for your needs.
             </p>
             <p className="text-2xl font-bold text-[#9c9e9e]">
-              Log in your wallet to craft ZexNFTs. 🪄
+              Log in your wallet to craft CraftNFTs. 🪄
             </p>
             <div className="grid grid-cols-3 gap-3 mt-10">
               <Link

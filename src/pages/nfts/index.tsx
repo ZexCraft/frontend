@@ -63,7 +63,7 @@ export default function Nfts() {
                 image={"/sample-generated/1.png"}
                 owner={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
                 address={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-                rarity={"ZexStar"}
+                rarity={"PegoStar"}
                 tokenId={"69"}
                 mode={"create ✨"}
               />
@@ -72,7 +72,7 @@ export default function Nfts() {
                 image={"/sample-generated/2.png"}
                 owner={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
                 address={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-                rarity={"ZexStar"}
+                rarity={"PegoStar"}
                 tokenId={"69"}
                 mode={"breed ❤️"}
               />
@@ -81,7 +81,7 @@ export default function Nfts() {
                 image={"/sample-generated/3.png"}
                 owner={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
                 address={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-                rarity={"ZexStar"}
+                rarity={"PegoStar"}
                 tokenId={"69"}
                 mode={"create ✨"}
               />
@@ -90,7 +90,7 @@ export default function Nfts() {
                 image={"/sample-generated/4.png"}
                 owner={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
                 address={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-                rarity={"ZexStar"}
+                rarity={"PegoStar"}
                 tokenId={"69"}
                 mode={"create ✨"}
               />
@@ -99,7 +99,7 @@ export default function Nfts() {
                 image={"/sample-generated/5.png"}
                 owner={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
                 address={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-                rarity={"ZexStar"}
+                rarity={"PegoStar"}
                 tokenId={"69"}
                 mode={"create ✨"}
               />
@@ -108,7 +108,7 @@ export default function Nfts() {
                 image={"/sample-generated/1.png"}
                 owner={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
                 address={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-                rarity={"ZexStar"}
+                rarity={"PegoStar"}
                 tokenId={"69"}
                 mode={"create ✨"}
               />
@@ -117,7 +117,7 @@ export default function Nfts() {
                 image={"/sample-generated/2.png"}
                 owner={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
                 address={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-                rarity={"ZexStar"}
+                rarity={"PegoStar"}
                 tokenId={"69"}
                 mode={"create ✨"}
               />
@@ -126,7 +126,7 @@ export default function Nfts() {
                 image={"/sample-generated/3.png"}
                 owner={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
                 address={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-                rarity={"ZexStar"}
+                rarity={"PegoStar"}
                 tokenId={"69"}
                 mode={"create ✨"}
               />
@@ -135,7 +135,7 @@ export default function Nfts() {
                 image={"/sample-generated/4.png"}
                 owner={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
                 address={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-                rarity={"ZexStar"}
+                rarity={"PegoStar"}
                 tokenId={"69"}
                 mode={"create ✨"}
               />
@@ -144,7 +144,7 @@ export default function Nfts() {
                 image={"/sample-generated/5.png"}
                 owner={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
                 address={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-                rarity={"ZexStar"}
+                rarity={"PegoStar"}
                 tokenId={"69"}
                 mode={"create ✨"}
               />
@@ -153,7 +153,7 @@ export default function Nfts() {
                 image={"/sample-generated/4.png"}
                 owner={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
                 address={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-                rarity={"ZexStar"}
+                rarity={"PegoStar"}
                 tokenId={"69"}
                 mode={"create ✨"}
               />
@@ -162,7 +162,7 @@ export default function Nfts() {
                 image={"/sample-generated/5.png"}
                 owner={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
                 address={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-                rarity={"ZexStar"}
+                rarity={"PegoStar"}
                 tokenId={"69"}
                 mode={"create ✨"}
               />
@@ -174,7 +174,7 @@ export default function Nfts() {
           className="bg-[#25272b] m-8 py-4 flex justify-center rounded-xl"
         >
           <p className="mr-2 font-semibold text-lg font-theme">
-            View all ZexNFTs
+            View all CraftNFTs
           </p>
           <FontAwesomeIcon icon={faArrowRight} className="text-lg my-auto" />
         </Link> */}

@@ -70,7 +70,7 @@ export default function Relations() {
                   tokenId: "234",
                 }}
                 relationship="Siblings"
-                family="ZexStar"
+                family="PegoStar"
               />
               <RelationshipCard
                 nft1={{
@@ -86,7 +86,7 @@ export default function Relations() {
                   tokenId: "234",
                 }}
                 relationship="Siblings"
-                family="ZexStar"
+                family="PegoStar"
               />
               <RelationshipCard
                 nft1={{
@@ -102,7 +102,7 @@ export default function Relations() {
                   tokenId: "234",
                 }}
                 relationship="Siblings"
-                family="ZexStar"
+                family="PegoStar"
               />
               <RelationshipCard
                 nft1={{
@@ -118,7 +118,7 @@ export default function Relations() {
                   tokenId: "234",
                 }}
                 relationship="Siblings"
-                family="ZexStar"
+                family="PegoStar"
               />
               <RelationshipCard
                 nft1={{
@@ -134,7 +134,7 @@ export default function Relations() {
                   tokenId: "234",
                 }}
                 relationship="Siblings"
-                family="ZexStar"
+                family="PegoStar"
               />
               <RelationshipCard
                 nft1={{
@@ -150,7 +150,7 @@ export default function Relations() {
                   tokenId: "234",
                 }}
                 relationship="Siblings"
-                family="ZexStar"
+                family="PegoStar"
               />
               <RelationshipCard
                 nft1={{
@@ -166,7 +166,7 @@ export default function Relations() {
                   tokenId: "234",
                 }}
                 relationship="Siblings"
-                family="ZexStar"
+                family="PegoStar"
               />
               <RelationshipCard
                 nft1={{
@@ -182,7 +182,7 @@ export default function Relations() {
                   tokenId: "234",
                 }}
                 relationship="Siblings"
-                family="ZexStar"
+                family="PegoStar"
               />
             </div>
           </div>
@@ -192,7 +192,7 @@ export default function Relations() {
           className="bg-[#25272b] m-8 py-4 flex justify-center rounded-xl"
         >
           <p className="mr-2 font-semibold text-lg font-theme">
-            View all ZexNFTs
+            View all CraftNFTs
           </p>
           <FontAwesomeIcon icon={faArrowRight} className="text-lg my-auto" />
         </Link> */}

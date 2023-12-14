@@ -96,7 +96,7 @@ export default function Profile(props: { address: string }) {
               image={"/sample-generated/1.png"}
               owner={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
               address={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-              rarity={"ZexStar"}
+              rarity={"PegoStar"}
               tokenId={"69"}
               mode={"create ✨"}
               size={300}
@@ -105,7 +105,7 @@ export default function Profile(props: { address: string }) {
               image={"/sample-generated/2.png"}
               owner={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
               address={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-              rarity={"ZexStar"}
+              rarity={"PegoStar"}
               tokenId={"69"}
               mode={"breed ❤️"}
               size={300}
@@ -114,7 +114,7 @@ export default function Profile(props: { address: string }) {
               image={"/sample-generated/3.png"}
               owner={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
               address={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-              rarity={"ZexStar"}
+              rarity={"PegoStar"}
               tokenId={"69"}
               mode={"create ✨"}
               size={300}
@@ -123,7 +123,7 @@ export default function Profile(props: { address: string }) {
               image={"/sample-generated/4.png"}
               owner={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
               address={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-              rarity={"ZexStar"}
+              rarity={"PegoStar"}
               tokenId={"69"}
               mode={"create ✨"}
               size={300}
@@ -132,7 +132,7 @@ export default function Profile(props: { address: string }) {
               image={"/sample-generated/5.png"}
               owner={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
               address={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-              rarity={"ZexStar"}
+              rarity={"PegoStar"}
               tokenId={"69"}
               mode={"create ✨"}
               size={300}
@@ -141,7 +141,7 @@ export default function Profile(props: { address: string }) {
               image={"/sample-generated/1.png"}
               owner={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
               address={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-              rarity={"ZexStar"}
+              rarity={"PegoStar"}
               tokenId={"69"}
               mode={"create ✨"}
               size={300}
@@ -150,7 +150,7 @@ export default function Profile(props: { address: string }) {
               image={"/sample-generated/2.png"}
               owner={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
               address={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-              rarity={"ZexStar"}
+              rarity={"PegoStar"}
               tokenId={"69"}
               mode={"create ✨"}
               size={300}
@@ -159,7 +159,7 @@ export default function Profile(props: { address: string }) {
               image={"/sample-generated/3.png"}
               owner={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
               address={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-              rarity={"ZexStar"}
+              rarity={"PegoStar"}
               tokenId={"69"}
               mode={"create ✨"}
               size={300}
@@ -168,7 +168,7 @@ export default function Profile(props: { address: string }) {
               image={"/sample-generated/4.png"}
               owner={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
               address={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-              rarity={"ZexStar"}
+              rarity={"PegoStar"}
               tokenId={"69"}
               mode={"create ✨"}
               size={300}
@@ -177,7 +177,7 @@ export default function Profile(props: { address: string }) {
               image={"/sample-generated/5.png"}
               owner={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
               address={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-              rarity={"ZexStar"}
+              rarity={"PegoStar"}
               tokenId={"69"}
               mode={"create ✨"}
               size={300}
@@ -186,7 +186,7 @@ export default function Profile(props: { address: string }) {
               image={"/sample-generated/4.png"}
               owner={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
               address={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-              rarity={"ZexStar"}
+              rarity={"PegoStar"}
               tokenId={"69"}
               mode={"create ✨"}
               size={300}
@@ -195,7 +195,7 @@ export default function Profile(props: { address: string }) {
               image={"/sample-generated/5.png"}
               owner={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
               address={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-              rarity={"ZexStar"}
+              rarity={"PegoStar"}
               tokenId={"69"}
               mode={"create ✨"}
               size={300}

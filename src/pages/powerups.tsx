@@ -20,7 +20,7 @@ export default function Powerups() {
           <div className="w-full">
             <p className="text-5xl font-bold mb-5">Powerups</p>
             <p className="font-semibold text-xl text-[#9c9e9e] ml-2 mb-6">
-              Purchase these orbs to breed better ZexNFTs 🚀
+              Purchase these orbs to breed better CraftNFTs 🚀
             </p>
           </div>
 

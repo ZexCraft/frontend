@@ -16,7 +16,7 @@ export default function Generate() {
       <div className="flex justify-center h-[90vh] items-center ">
         <div className="flex">
           <div className=" flex flex-col justify-start">
-            <p className="text-5xl font-bold mb-5">Create New ZexNFT</p>
+            <p className="text-5xl font-bold mb-5">Create New PegoNFT</p>
             <p className="font-semibold text-xl text-[#9c9e9e] ml-2 mb-6">
               Let your imaginations go wild 👽
             </p>
