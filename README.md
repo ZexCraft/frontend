@@ -35,6 +35,7 @@
 1. Fix sig validation
 2. Create NFT should create an account too
 3. Next depoy remove mint(to,=>amount<=)
+4. Remove onlyOwner and signing feature in // TODO:
 
 ### Backend
 

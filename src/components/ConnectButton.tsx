@@ -7,7 +7,12 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useConnectModal, useAccountModal } from "@rainbow-me/rainbowkit";
 import { useState } from "react";
-import { useAccount, useContractWrite, useNetwork } from "wagmi";
+import {
+  useAccount,
+  useContractEvent,
+  useContractWrite,
+  useNetwork,
+} from "wagmi";
 import NavItem from "./NavItem";
 import { abi, mumbaiDeployments, pegoDeployments } from "@/utils/constants";
 const ConnectButton = () => {
@@ -29,6 +34,22 @@ const ConnectButton = () => {
         : (pegoDeployments.craftToken as `0x${string}`),
     abi: abi.craftToken,
     functionName: "mint",
+    onSuccess(data) {
+      console.log("Hash: ", data.hash);
+    },
+  });
+
+  useContractEvent({
+    address:
+      chain?.id == 80001
+        ? (mumbaiDeployments.craftToken as `0x${string}`)
+        : (pegoDeployments.craftToken as `0x${string}`),
+    abi: abi.pegoCraft,
+    eventName: "Transfer",
+    listener(log) {
+      console.log(log[0]);
+      // address, data, eventName, topics, transactionHash
+    },
   });
 
   return isConnected ? (
@@ -70,7 +91,7 @@ const ConnectButton = () => {
             </button>
             <button
               onClick={() => {
-                mint({ args: [address, "1000000000000000000"] });
+                mint({ args: [address] });
               }}
               className={`flex items-center  rounded-lg  px-3 mx-2 my-1 py-1   w-full`}
             >

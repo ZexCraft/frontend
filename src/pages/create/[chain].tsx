@@ -1,9 +1,15 @@
 import Layout from "@/components/Layout";
 import { capitalizeString, shortenEthereumAddress } from "@/utils";
+import { abi, mumbaiDeployments, pegoDeployments } from "@/utils/constants";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useAccount, useNetwork } from "wagmi";
+import {
+  useAccount,
+  useContractEvent,
+  useContractWrite,
+  useNetwork,
+} from "wagmi";
 
 export default function Generate() {
   const router = useRouter();
@@ -11,7 +17,51 @@ export default function Generate() {
   const { chain } = useNetwork();
   const [prompt, setPrompt] = useState("");
   const [count, setCount] = useState(0);
-  console.log(chain?.name);
+
+  const {
+    data: createData,
+    isLoading: iscreateLoading,
+    isSuccess: isSuccessLoading,
+    writeAsync: createNft,
+  } = useContractWrite({
+    address:
+      chain?.id == 80001
+        ? (mumbaiDeployments.pegocraft as `0x${string}`)
+        : (pegoDeployments.pegocraft as `0x${string}`),
+    abi: abi.pegoCraft,
+    functionName: "createNft",
+    onSuccess(data) {
+      console.log(data.hash);
+    },
+  });
+  const {
+    data: approveData,
+    isLoading: isapproveLoading,
+    isSuccess: isapproveSuccessLoading,
+    writeAsync: approve,
+  } = useContractWrite({
+    address:
+      chain?.id == 80001
+        ? (mumbaiDeployments.craftToken as `0x${string}`)
+        : (pegoDeployments.craftToken as `0x${string}`),
+    abi: abi.pegoCraft,
+    functionName: "approve",
+    onSuccess(data) {
+      console.log(data.hash);
+    },
+  });
+
+  useContractEvent({
+    address:
+      chain?.id == 80001
+        ? (mumbaiDeployments.pegocraft as `0x${string}`)
+        : (pegoDeployments.pegocraft as `0x${string}`),
+    abi: abi.pegoCraft,
+    eventName: "Transfer",
+    listener(log) {
+      console.log(log[0]);
+    },
+  });
   return (
     <Layout>
       <div className="flex justify-center h-[90vh] items-center ">
@@ -76,10 +126,23 @@ export default function Generate() {
                 Approve 0.1 CraftTokens
               </p>
               <button
-                onClick={() => {
-                  // trigger Transactoin
-                  setCount(count + 1);
+                onClick={async () => {
+                  try {
+                    await approve({
+                      args: [
+                        chain?.id == 80001
+                          ? mumbaiDeployments.pegocraft
+                          : pegoDeployments.pegocraft,
+                        1,
+                      ],
+                    });
+                    setCount(count + 1);
+                  } catch (e) {
+                    console.log(e);
+                  }
                 }}
+                // trigger Transactoin
+
                 disabled={count != 0}
                 className={`${
                   count != 0
@@ -103,9 +166,20 @@ export default function Generate() {
                 Generate and Mint NFT
               </p>
               <button
-                onClick={() => {
+                onClick={async () => {
                   // trigeger
-                  setCount(count - 1);
+                  try {
+                    await createNft({
+                      args: [
+                        "Hello",
+                        "0x0429A2Da7884CA14E53142988D5845952fE4DF6a",
+                        "0x",
+                      ],
+                    });
+                    setCount(count - 1);
+                  } catch (e) {
+                    console.log(e);
+                  }
                 }}
                 className={`${
                   count != 1
