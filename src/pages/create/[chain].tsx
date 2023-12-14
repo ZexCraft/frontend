@@ -3,20 +3,21 @@ import { capitalizeString, shortenEthereumAddress } from "@/utils";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useAccount } from "wagmi";
+import { useAccount, useNetwork } from "wagmi";
 
 export default function Generate() {
   const router = useRouter();
   const { address } = useAccount();
-  const { chain } = router.query;
+  const { chain } = useNetwork();
   const [prompt, setPrompt] = useState("");
   const [count, setCount] = useState(0);
+  console.log(chain?.name);
   return (
     <Layout>
       <div className="flex justify-center h-[90vh] items-center ">
         <div className="flex">
           <div className=" flex flex-col justify-start">
-            <p className="text-5xl font-bold mb-5">Create New PegoNFT</p>
+            <p className="text-5xl font-bold mb-5">Create New PegoCraft</p>
             <p className="font-semibold text-xl text-[#9c9e9e] ml-2 mb-6">
               Let your imaginations go wild 👽
             </p>
@@ -24,22 +25,22 @@ export default function Generate() {
               <div className="flex">
                 <Image
                   src={
-                    chain == "fuji"
+                    chain?.name == "Avalanche Fuji"
                       ? "/tech/avalanche.png"
-                      : chain == "mumbai"
+                      : chain?.name == "Polygon Mumbai"
                       ? "/tech/polygon.png"
                       : "/tech/blue-ethereum.png"
                   }
                   width={50}
                   height={50}
-                  alt={chain as string}
+                  alt={chain?.name as string}
                 ></Image>
                 <div className="flex flex-col justify-around ml-3">
                   <p className="font-bold">
                     {shortenEthereumAddress(address as string)}
                   </p>
                   <p className="text-[#9c9e9e] font-semibold">
-                    {capitalizeString(chain as string)}
+                    {capitalizeString(chain?.name as string)}
                   </p>
                 </div>
               </div>
@@ -62,20 +63,43 @@ export default function Generate() {
             <p className="text-white text-xl font-semibold ml-4 mb-2 mt-6">
               Transactions ({count}/2)
             </p>
-            <div className="ml-2 border border-[#25272b] py-3 px-5 rounded-xl flex justify-between my-2">
-              <p className="font-semibold text-[#6c6f70]">
-                Generate Image & Rarity
-              </p>{" "}
-              <button className="bg-[#252525] px-4 py-2 rounded-xl font-semibold text-[#5b5e5b]">
-                Waiting...
+            <div
+              className={`ml-2 border ${
+                count == 0 ? "border-white" : "border-[#25272b]"
+              } py-3 px-5 rounded-xl flex justify-between my-2`}
+            >
+              <p
+                className={`font-semibold my-auto ${
+                  count == 0 ? "text-white" : "text-[#25272b]"
+                }`}
+              >
+                Approve 0.1 CraftTokens
+              </p>
+              <button
+                className={`${
+                  count == 0 ? "bg-white" : "bg-[#25272b]"
+                } px-4 py-2 rounded-xl font-semibold text-black`}
+              >
+                {count == 0 ? "Approve 📝" : "Done ✅"}
               </button>
             </div>
-            <div className="ml-2 border border-[#25272b] py-3 px-5 rounded-xl flex justify-between my-2">
-              <p className="font-semibold text-[#6c6f70]">
-                Mint NFT & Create Account
-              </p>{" "}
-              <button className="bg-[#252525] px-4 py-2 rounded-xl font-semibold text-[#5b5e5b]">
-                Waiting...
+            <div
+              className={`ml-2 border ${
+                count == 1 ? "border-white" : "border-[#25272b]"
+              } py-3 px-5 rounded-xl flex justify-between my-2`}
+            >
+              <p
+                className={`font-semibold my-auto ${
+                  count == 1 ? "text-white" : "text-[#5b5e5b]"
+                }`}
+              >
+                Generate and Mint NFT
+              </p>
+              <button
+                className="bg-[#252525] px-4 py-2 rounded-xl font-semibold text-[#5b5e5b]"
+                disabled={count == 0}
+              >
+                {count != 2 ? "Mint 🪄" : "Done ✅"}
               </button>
             </div>
           </div>
