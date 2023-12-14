@@ -16,6 +16,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@rainbow-me/rainbowkit": "^1.2.0",
+    "@supabase/supabase-js": "^2.39.0",
     "canvg": "^4.0.1",
     "ethers": "^5.7.2",
     "framer-motion": "^10.16.4",
