@@ -3,7 +3,7 @@ const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "";
 const SUPABASE_KEY = process.env.NEXT_PUBLIC_SUPABASE_KEY ?? "";
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-export default async function createNft(req: {
+export default async function creatProfile(req: {
   wallet: string;
   name: string;
   image: string;

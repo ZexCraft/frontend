@@ -1,10 +1,13 @@
 import Layout from "@/components/Layout";
 import createNft from "@/utils/supabase/create-nft";
+import createRelationship from "@/utils/supabase/create-relationship";
+import getRelationship from "@/utils/supabase/get-relationship";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 export default function Create() {
   const [prompt, setPrompt] = useState("");
+
   return (
     <Layout>
       <div>
@@ -36,12 +39,8 @@ export default function Create() {
               <div
                 className="border-[2px] border-[#3c3f41] flex flex-col justify-center items-center h-[300px] rounded-2xl cursor-default"
                 onClick={async () => {
-                  const response = await createNft({
-                    name: "Gabriel",
-                    description: "Hottest man alive",
-                    wallet: "0x0429A2Da7884CA14E53142988D5845952fE4DF6a",
-                    image: "https://picsum.photos/200/300",
-                    cover: "https://picsum.photos/200/300",
+                  const response = await getRelationship({
+                    address: "0x0429A2Da7884CA14E53142988D5845952fE4DF6a",
                   });
                   console.log(response);
                 }}
