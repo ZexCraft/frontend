@@ -22,10 +22,10 @@ const pego: Chain = {
   nativeCurrency: { name: "PEGO", symbol: "PG", decimals: 18 },
   rpcUrls: {
     default: {
-      http: ["pegorpc.com"],
+      http: ["https://pegorpc.com"],
     },
     public: {
-      http: ["pegorpc.com"],
+      http: ["https://pegorpc.com"],
     },
   },
   blockExplorers: {

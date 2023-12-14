@@ -7,7 +7,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useConnectModal, useAccountModal } from "@rainbow-me/rainbowkit";
 import { useState } from "react";
-import { useAccount } from "wagmi";
+import { useAccount, useContractWrite } from "wagmi";
 import NavItem from "./NavItem";
 const ConnectButton = () => {
   const { openConnectModal } = useConnectModal();
