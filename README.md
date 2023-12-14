@@ -4,7 +4,7 @@
 
 1. Change Hero - LOW
 2. DONE
-3. Change Navbar to adjust screen size - HIGH
+3. DONE
 4. Add a new box indicating Purchase tokens | no need seperate page - HIGH
 5. Inside Create NFT page - Add approve and mint NFT feature
 6. Confetti animation redirecting to the NFT page

@@ -65,22 +65,29 @@ export default function Generate() {
             </p>
             <div
               className={`ml-2 border ${
-                count == 0 ? "border-white" : "border-[#25272b]"
+                count != 0 ? "border-[#25272b]" : "border-white"
               } py-3 px-5 rounded-xl flex justify-between my-2`}
             >
               <p
                 className={`font-semibold my-auto ${
-                  count == 0 ? "text-white" : "text-[#25272b]"
+                  count != 0 ? "text-[#5b5e5b]" : "text-white"
                 }`}
               >
                 Approve 0.1 CraftTokens
               </p>
               <button
+                onClick={() => {
+                  // trigger Transactoin
+                  setCount(count + 1);
+                }}
+                disabled={count != 0}
                 className={`${
-                  count == 0 ? "bg-white" : "bg-[#25272b]"
-                } px-4 py-2 rounded-xl font-semibold text-black`}
+                  count != 0
+                    ? "bg-[#25272b] text-[#5b5e5b]"
+                    : "bg-white text-black"
+                } px-4 py-2 rounded-xl font-semibold `}
               >
-                {count == 0 ? "Approve 📝" : "Done ✅"}
+                {count != 0 ? "Done ✅" : "Approve 📝"}
               </button>
             </div>
             <div
@@ -96,8 +103,16 @@ export default function Generate() {
                 Generate and Mint NFT
               </p>
               <button
-                className="bg-[#252525] px-4 py-2 rounded-xl font-semibold text-[#5b5e5b]"
-                disabled={count == 0}
+                onClick={() => {
+                  // trigeger
+                  setCount(count - 1);
+                }}
+                className={`${
+                  count != 1
+                    ? "bg-[#25272b] text-[#5b5e5b]"
+                    : "bg-white text-black"
+                } px-4 py-2 rounded-xl font-semibold `}
+                disabled={count != 1}
               >
                 {count != 2 ? "Mint 🪄" : "Done ✅"}
               </button>
