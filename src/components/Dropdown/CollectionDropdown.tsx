@@ -26,6 +26,30 @@ export default function CollectionDropdown() {
         <div className="flex flex-col">
           <button
             className={`flex mx-2 mb-2 text-left py-2 px-2 rounded-lg ${
+              collection == "pego" ? "bg-[#d0d1d1] text-black" : "text-white"
+            }`}
+            onClick={() => {
+              if (collection == "pego") {
+                setCollection("");
+              } else {
+                setCollection("pego");
+              }
+            }}
+          >
+            <Image
+              src={"/logo.png"}
+              height={35}
+              width={35}
+              alt="punk"
+              className="rounded-lg "
+            />
+            <p className="flex-1 ml-3 font-semibold text-lg my-auto">
+              PegoCraft
+            </p>
+            <p className=" text-lg font-semibold my-auto">10</p>
+          </button>
+          <button
+            className={`flex mx-2 mb-2 text-left py-2 px-2 rounded-lg ${
               collection == "bayc" ? "bg-[#d0d1d1] text-black" : "text-white"
             }`}
             onClick={() => {

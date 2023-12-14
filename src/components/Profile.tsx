@@ -12,7 +12,13 @@ export default function Profile(props: { address: string }) {
   const [selected, setSelected] = useState(0);
   return (
     <div className="flex flex-col justify-start min-h-[90vh]  ">
-      <div className="bg-[#25272b] w-full h-[25vh] mt-10 rounded-2xl"></div>
+      <Image
+        src={"/cover.png"}
+        width={1000}
+        height={600}
+        alt="cover"
+        className="bg-[#25272b] w-full h-[35vh] mt-10 rounded-2xl"
+      />
       <div className="relative">
         <div className="absolute bottom-24 left-10 w-full h-full">
           <Image

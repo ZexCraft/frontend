@@ -20,11 +20,10 @@ export default function Hero() {
 
   return (
     <main
-      className="flex justify-center h-[70vh] my-8 rounded-xl"
+      className="flex justify-center h-[60vh] my-8 rounded-xl"
       style={{
-        backgroundImage: 'url("/animations/hero.gif")',
+        backgroundImage: 'url("/cover.png")',
         backgroundSize: "cover",
-        filter: "brightness(1.5)",
       }}
     ></main>
   );
