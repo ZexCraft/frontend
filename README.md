@@ -3,12 +3,23 @@
 ### Frontend
 
 1. Change Hero - LOW
-2. Change Create Page - HIGH
+2. DONE
 3. Change Navbar to adjust screen size - HIGH
 4. Add a new box indicating Purchase tokens | no need seperate page - HIGH
 5. Inside Create NFT page - Add approve and mint NFT feature
-6. Breeding
-7. Confetti animation redirecting to the NFT page
+6. Confetti animation redirecting to the NFT page
+
+7. Create relationship feature - MORE
+8. Create baby feature - MORE
+
+9. Fetch your NFTs in your profile
+10. Fetch all NFTs in home and NFTs page
+11. Fetch all Relationships in Relationships page
+12. Fetch all Families in Family Page
+13. Fetch trees in Family Trees Page
+14. Fetch NFT data in NFT page
+15. Fetch Relationship Data in Relationship page
+16. Fetch Tree data in Trees Page
 
 ### Integrations
 
@@ -16,7 +27,6 @@
 2. Integrate MINT CALL
 3. Integrate CREATE RELATIONSHIP CALL
 4. Integrate BREED CALL
-5. Fetch calls to display
 
 ### Contracts
 
