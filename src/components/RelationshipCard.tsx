@@ -2,6 +2,7 @@ import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
+import { useNetwork } from "wagmi";
 type NFT = {
   image: string;
   rarity: string;
@@ -17,6 +18,7 @@ export default function RelationshipCard({
   nft2: NFT;
   relationship: string;
 }) {
+  const { chain } = useNetwork();
   return (
     <div className="border-[1px] border-[#3c3f41] p-2 rounded-lg font-theme">
       <div className="flex">
@@ -55,9 +57,15 @@ export default function RelationshipCard({
             <div
               className="flex justify-center  cursor-pointer"
               onClick={() => {
-                window.open(
-                  `https://sepolia.etherscan.io/address/${relationship}`
-                );
+                if (chain?.name == "PEGO Mainnet")
+                  window.open(
+                    `https://scan.pego.network/address/${relationship}`
+                  );
+                if (chain?.name == "PEGO Testnet") {
+                  window.open(
+                    `https://scan.pegotest.net/address/${relationship}`
+                  );
+                }
               }}
             >
               <p className="text-xs font-semibold text-[#9c9e9e] my-2 mr-2">
@@ -114,9 +122,15 @@ export default function RelationshipCard({
             <div
               className="flex justify-center cursor-pointer"
               onClick={() => {
-                window.open(
-                  `https://sepolia.etherscan.io/address/${relationship}`
-                );
+                if (chain?.name == "PEGO Mainnet")
+                  window.open(
+                    `https://scan.pego.network/address/${relationship}`
+                  );
+                if (chain?.name == "PEGO Testnet") {
+                  window.open(
+                    `https://scan.pegotest.net/address/${relationship}`
+                  );
+                }
               }}
             >
               <p className="text-xs font-semibold text-[#9c9e9e] my-2 mr-2">

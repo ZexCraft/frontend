@@ -33,7 +33,7 @@ const CurrentChain = () => {
             ? ""
             : chain.name == "Polygon Mumbai"
             ? "/tech/polygon.png"
-            : chain.name == "PEGO Mainnet"
+            : chain.name == "PEGO Mainnet" || chain.name == "PEGO Testnet"
             ? "/tech/pego.png"
             : "/wrong.png"
         }
@@ -64,6 +64,8 @@ const CurrentChain = () => {
           ? "MATIC"
           : chain.name == "PEGO Mainnet"
           ? "PG"
+          : chain.name == "PEGO Testnet"
+          ? "tPG"
           : ""}
       </p>
     </div>

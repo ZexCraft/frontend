@@ -20,9 +20,9 @@ export default function Create() {
             <p className="text-2xl font-bold text-[#9c9e9e]">
               Log in your wallet to craft CraftNFTs. 🪄
             </p>
-            <div className="grid grid-cols-2 gap-3 mt-10">
+            <div className="grid grid-cols-3 gap-3 mt-10">
               <Link
-                href={`/create/pego`}
+                href={`/create/pego-mainnet`}
                 className="border-[2px] border-[#3c3f41] flex flex-col justify-center items-center h-[300px] rounded-2xl"
               >
                 <Image
@@ -35,16 +35,22 @@ export default function Create() {
                   PEGO Mainnet
                 </p>
               </Link>
-
-              <div
-                className="border-[2px] border-[#3c3f41] flex flex-col justify-center items-center h-[300px] rounded-2xl cursor-default"
-                onClick={async () => {
-                  const response = await getRelationship({
-                    address: "0x0429A2Da7884CA14E53142988D5845952fE4DF6a",
-                  });
-                  console.log(response);
-                }}
+              <Link
+                href={`/create/pego-testnet`}
+                className="border-[2px] border-[#3c3f41] flex flex-col justify-center items-center h-[300px] rounded-2xl"
               >
+                <Image
+                  src="/tech/pego.png"
+                  width={100}
+                  height={100}
+                  alt="pego"
+                  className="brightness-50"
+                />
+                <p className="text-white font-bold text-2xl mt-4">
+                  PEGO Testnet
+                </p>
+              </Link>
+              <div className="border-[2px] border-[#3c3f41] flex flex-col justify-center items-center h-[300px] rounded-2xl cursor-default">
                 <Image
                   src="/tech/polygon.png"
                   width={100}

@@ -2,6 +2,7 @@ import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
+import { useNetwork } from "wagmi";
 
 export default function NFTCard({
   image,
@@ -22,6 +23,7 @@ export default function NFTCard({
   imageAlt: string;
   size: number;
 }) {
+  const { chain } = useNetwork();
   return (
     <div className="border-[1px] border-[#3c3f41] p-2 rounded-lg font-theme ">
       <button
@@ -65,7 +67,11 @@ export default function NFTCard({
           <div
             className="flex justify-center cursor-pointer"
             onClick={() => {
-              window.open(`https://sepolia.etherscan.io/address/${address}`);
+              if (chain?.name == "PEGO Mainnet")
+                window.open(`https://scan.pego.network/address/${address}`);
+              if (chain?.name == "PEGO Testnet") {
+                window.open(`https://scan.pegotest.net/address/${address}`);
+              }
             }}
           >
             <p className="text-sm font-semibold text-[#9c9e9e] my-2 mr-2">
@@ -79,7 +85,11 @@ export default function NFTCard({
           <div
             className="flex justify-center  cursor-pointer"
             onClick={() => {
-              window.open(`https://sepolia.etherscan.io/address/${owner}`);
+              if (chain?.name == "PEGO Mainnet")
+                window.open(`https://scan.pego.network/address/${owner}`);
+              if (chain?.name == "PEGO Testnet") {
+                window.open(`https://scan.pegotest.net/address/${owner}`);
+              }
             }}
           >
             <p className="text-sm font-semibold text-[#9c9e9e] my-2 mr-2">

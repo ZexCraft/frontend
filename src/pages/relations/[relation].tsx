@@ -188,7 +188,11 @@ export default function Relation() {
           <p className=" text-5xl font-semibold ">Relationship</p>
           <Link
             target="_blank"
-            href={`https://sepolia.etherscan.io/address/${relation}`}
+            href={
+              chain?.name == "PEGO Mainnet"
+                ? `https://scan.pego.network/address/${relation}`
+                : `https://scan.pegotest.net/address/${address}`
+            }
             className="text-lg my-2 tracking-wider text-[#9c9e9e] font-semibold"
           >
             {shortenEthereumAddress(relation as string)}&nbsp;

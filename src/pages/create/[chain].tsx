@@ -150,7 +150,8 @@ export default function Generate() {
               <div className="flex">
                 <Image
                   src={
-                    chain?.name == "PEGO Mainnet"
+                    chain?.name == "PEGO Mainnet" ||
+                    chain?.name == "PEGO Testnet"
                       ? "/tech/pego.png"
                       : chain?.name == "Polygon Mumbai"
                       ? "/tech/polygon.png"
