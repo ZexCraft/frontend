@@ -16,15 +16,31 @@ export default async function handler(
     Authorization: `Bearer ${API_KEY}`,
     "Content-Type": "application/json",
   };
-  const { messageId } = JSON.parse(req.body);
+  console.log(req.body);
+  const { messageId } = req.body;
   const imageRes = await fetch(`${BASE_URL}/message/${messageId}`, {
     method: "GET",
     headers: AUTH_HEADERS,
   });
   const imagesResponseData = await imageRes.json();
-
+  console.log(imagesResponseData);
   if (imagesResponseData.progress === 100) {
     const imageUrl = imagesResponseData.response.imageUrls[0];
+
+    const imageRes = await fetch(`${BASE_URL}/getImage`, {
+      method: "POST",
+      headers: AUTH_HEADERS,
+      body: JSON.stringify({ imageUrl: imageUrl }),
+    });
+
+    const imageResponseData = await imageRes.arrayBuffer();
+    const uint8Array = new Uint8Array(imageResponseData);
+
+    // Create a Blob from Uint8Array
+    const blob = new Blob([uint8Array], { type: "image/jpeg" });
+
+    // Create a data URL from the Blob
+    const dataUrl = URL.createObjectURL(blob);
 
     const ipfsUrl = await fetch(`https://zixins-be1.adaptable.app/auth/image`, {
       method: "POST",
@@ -38,12 +54,13 @@ export default async function handler(
 
     res.status(200).send({
       progress: 100,
+      imageAlt: imagesResponseData.response.imageUrls[0],
       image:
-        "https://" +
-        ipfsResponseData.value.cid +
-        ".ipfs.nftstorage.link/image.jpg",
+        "https://ipfs.io/ipfs/" + ipfsResponseData.value.cid + "/image.jpg",
     });
   } else {
-    res.status(200).send({ progress: imagesResponseData.progress, image: "" });
+    res
+      .status(200)
+      .send({ progress: imagesResponseData.progress, image: "", imageAlt: "" });
   }
 }

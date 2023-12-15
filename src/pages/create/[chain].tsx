@@ -1,4 +1,5 @@
 import Layout from "@/components/Layout";
+import LoadingSpinner from "@/components/Spinner";
 import { capitalizeString, shortenEthereumAddress } from "@/utils";
 import { abi, mumbaiDeployments, pegoDeployments } from "@/utils/constants";
 import Image from "next/image";
@@ -10,44 +11,52 @@ import {
   useContractWrite,
   useNetwork,
 } from "wagmi";
-
+import Confetti from "react-confetti";
+import useWindowSize from "@/hooks/useWindowSize";
 export default function Generate() {
   const router = useRouter();
   const { address } = useAccount();
+  const { width, height } = useWindowSize();
   const { chain } = useNetwork();
   const [prompt, setPrompt] = useState("");
   const [count, setCount] = useState(0);
+  const [messageId, setMessageId] = useState("");
+  const [progress, setProgress] = useState(0);
+  const [image, setImage] = useState("");
+  const [imageAlt, setImageAlt] = useState("");
+  const [displayImage, setDisplayImage] = useState(true);
+  const [mintDone, setMintDone] = useState(true);
+  const [isApproving, setIsApproving] = useState(false);
+  const [isMinting, setIsMinting] = useState(false);
+  const [confetttiAnimation, setConfettiAnimation] = useState(false);
 
-  const {
-    data: createData,
-    isLoading: iscreateLoading,
-    isSuccess: isSuccessLoading,
-    writeAsync: createNft,
-  } = useContractWrite({
+  const { writeAsync: createNft } = useContractWrite({
     address:
       chain?.id == 80001
         ? (mumbaiDeployments.pegocraft as `0x${string}`)
         : (pegoDeployments.pegocraft as `0x${string}`),
     abi: abi.pegoCraft,
     functionName: "createNft",
-    onSuccess(data) {
-      console.log(data.hash);
-    },
   });
-  const {
-    data: approveData,
-    isLoading: isapproveLoading,
-    isSuccess: isapproveSuccessLoading,
-    writeAsync: approve,
-  } = useContractWrite({
+  const { writeAsync: approve } = useContractWrite({
     address:
       chain?.id == 80001
         ? (mumbaiDeployments.craftToken as `0x${string}`)
         : (pegoDeployments.craftToken as `0x${string}`),
     abi: abi.pegoCraft,
     functionName: "approve",
-    onSuccess(data) {
-      console.log(data.hash);
+  });
+
+  useContractEvent({
+    address:
+      chain?.id == 80001
+        ? (mumbaiDeployments.craftToken as `0x${string}`)
+        : (pegoDeployments.craftToken as `0x${string}`),
+    abi: abi.craftToken,
+    eventName: "Approval",
+    listener(log) {
+      setIsApproving(false);
+      setCount(count + 1);
     },
   });
 
@@ -59,12 +68,34 @@ export default function Generate() {
     abi: abi.pegoCraft,
     eventName: "Transfer",
     listener(log) {
-      console.log(log[0]);
+      setDisplayImage(true);
+      setMintDone(true);
+      setIsMinting(false);
+      setCount(count + 1);
+      setConfettiAnimation(true);
     },
   });
+
+  async function fetchImage(
+    messageId: string
+  ): Promise<{ image: string; progress: number; imageAlt: string }> {
+    const data = await fetch("/api/get-image", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_MIDJOURNEY_API_KEY}`,
+      },
+      body: JSON.stringify({
+        messageId: messageId,
+      }),
+    });
+    const imageData = await data.json();
+    return imageData;
+  }
   return (
     <Layout>
       <div className="flex justify-center h-[90vh] items-center ">
+        {confetttiAnimation && <Confetti width={width} height={height} />}
         <div className="flex">
           <div className=" flex flex-col justify-start">
             <p className="text-5xl font-bold mb-5">Create New PegoCraft</p>
@@ -136,6 +167,7 @@ export default function Generate() {
                         1,
                       ],
                     });
+                    setIsApproving(true);
                     setCount(count + 1);
                   } catch (e) {
                     console.log(e);
@@ -143,14 +175,18 @@ export default function Generate() {
                 }}
                 // trigger Transactoin
 
-                disabled={count != 0}
+                disabled={count != 0 || isApproving}
                 className={`${
                   count != 0
                     ? "bg-[#25272b] text-[#5b5e5b]"
                     : "bg-white text-black"
                 } px-4 py-2 rounded-xl font-semibold `}
               >
-                {count != 0 ? "Done ✅" : "Approve 📝"}
+                {isApproving
+                  ? "Pending..."
+                  : count == 0
+                  ? "Approve 📝"
+                  : "Done ✅"}
               </button>
             </div>
             <div
@@ -168,15 +204,44 @@ export default function Generate() {
               <button
                 onClick={async () => {
                   // trigeger
+                  setProgress(0);
+                  setIsMinting(true);
+                  const gen = await fetch("/api/generate-image", {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                      Authorization: `Bearer ${process.env.NEXT_PUBLIC_MIDJOURNEY_API_KEY}`,
+                    },
+                    body: JSON.stringify({
+                      prompt: prompt,
+                    }),
+                  });
+                  const generatedImage = await gen.json();
+                  console.log(generatedImage);
+                  setMessageId(generatedImage.messageId);
+                  let fetchedImage: {
+                    image: string;
+                    progress: number;
+                    imageAlt: string;
+                  } = {
+                    image: "",
+                    progress: 0,
+                    imageAlt: "",
+                  };
+                  while (fetchedImage.progress != 100) {
+                    fetchedImage = await fetchImage(generatedImage.messageId);
+                    setProgress(fetchedImage.progress);
+                    setTimeout(() => {}, 5000);
+                  }
+                  console.log(fetchedImage.image);
+                  setProgress(100);
+
                   try {
                     await createNft({
-                      args: [
-                        "Hello",
-                        "0x0429A2Da7884CA14E53142988D5845952fE4DF6a",
-                        "0x",
-                      ],
+                      args: [fetchedImage.image, address, "0x"],
                     });
-                    setCount(count - 1);
+                    setImage(fetchedImage.image);
+                    setImageAlt(fetchedImage.imageAlt);
                   } catch (e) {
                     console.log(e);
                   }
@@ -186,14 +251,36 @@ export default function Generate() {
                     ? "bg-[#25272b] text-[#5b5e5b]"
                     : "bg-white text-black"
                 } px-4 py-2 rounded-xl font-semibold `}
-                disabled={count != 1}
+                disabled={count != 1 || isMinting}
               >
-                {count != 2 ? "Mint 🪄" : "Done ✅"}
+                {isMinting ? "Pending..." : count != 2 ? "Mint 🪄" : "Done ✅"}
               </button>
             </div>
           </div>
           <div className=" border border-white border-dashed h-[500px] w-[500px] rounded-xl ml-16">
-            {/* <Image src="/1.png" width={500} height={500} alt="drake" /> */}
+            {mintDone && displayImage ? (
+              <Image
+                src={
+                  "https://cdn.midjourney.com/3c7ac239-6d2f-4457-891b-cbe60b1959c3/0_0.png"
+                }
+                width={500}
+                height={500}
+                alt="drake"
+                className="rounded-xl"
+              />
+            ) : (
+              messageId != "" && (
+                <div className="flex flex-col justify-center items-center h-full">
+                  <p className="font-bold text-xl text-[#9c9e9e]">Seed</p>
+                  <p className="font-semibold text-lg">{messageId}</p>
+                  <p className="font-bold text-xl text-[#9c9e9e] mt-8">
+                    Progress
+                  </p>
+                  <p className="font-semibold mb-8 text-lg">{progress} / 100</p>
+                  <LoadingSpinner loading={true} />
+                </div>
+              )
+            )}
           </div>
         </div>
       </div>

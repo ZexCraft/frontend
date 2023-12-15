@@ -17,7 +17,7 @@ export default async function handler(
   };
   const BASE_URL = "https://api.thenextleg.io/v2";
 
-  const { prompt } = JSON.parse(req.body);
+  const { prompt } = req.body;
   console.log(API_KEY);
 
   const imageRes = await fetch(`${BASE_URL}/imagine`, {
@@ -32,58 +32,5 @@ export default async function handler(
   console.log(imageResponseData);
   console.log("=====================");
 
-  const completedImageData = await fetchToCompletion(
-    AUTH_HEADERS,
-    BASE_URL,
-    imageResponseData.messageId,
-    0
-  );
-
-  console.log("\n=====================");
-  console.log("COMPLETED IMAGE DATA");
-  console.log(completedImageData);
-  console.log("=====================");
-
-  res.status(200).send({ completedImageData });
+  res.status(200).send(imageResponseData);
 }
-
-function sleep(milliseconds: number) {
-  return new Promise((resolve) => setTimeout(resolve, milliseconds));
-}
-
-const fetchToCompletion = async (
-  AUTH_HEADERS: any,
-  BASE_URL: string,
-  messageId: string,
-  retryCount: number,
-  maxRetry = 20
-): Promise<any> => {
-  const imageRes = await fetch(`${BASE_URL}/message/${messageId}`, {
-    method: "GET",
-    headers: AUTH_HEADERS,
-  });
-
-  const imageResponseData = await imageRes.json();
-
-  if (imageResponseData.progress === 100) {
-    return imageResponseData;
-  }
-
-  if (imageResponseData.progress === "incomplete") {
-    throw new Error("Image generation failed");
-  }
-
-  if (retryCount > maxRetry) {
-    throw new Error("Max retries exceeded");
-  }
-
-  if (imageResponseData.progress && imageResponseData.progressImageUrl) {
-    console.log("---------------------");
-    console.log(`Progress: ${imageResponseData.progress}%`);
-    console.log(`Progress Image Url: ${imageResponseData.progressImageUrl}`);
-    console.log("---------------------");
-  }
-
-  await sleep(5000);
-  return fetchToCompletion(AUTH_HEADERS, BASE_URL, messageId, retryCount + 1);
-};
