@@ -38,7 +38,7 @@ export default function Generate() {
         ? (mumbaiDeployments.pegocraft as `0x${string}`)
         : (pegoDeployments.pegocraft as `0x${string}`),
     abi: abi.pegoCraft,
-    functionName: "createNftFunction",
+    functionName: "createNft",
   });
   const { writeAsync: approve } = useContractWrite({
     address:

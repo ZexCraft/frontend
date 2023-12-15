@@ -11,7 +11,7 @@
 7. DONE
 
 8. Create relationship feature - MORE
-9. Create baby feature - MORE
+9. Create baby feature - DONE
 10. Create profile Modal
 
 11. Fetch your NFTs in your profile
@@ -42,4 +42,8 @@
 
 ### Backend
 
-1. Indexing with Supabase
+1. Indexing with Supabase DONE
+
+## Pitch
+
+1. Demo

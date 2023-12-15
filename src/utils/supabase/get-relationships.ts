@@ -3,7 +3,10 @@ const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "";
 const SUPABASE_KEY = process.env.NEXT_PUBLIC_SUPABASE_KEY ?? "";
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-export default async function getRelationships() {
+export default async function getRelationships(): Promise<{
+  message: string;
+  response: any;
+}> {
   try {
     const { data: fetchedRelationships, error: fetchError } = await supabase
       .from("relationship")
@@ -18,16 +21,16 @@ export default async function getRelationships() {
     ) {
       return {
         message: "Relationships does not exist",
-        data: "",
+        response: "",
       };
     } else {
       return {
         message: "Success",
-        resposne: fetchedRelationships,
+        response: fetchedRelationships,
       };
     }
   } catch (error) {
     console.error("Error getting relationships:", error);
-    return { message: "Internal Server Error" };
+    return { message: "Internal Server Error", response: "" };
   }
 }

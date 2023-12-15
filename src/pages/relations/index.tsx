@@ -2,13 +2,23 @@ import Dropdown from "@/components/Dropdown";
 import Layout from "@/components/Layout";
 import PageNavigation from "@/components/PageNavigation";
 import RelationshipCard from "@/components/RelationshipCard";
+import getRelationships from "@/utils/supabase/get-relationships";
 import { faFilter } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Relations() {
   const [search, setSearch] = useState("");
   const [filters, setFilters] = useState(true);
+  const [relationships, setRelationships] = useState([]);
+
+  useEffect(() => {
+    (async function () {
+      const rels = await getRelationships();
+      console.log(rels.response);
+      setRelationships(rels.response as any);
+    })();
+  }, []);
   return (
     <Layout>
       <div className="min-h-[90vh] mt-20 ">

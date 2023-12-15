@@ -2,15 +2,25 @@ import Dropdown from "@/components/Dropdown";
 import Layout from "@/components/Layout";
 import NFTCard from "@/components/NFTCard";
 import PageNavigation from "@/components/PageNavigation";
+import resolveRarity from "@/utils/resolveRarity";
+import getNfts from "@/utils/supabase/get-nfts";
 import { faArrowRight, faFilter } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Nfts() {
   const [search, setSearch] = useState("");
   const [filters, setFilters] = useState(true);
+  const [nfts, setNfts] = useState([]);
+  useEffect(() => {
+    (async function () {
+      const nfts = await getNfts();
+      console.log(nfts.response);
+      setNfts(nfts.response as any);
+    })();
+  }, []);
   return (
     <Layout>
       <div className="min-h-[90vh] mt-20">
@@ -58,114 +68,21 @@ export default function Nfts() {
                 filters ? "grid-cols-5" : "grid-cols-6"
               } gap-3 mx-8`}
             >
-              <NFTCard
-                size={400}
-                image={"/sample-generated/1.png"}
-                owner={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-                address={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-                rarity={"PegoStar"}
-                tokenId={"69"}
-                mode={"create ✨"}
-              />
-              <NFTCard
-                size={400}
-                image={"/sample-generated/2.png"}
-                owner={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-                address={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-                rarity={"PegoStar"}
-                tokenId={"69"}
-                mode={"breed ❤️"}
-              />
-              <NFTCard
-                size={400}
-                image={"/sample-generated/3.png"}
-                owner={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-                address={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-                rarity={"PegoStar"}
-                tokenId={"69"}
-                mode={"create ✨"}
-              />
-              <NFTCard
-                size={400}
-                image={"/sample-generated/4.png"}
-                owner={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-                address={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-                rarity={"PegoStar"}
-                tokenId={"69"}
-                mode={"create ✨"}
-              />
-              <NFTCard
-                size={400}
-                image={"/sample-generated/5.png"}
-                owner={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-                address={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-                rarity={"PegoStar"}
-                tokenId={"69"}
-                mode={"create ✨"}
-              />
-              <NFTCard
-                size={400}
-                image={"/sample-generated/1.png"}
-                owner={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-                address={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-                rarity={"PegoStar"}
-                tokenId={"69"}
-                mode={"create ✨"}
-              />
-              <NFTCard
-                size={400}
-                image={"/sample-generated/2.png"}
-                owner={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-                address={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-                rarity={"PegoStar"}
-                tokenId={"69"}
-                mode={"create ✨"}
-              />
-              <NFTCard
-                size={400}
-                image={"/sample-generated/3.png"}
-                owner={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-                address={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-                rarity={"PegoStar"}
-                tokenId={"69"}
-                mode={"create ✨"}
-              />
-              <NFTCard
-                size={400}
-                image={"/sample-generated/4.png"}
-                owner={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-                address={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-                rarity={"PegoStar"}
-                tokenId={"69"}
-                mode={"create ✨"}
-              />
-              <NFTCard
-                size={400}
-                image={"/sample-generated/5.png"}
-                owner={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-                address={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-                rarity={"PegoStar"}
-                tokenId={"69"}
-                mode={"create ✨"}
-              />
-              <NFTCard
-                size={400}
-                image={"/sample-generated/4.png"}
-                owner={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-                address={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-                rarity={"PegoStar"}
-                tokenId={"69"}
-                mode={"create ✨"}
-              />
-              <NFTCard
-                size={400}
-                image={"/sample-generated/5.png"}
-                owner={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-                address={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-                rarity={"PegoStar"}
-                tokenId={"69"}
-                mode={"create ✨"}
-              />
+              {nfts.length > 0 &&
+                nfts.map((nft: any) => {
+                  return (
+                    <NFTCard
+                      image={nft.image}
+                      imageAlt={nft.image_alt}
+                      owner={nft.parent}
+                      address={nft.contract_address}
+                      rarity={resolveRarity(nft.rarity)}
+                      tokenId={nft.token_id}
+                      mode={nft.type == 0 ? "create ✨" : "breed ❤️"}
+                      size={300}
+                    />
+                  );
+                })}
             </div>
           </div>
 

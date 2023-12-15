@@ -3,7 +3,10 @@ const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "";
 const SUPABASE_KEY = process.env.NEXT_PUBLIC_SUPABASE_KEY ?? "";
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-export default async function getNfts() {
+export default async function getNfts(): Promise<{
+  message: string;
+  response: any;
+}> {
   try {
     const { data: fetchedNfts, error: fetchError } = await supabase
       .from("nft")
@@ -14,16 +17,16 @@ export default async function getNfts() {
     if (fetchError || fetchedNfts == null || fetchedNfts.length === 0) {
       return {
         message: "NFT does not exist",
-        data: "",
+        response: "",
       };
     } else {
       return {
         message: "Success",
-        resposne: fetchedNfts,
+        response: fetchedNfts,
       };
     }
   } catch (error) {
     console.error("Error creating nft:", error);
-    return { message: "Internal Server Error" };
+    return { message: "Internal Server Error", response: "" };
   }
 }
