@@ -4,12 +4,31 @@ import { shortenEthereumAddress } from "@/utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import NFTCard from "./NFTCard";
+import getNftsByOwner from "@/utils/supabase/get-nfts-by-owner";
+import resolveRarity from "@/utils/resolveRarity";
 
 export default function Profile(props: { address: string }) {
   const { address } = props;
   const [selected, setSelected] = useState(0);
+  const [ownedNfts, setOwnedNfts] = useState([]);
+  const [relationships, setRelationships] = useState([]);
+  const [familyTrees, setFamilyTrees] = useState([]);
+  const [powerups, setPowerups] = useState([]);
+
+  useEffect(() => {
+    console.log(selected);
+    if (selected == 0) {
+      (async function () {
+        const nfts = await getNftsByOwner({ address: address });
+        console.log(nfts.response);
+        setOwnedNfts(nfts.response as any);
+      })();
+    }
+    console.log("Owned NFTs");
+    console.log(ownedNfts);
+  }, [selected]);
   return (
     <div className="flex flex-col justify-start min-h-[90vh]  ">
       <Image
@@ -98,7 +117,23 @@ export default function Profile(props: { address: string }) {
         </div>
         <div>
           <div className={`grid grid-cols-5 gap-3 mx-8`}>
-            <NFTCard
+            {selected == 0 &&
+              ownedNfts.length > 0 &&
+              ownedNfts.map((nft: any) => {
+                return (
+                  <NFTCard
+                    image={nft.image}
+                    imageAlt={nft.image_alt}
+                    owner={nft.parent}
+                    address={nft.contract_address}
+                    rarity={resolveRarity(nft.rarity)}
+                    tokenId={nft.token_id}
+                    mode={nft.type == 0 ? "create ✨" : "breed ❤️"}
+                    size={300}
+                  />
+                );
+              })}
+            {/* <NFTCard
               image={"/sample-generated/1.png"}
               owner={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
               address={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
@@ -205,7 +240,7 @@ export default function Profile(props: { address: string }) {
               tokenId={"69"}
               mode={"create ✨"}
               size={300}
-            />
+            /> */}
           </div>
         </div>
       </div>

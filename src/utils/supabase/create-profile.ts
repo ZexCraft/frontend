@@ -9,7 +9,7 @@ export default async function creatProfile(req: {
   image: string;
   cover: string;
   description: string;
-}) {
+}): Promise<{ message: string; response: any }> {
   const { wallet, name, image, cover, description } = req;
 
   try {
@@ -29,20 +29,20 @@ export default async function creatProfile(req: {
             error: new Error("Supabase client is not initialized"),
           };
       if (error) {
-        return { message: "Error creating profile" };
+        return { message: "Error creating profile", response: "" };
       }
       return {
         message: "Success",
-        data: data != null ? data[0] : "",
+        response: data != null ? data[0] : "",
       };
     } else {
       return {
         message: "Profile already exists",
-        resposne: fetchedProfile[0],
+        response: fetchedProfile[0],
       };
     }
   } catch (error) {
     console.error("Error creating profile:", error);
-    return { message: "Internal Server Error" };
+    return { message: "Internal Server Error", response: "" };
   }
 }

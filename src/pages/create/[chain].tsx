@@ -104,13 +104,15 @@ export default function Generate() {
         createNft({
           address: args.account,
           tokenId: Number(args.tokenId),
-          metadata: image,
+          image: image,
+          imageAlt: imageAlt,
           contractAddress:
             chain?.id == 80001
               ? mumbaiDeployments.pegocraft
               : pegoDeployments.pegocraft,
           parent: args.to,
           rarity: Number(args.rarity),
+          type: 0,
         }).then((res) => {
           console.log(res);
         });

@@ -5,13 +5,24 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
 export default async function createNft(req: {
   address: string;
-  metadata: string;
+  image: string;
+  imageAlt: string;
   parent: string;
   contractAddress: string;
   rarity: number;
   tokenId: number;
-}) {
-  const { address, metadata, parent, contractAddress, tokenId, rarity } = req;
+  type: number;
+}): Promise<{ message: string; response: any }> {
+  const {
+    address,
+    image,
+    imageAlt,
+    parent,
+    contractAddress,
+    tokenId,
+    rarity,
+    type,
+  } = req;
 
   try {
     const { data: fetchedNft, error: fetchError } = await supabase
@@ -26,11 +37,13 @@ export default async function createNft(req: {
             .insert([
               {
                 address,
-                metadata,
+                image,
+                image_alt: imageAlt,
                 parent,
                 rarity,
                 contract_address: contractAddress,
                 token_id: tokenId,
+                type,
               },
             ])
             .select()
@@ -41,20 +54,20 @@ export default async function createNft(req: {
       if (error) {
         console.log(error);
 
-        return { message: "Error creating nft" };
+        return { message: "Error creating nft", response: "" };
       }
       return {
         message: "NFT created",
-        data: data != null ? data[0] : "",
+        response: data != null ? data[0] : "",
       };
     } else {
       return {
         message: "NFT already exists",
-        resposne: fetchedNft[0],
+        response: fetchedNft[0],
       };
     }
   } catch (error) {
     console.error("Error creating nft:", error);
-    return { message: "Internal Server Error" };
+    return { message: "Internal Server Error", response: "" };
   }
 }

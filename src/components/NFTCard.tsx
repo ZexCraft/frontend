@@ -1,6 +1,7 @@
 import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function NFTCard({
   image,
@@ -10,6 +11,7 @@ export default function NFTCard({
   tokenId,
   mode,
   size,
+  imageAlt,
 }: {
   image: string;
   owner: string;
@@ -17,17 +19,25 @@ export default function NFTCard({
   rarity: string;
   tokenId: string;
   mode: string;
+  imageAlt: string;
   size: number;
 }) {
   return (
     <div className="border-[1px] border-[#3c3f41] p-2 rounded-lg font-theme">
-      <Image
-        src={image}
-        width={size}
-        height={size}
-        alt="logo"
-        className="bg-white rounded-lg"
-      />
+      <button
+        onClick={() => {
+          console.log(imageAlt);
+          window.open(imageAlt, "_blank");
+        }}
+      >
+        <Image
+          src={image}
+          width={size}
+          height={size}
+          alt="logo"
+          className="bg-white rounded-lg"
+        />
+      </button>
       <p className="text-[#9c9e9e] font-semibold text-sm mt-2 mx-2 text-center">
         by {mode}
       </p>
