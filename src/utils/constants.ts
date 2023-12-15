@@ -1,12 +1,12 @@
-const mumbaiDeployments = {
-  craftToken: "0x7531bfe7268120e006a0088a1fcd36651aacb4f7",
-  relRegistry: "",
-  pegocraft: "0x0a41A53B831B111782B0e107E6b54Af2950C12aF",
+const testnetDeployments = {
+  relRegistry: "0x7125e097a72cCf547ED6e9e98bCc09BE3AC61997",
+  pegoCraft: "0x50751BD8d7b0a84c422DE96A56426a370F31a42D",
+  craftToken: "0x08AC2b69feB202b34aD7c65E5Ac876E901CA6216",
 };
-const pegoDeployments = {
-  craftToken: "",
-  pegocraft: "",
-  relRegistry: "",
+const mainnetDeployments = {
+  relRegistry: "0x71aE8049A11E369FD2d464958C175c6a37B80DD4",
+  pegoCraft: "0xa70f052b60c247404E134190F8dA217cF5a56781",
+  craftToken: "0xf39d3BB50CdA521d40c91787d9d06b3618463A37",
 };
 const abi = {
   craftToken: [
@@ -494,6 +494,11 @@ const abi = {
           type: "address",
         },
         {
+          internalType: "address",
+          name: "accountRegistry",
+          type: "address",
+        },
+        {
           internalType: "uint256",
           name: "_mintFee",
           type: "uint256",
@@ -797,6 +802,18 @@ const abi = {
         },
         {
           indexed: false,
+          internalType: "address",
+          name: "account",
+          type: "address",
+        },
+        {
+          indexed: false,
+          internalType: "uint256",
+          name: "rarity",
+          type: "uint256",
+        },
+        {
+          indexed: false,
           internalType: "bool",
           name: "nftType",
           type: "bool",
@@ -825,6 +842,18 @@ const abi = {
           internalType: "address",
           name: "owner",
           type: "address",
+        },
+        {
+          indexed: false,
+          internalType: "address",
+          name: "account",
+          type: "address",
+        },
+        {
+          indexed: false,
+          internalType: "uint256",
+          name: "rarity",
+          type: "uint256",
         },
         {
           indexed: false,
@@ -1008,9 +1037,9 @@ const abi = {
       name: "createBaby",
       outputs: [
         {
-          internalType: "uint256",
-          name: "requestId",
-          type: "uint256",
+          internalType: "address",
+          name: "account",
+          type: "address",
         },
       ],
       stateMutability: "nonpayable",
@@ -1023,23 +1052,13 @@ const abi = {
           name: "tokenURI",
           type: "string",
         },
-        {
-          internalType: "address",
-          name: "creator",
-          type: "address",
-        },
-        {
-          internalType: "bytes",
-          name: "signature",
-          type: "bytes",
-        },
       ],
       name: "createNft",
       outputs: [
         {
-          internalType: "uint256",
-          name: "requestId",
-          type: "uint256",
+          internalType: "address",
+          name: "account",
+          type: "address",
         },
       ],
       stateMutability: "nonpayable",
@@ -1154,6 +1173,25 @@ const abi = {
           internalType: "address",
           name: "",
           type: "address",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+      ],
+      name: "rarity",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
         },
       ],
       stateMutability: "view",
@@ -1409,50 +1447,16 @@ const abi = {
       anonymous: false,
       inputs: [
         {
-          components: [
-            {
-              internalType: "address",
-              name: "tokenAddress",
-              type: "address",
-            },
-            {
-              internalType: "uint256",
-              name: "tokenId",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "chainId",
-              type: "uint256",
-            },
-          ],
           indexed: false,
-          internalType: "struct NFT",
-          name: "nft1",
-          type: "tuple",
+          internalType: "address",
+          name: "parent1",
+          type: "address",
         },
         {
-          components: [
-            {
-              internalType: "address",
-              name: "tokenAddress",
-              type: "address",
-            },
-            {
-              internalType: "uint256",
-              name: "tokenId",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "chainId",
-              type: "uint256",
-            },
-          ],
           indexed: false,
-          internalType: "struct NFT",
-          name: "nft2",
-          type: "tuple",
+          internalType: "address",
+          name: "parent2",
+          type: "address",
         },
         {
           indexed: false,
@@ -1479,6 +1483,11 @@ const abi = {
     },
     {
       inputs: [
+        {
+          internalType: "address",
+          name: "breedingAccount",
+          type: "address",
+        },
         {
           internalType: "address",
           name: "otherAccount",
@@ -1578,4 +1587,4 @@ const abi = {
     },
   ],
 };
-export { mumbaiDeployments, pegoDeployments, abi };
+export { testnetDeployments, mainnetDeployments, abi };
