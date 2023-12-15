@@ -23,7 +23,7 @@ export default function NFTCard({
   size: number;
 }) {
   return (
-    <div className="border-[1px] border-[#3c3f41] p-2 rounded-lg font-theme">
+    <div className="border-[1px] border-[#3c3f41] p-2 rounded-lg font-theme ">
       <button
         onClick={() => {
           console.log(imageAlt);
@@ -41,7 +41,7 @@ export default function NFTCard({
       <p className="text-[#9c9e9e] font-semibold text-sm mt-2 mx-2 text-center">
         by {mode}
       </p>
-      <div className="my-2">
+      <Link href={"/nfts/" + address} className="my-2">
         <div className="flex justify-around mx-2">
           <div className="w-full">
             <p className="font-semibold text-center">Token Id</p>
@@ -58,7 +58,7 @@ export default function NFTCard({
             <p className="text-center">{rarity}</p>
           </div>
         </div>
-      </div>
+      </Link>
 
       <div className="rounded-lg  bg-[#25272b] text-center  ">
         <div className="flex justify-around ">

@@ -1,10 +1,12 @@
 const mumbaiDeployments = {
   craftToken: "0x7531bfe7268120e006a0088a1fcd36651aacb4f7",
+  relRegistry: "",
   pegocraft: "0x0a41A53B831B111782B0e107E6b54Af2950C12aF",
 };
 const pegoDeployments = {
   craftToken: "",
   pegocraft: "",
+  relRegistry: "",
 };
 const abi = {
   craftToken: [
@@ -1357,6 +1359,221 @@ const abi = {
       name: "transferOwnership",
       outputs: [],
       stateMutability: "nonpayable",
+      type: "function",
+    },
+  ],
+  relRegistry: [
+    {
+      inputs: [
+        {
+          internalType: "contract IERC6551Registry",
+          name: "_accountRegistry",
+          type: "address",
+        },
+        {
+          internalType: "address",
+          name: "_relationshipImplementation",
+          type: "address",
+        },
+      ],
+      stateMutability: "nonpayable",
+      type: "constructor",
+    },
+    {
+      inputs: [],
+      name: "Create2EmptyBytecode",
+      type: "error",
+    },
+    {
+      inputs: [],
+      name: "Create2FailedDeployment",
+      type: "error",
+    },
+    {
+      inputs: [
+        {
+          internalType: "uint256",
+          name: "balance",
+          type: "uint256",
+        },
+        {
+          internalType: "uint256",
+          name: "needed",
+          type: "uint256",
+        },
+      ],
+      name: "Create2InsufficientBalance",
+      type: "error",
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          components: [
+            {
+              internalType: "address",
+              name: "tokenAddress",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "tokenId",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "chainId",
+              type: "uint256",
+            },
+          ],
+          indexed: false,
+          internalType: "struct NFT",
+          name: "nft1",
+          type: "tuple",
+        },
+        {
+          components: [
+            {
+              internalType: "address",
+              name: "tokenAddress",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "tokenId",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "chainId",
+              type: "uint256",
+            },
+          ],
+          indexed: false,
+          internalType: "struct NFT",
+          name: "nft2",
+          type: "tuple",
+        },
+        {
+          indexed: false,
+          internalType: "address",
+          name: "relationship",
+          type: "address",
+        },
+      ],
+      name: "RelationshipCreated",
+      type: "event",
+    },
+    {
+      inputs: [],
+      name: "accountRegistry",
+      outputs: [
+        {
+          internalType: "contract IERC6551Registry",
+          name: "",
+          type: "address",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "address",
+          name: "otherAccount",
+          type: "address",
+        },
+        {
+          internalType: "bytes",
+          name: "otherAccountsignature",
+          type: "bytes",
+        },
+      ],
+      name: "createRelationship",
+      outputs: [
+        {
+          internalType: "address",
+          name: "",
+          type: "address",
+        },
+      ],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "address",
+          name: "_address",
+          type: "address",
+        },
+      ],
+      name: "isRelationship",
+      outputs: [
+        {
+          internalType: "bool",
+          name: "",
+          type: "bool",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "address",
+          name: "",
+          type: "address",
+        },
+        {
+          internalType: "address",
+          name: "",
+          type: "address",
+        },
+      ],
+      name: "pairs",
+      outputs: [
+        {
+          internalType: "bool",
+          name: "",
+          type: "bool",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "address",
+          name: "",
+          type: "address",
+        },
+      ],
+      name: "relationshipExists",
+      outputs: [
+        {
+          internalType: "bool",
+          name: "",
+          type: "bool",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "relationshipImplementation",
+      outputs: [
+        {
+          internalType: "address",
+          name: "",
+          type: "address",
+        },
+      ],
+      stateMutability: "view",
       type: "function",
     },
   ],
