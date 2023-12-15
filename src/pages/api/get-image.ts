@@ -54,7 +54,7 @@ export default async function handler(
 
     res.status(200).send({
       progress: 100,
-      imageAlt: imagesResponseData.response.imageUrls[0],
+      imageAlt: dataUrl,
       image:
         "https://ipfs.io/ipfs/" + ipfsResponseData.value.cid + "/image.jpg",
     });

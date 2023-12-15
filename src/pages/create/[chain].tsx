@@ -13,6 +13,8 @@ import {
 } from "wagmi";
 import Confetti from "react-confetti";
 import useWindowSize from "@/hooks/useWindowSize";
+import { decodeEventLog } from "viem";
+import createNft from "@/utils/supabase/create-nft";
 export default function Generate() {
   const router = useRouter();
   const { address } = useAccount();
@@ -24,19 +26,19 @@ export default function Generate() {
   const [progress, setProgress] = useState(0);
   const [image, setImage] = useState("");
   const [imageAlt, setImageAlt] = useState("");
-  const [displayImage, setDisplayImage] = useState(true);
-  const [mintDone, setMintDone] = useState(true);
+  const [displayImage, setDisplayImage] = useState(false);
+  const [mintDone, setMintDone] = useState(false);
   const [isApproving, setIsApproving] = useState(false);
   const [isMinting, setIsMinting] = useState(false);
   const [confetttiAnimation, setConfettiAnimation] = useState(false);
 
-  const { writeAsync: createNft } = useContractWrite({
+  const { writeAsync: createNftFunction } = useContractWrite({
     address:
       chain?.id == 80001
         ? (mumbaiDeployments.pegocraft as `0x${string}`)
         : (pegoDeployments.pegocraft as `0x${string}`),
     abi: abi.pegoCraft,
-    functionName: "createNft",
+    functionName: "createNftFunction",
   });
   const { writeAsync: approve } = useContractWrite({
     address:
@@ -55,8 +57,21 @@ export default function Generate() {
     abi: abi.craftToken,
     eventName: "Approval",
     listener(log) {
-      setIsApproving(false);
-      setCount(count + 1);
+      const event = decodeEventLog({
+        abi: abi.craftToken,
+        data: log[0].data,
+        topics: log[0].topics,
+      });
+      console.log(event);
+      const args = event.args as {
+        owner: string;
+        spender: string;
+        value: string;
+      };
+      if (args.owner == address) {
+        setIsApproving(false);
+        setCount(1);
+      }
     },
   });
 
@@ -68,11 +83,36 @@ export default function Generate() {
     abi: abi.pegoCraft,
     eventName: "Transfer",
     listener(log) {
-      setDisplayImage(true);
-      setMintDone(true);
-      setIsMinting(false);
-      setCount(count + 1);
-      setConfettiAnimation(true);
+      const event = decodeEventLog({
+        abi: abi.craftToken,
+        data: log[0].data,
+        topics: log[0].topics,
+      });
+      const args = event.args as {
+        from: string;
+        to: string;
+        tokenId: string;
+        account: string;
+      };
+      if (args.to == address) {
+        setDisplayImage(true);
+        setMintDone(true);
+        setIsMinting(false);
+        setCount(2);
+        setConfettiAnimation(true);
+        createNft({
+          address: args.account,
+          tokenId: Number(args.tokenId),
+          metadata: image,
+          contractAddress:
+            chain?.id == 80001
+              ? mumbaiDeployments.pegocraft
+              : pegoDeployments.pegocraft,
+          parent: args.to,
+        }).then((res) => {
+          console.log(res);
+        });
+      }
     },
   });
 
@@ -164,11 +204,10 @@ export default function Generate() {
                         chain?.id == 80001
                           ? mumbaiDeployments.pegocraft
                           : pegoDeployments.pegocraft,
-                        1,
+                        "100000000000000000",
                       ],
                     });
                     setIsApproving(true);
-                    setCount(count + 1);
                   } catch (e) {
                     console.log(e);
                   }
@@ -237,7 +276,7 @@ export default function Generate() {
                   setProgress(100);
 
                   try {
-                    await createNft({
+                    await createNftFunction({
                       args: [fetchedImage.image, address, "0x"],
                     });
                     setImage(fetchedImage.image);
@@ -259,15 +298,7 @@ export default function Generate() {
           </div>
           <div className=" border border-white border-dashed h-[500px] w-[500px] rounded-xl ml-16">
             {mintDone && displayImage ? (
-              <Image
-                src={
-                  "https://cdn.midjourney.com/3c7ac239-6d2f-4457-891b-cbe60b1959c3/0_0.png"
-                }
-                width={500}
-                height={500}
-                alt="drake"
-                className="rounded-xl"
-              />
+              <img src={image} alt="gen-image" className="rounded-xl" />
             ) : (
               messageId != "" && (
                 <div className="flex flex-col justify-center items-center h-full">

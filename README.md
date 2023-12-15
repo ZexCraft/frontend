@@ -7,8 +7,8 @@
 3. DONE
 4. DONE
 5. DONE
-6. AI Generation task
-7. Confetti animation redirecting to the NFT page - LOW
+6. DONE
+7. DONE
 
 8. Create relationship feature - MORE
 9. Create baby feature - MORE
@@ -24,6 +24,7 @@
 18. Fetch Tree data in Trees Page
 
 19. Show transaction status popup
+20. SHOW CFT Token balance
 
 ### Integrations
 
