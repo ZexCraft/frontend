@@ -12,7 +12,7 @@
 
 8. Create relationship feature - MORE
 9. Create baby feature - DONE
-10. Create profile Modal
+10. Create profile Modal NOPE
 
 11. Fetch your NFTs in your profile
 12. Fetch all NFTs in home and NFTs page
@@ -23,21 +23,21 @@
 17. Fetch Relationship Data in Relationship page
 18. Fetch Tree data in Trees Page
 
-19. Show transaction status popup
-20. SHOW CFT Token balance
+19. Show transaction status popup NOPE
+20. SHOW CFT Token balance NOEP
 
 ### Integrations
 
 1. DONE
 2. DONE
-3. Integrate CREATE RELATIONSHIP CALL
-4. Integrate BREED CALL
+3. Integrate CREATE RELATIONSHIP DONE
+4. Integrate BREED CALL DONE
 
 ### Contracts
 
 1. Fix sig validation - DONE
-2. Create NFT should create an account too
-3. Next depoy remove mint(to,=>amount<=)
+2. Create NFT should create an account too DONE
+3. Next depoy remove mint(to,=>amount<=) DONE
 4. Remove onlyOwner and signing feature in // TODO:
 
 ### Backend
@@ -46,4 +46,4 @@
 
 ## Pitch
 
-1. Demo
+1. Demo TODO
