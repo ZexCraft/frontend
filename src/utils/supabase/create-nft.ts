@@ -8,9 +8,10 @@ export default async function createNft(req: {
   metadata: string;
   parent: string;
   contractAddress: string;
+  rarity: number;
   tokenId: number;
 }) {
-  const { address, metadata, parent, contractAddress, tokenId } = req;
+  const { address, metadata, parent, contractAddress, tokenId, rarity } = req;
 
   try {
     const { data: fetchedNft, error: fetchError } = await supabase
@@ -27,6 +28,7 @@ export default async function createNft(req: {
                 address,
                 metadata,
                 parent,
+                rarity,
                 contract_address: contractAddress,
                 token_id: tokenId,
               },

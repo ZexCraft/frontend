@@ -93,6 +93,7 @@ export default function Generate() {
         to: string;
         tokenId: string;
         account: string;
+        rarity: string;
       };
       if (args.to == address) {
         setDisplayImage(true);
@@ -109,6 +110,7 @@ export default function Generate() {
               ? mumbaiDeployments.pegocraft
               : pegoDeployments.pegocraft,
           parent: args.to,
+          rarity: Number(args.rarity),
         }).then((res) => {
           console.log(res);
         });
