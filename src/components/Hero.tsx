@@ -20,11 +20,32 @@ export default function Hero() {
 
   return (
     <main
-      className="flex justify-center h-[60vh] my-8 rounded-xl"
+      className="flex flex-col justify-center items-center h-[60vh] my-8 rounded-xl"
       style={{
-        backgroundImage: 'url("/cover.png")',
+        backgroundImage: 'url("/cover.gif")',
         backgroundSize: "cover",
       }}
-    ></main>
+    >
+      <div className=" flex">
+        <Image
+          src="/logo.png"
+          width={60}
+          height={60}
+          alt="logo"
+          className="my-auto  mr-6"
+        />
+        <p className=" font-noun font-logo mb-4 font-bold text-6xl">
+          PegoCraft
+        </p>
+      </div>
+      <p className="font-logo  font-semibold  text-4xl">
+        Create/Breed NFTs using AI
+      </p>
+      <div className="rounded-lg p-2 mt-4 opacity-90">
+        <p className="font-logo  font-bold  text-4xl ">
+          ❤️🔨🔮✨😢⚙️👾👻🪄😏🤖🦄🥵👀
+        </p>
+      </div>
+    </main>
   );
 }

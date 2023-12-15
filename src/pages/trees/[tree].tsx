@@ -2,12 +2,8 @@ import Layout from "@/components/Layout";
 import React from "react";
 // @ts-ignore
 import Tree from "react-d3-tree";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 import TreeNodeElement from "@/components/TreeNodeElement";
 import useWindowSize from "@/hooks/useWindowSize";
-// This is a simplified example of an org chart with a depth of 2.
-// Note how deeper levels are defined recursively via the `children` property.
 const orgChart = {
   name: "root",
   attributes: {

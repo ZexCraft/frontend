@@ -73,7 +73,7 @@ export default function Powerups() {
             />
           </div>
           <div className="flex justify-end">
-            <p className="my-auto font-semibold text-lg">Total: {total} AVAX</p>
+            <p className="my-auto font-semibold text-lg">Total: {total} PG</p>
             <button className="m-4 py-3 px-6 bg-[#25272b] hover:bg-[#d0d1d1] hover:text-black font-semibold text-lg rounded-lg">
               Purchase
             </button>

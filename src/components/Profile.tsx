@@ -32,10 +32,14 @@ export default function Profile(props: { address: string }) {
   return (
     <div className="flex flex-col justify-start min-h-[90vh]  ">
       <Image
-        src={"/cover.png"}
+        src={"/cover.gif"}
         width={1000}
         height={600}
         alt="cover"
+        style={{
+          backgroundImage: 'url("/cover.gif")',
+          backgroundSize: "cover",
+        }}
         className="bg-[#25272b] w-full h-[35vh] mt-10 rounded-2xl"
       />
       <div className="relative">

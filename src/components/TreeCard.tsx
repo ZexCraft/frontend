@@ -9,14 +9,12 @@ export default function TreeCard({
   family,
   race,
   count,
-  relationship,
 }: {
   nft1: string;
   nft2: string;
   family: string;
   race: string;
   count: string;
-  relationship: string;
 }) {
   return (
     <div className="border-[1px] border-[#3c3f41] p-2 rounded-lg font-theme">
@@ -46,9 +44,7 @@ export default function TreeCard({
             <div
               className="flex justify-center  cursor-pointer"
               onClick={() => {
-                window.open(
-                  `https://sepolia.etherscan.io/address/${relationship}`
-                );
+                window.open(`https://sepolia.etherscan.io/address/${family}`);
               }}
             >
               <p className="text-xs font-semibold text-[#9c9e9e] my-2 mr-2">

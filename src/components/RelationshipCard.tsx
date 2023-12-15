@@ -12,12 +12,10 @@ export default function RelationshipCard({
   nft1,
   nft2,
   relationship,
-  family,
 }: {
   nft1: NFT;
   nft2: NFT;
   relationship: string;
-  family: string;
 }) {
   return (
     <div className="border-[1px] border-[#3c3f41] p-2 rounded-lg font-theme">
@@ -116,7 +114,9 @@ export default function RelationshipCard({
             <div
               className="flex justify-center cursor-pointer"
               onClick={() => {
-                window.open(`https://sepolia.etherscan.io/address/${family}`);
+                window.open(
+                  `https://sepolia.etherscan.io/address/${relationship}`
+                );
               }}
             >
               <p className="text-xs font-semibold text-[#9c9e9e] my-2 mr-2">
