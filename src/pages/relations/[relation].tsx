@@ -1,6 +1,7 @@
 import Layout from "@/components/Layout";
 import NFTCard from "@/components/NFTCard";
 import LoadingSpinner from "@/components/Spinner";
+import useWindowSize from "@/hooks/useWindowSize";
 import { shortenEthereumAddress } from "@/utils";
 import { abi, testnetDeployments, mainnetDeployments } from "@/utils/constants";
 import resolveRarity from "@/utils/resolveRarity";
@@ -13,6 +14,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import Confetti from "react-confetti";
 import { decodeEventLog } from "viem";
 import {
   useAccount,
@@ -26,6 +28,7 @@ export default function Relation() {
   const [selected, setSelected] = useState(0);
   const { relation } = router.query;
   const [relationship, setRelationship] = useState();
+  const { width, height } = useWindowSize();
   const [mintDone, setMintDone] = useState(false);
   const [messageId, setMessageId] = useState("");
   const [progress, setProgress] = useState(0);
@@ -75,7 +78,7 @@ export default function Relation() {
       chain?.id == 123456
         ? (testnetDeployments.craftToken as `0x${string}`)
         : (mainnetDeployments.craftToken as `0x${string}`),
-    abi: abi.pegoCraft,
+    abi: abi.craftToken,
     functionName: "approve",
   });
 
@@ -98,7 +101,7 @@ export default function Relation() {
         spender: string;
         value: string;
       };
-      if (args.owner == relation) {
+      if (args.owner == address) {
         setIsApproving(false);
         setCount(1);
       }
@@ -113,40 +116,39 @@ export default function Relation() {
     abi: abi.pegoCraft,
     eventName: "Transfer",
     listener(log) {
+      console.log(log);
       const event = decodeEventLog({
         abi: abi.craftToken,
         data: log[0].data,
         topics: log[0].topics,
       });
+      console.log(event);
       const args = event.args as {
         from: string;
         to: string;
         tokenId: string;
-        account: string;
-        rarity: string;
       };
-      if (args.to == address) {
-        setDisplayImage(true);
-        setMintDone(true);
-        setIsMinting(false);
-        setCount(2);
-        setConfettiAnimation(true);
-        createNft({
-          address: args.account,
-          tokenId: Number(args.tokenId),
-          image: image,
-          imageAlt: imageAlt,
-          contractAddress:
-            chain?.id == 123456
-              ? testnetDeployments.pegoCraft
-              : mainnetDeployments.pegoCraft,
-          parent: args.to,
-          rarity: Number(args.rarity),
-          type: 0,
-        }).then((res) => {
-          console.log(res);
-        });
-      }
+      console.log(args);
+      setDisplayImage(true);
+      setMintDone(true);
+      setIsMinting(false);
+      setCount(2);
+      setConfettiAnimation(true);
+      createNft({
+        address: address as string,
+        tokenId: Number(args.tokenId),
+        image: image,
+        imageAlt: imageAlt,
+        contractAddress:
+          chain?.id == 123456
+            ? testnetDeployments.pegoCraft
+            : mainnetDeployments.pegoCraft,
+        parent: args.to,
+        rarity: Number(88),
+        type: 0,
+      }).then((res) => {
+        console.log(res);
+      });
     },
   });
 
@@ -169,6 +171,7 @@ export default function Relation() {
   return (
     <Layout>
       <div className="min-h-[90vh] mt-20 w-[80%]  mx-auto flex space-x-32 justify-between">
+        {confettiAnimation && <Confetti width={width} height={height} />}
         <div className="flex flex-col justify-center">
           {nft1 != null && (
             <NFTCard
@@ -372,10 +375,15 @@ export default function Relation() {
 
                       try {
                         await createNftFunction({
-                          args: [fetchedImage.image, address, "0x"],
+                          args: [fetchedImage.image],
                         });
                         setImage(fetchedImage.image);
                         setImageAlt(fetchedImage.imageAlt);
+                        setDisplayImage(true);
+                        setMintDone(true);
+                        setIsMinting(false);
+                        setCount(2);
+                        setConfettiAnimation(true);
                       } catch (e) {
                         console.log(e);
                       }

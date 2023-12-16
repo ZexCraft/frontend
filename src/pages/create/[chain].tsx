@@ -81,21 +81,22 @@ export default function Generate() {
         ? (testnetDeployments.pegoCraft as `0x${string}`)
         : (mainnetDeployments.pegoCraft as `0x${string}`),
     abi: abi.pegoCraft,
-    eventName: "Transfer",
+    eventName: "PegoCraftNFTCreated",
     listener(log) {
       const event = decodeEventLog({
-        abi: abi.craftToken,
+        abi: abi.pegoCraft,
         data: log[0].data,
         topics: log[0].topics,
       });
+      console.log(event);
       const args = event.args as {
-        from: string;
-        to: string;
         tokenId: string;
+        tokenUri: string;
+        owner: string;
         account: string;
         rarity: string;
       };
-      if (args.to == address) {
+      if (args.owner == address) {
         setDisplayImage(true);
         setMintDone(true);
         setIsMinting(false);
@@ -110,7 +111,7 @@ export default function Generate() {
             chain?.id == 123456
               ? testnetDeployments.pegoCraft
               : mainnetDeployments.pegoCraft,
-          parent: args.to,
+          parent: args.owner,
           rarity: Number(args.rarity),
           type: 0,
         }).then((res) => {
