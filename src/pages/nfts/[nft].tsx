@@ -150,10 +150,13 @@ export default function Relation() {
             } px-4 py-2 rounded-xl font-semibold max-w-fit mx-auto mt-14`}
             onClick={async () => {
               setState(1);
-
-              await createRelationshipFunction({
-                args: [ownedNfts[selectedIndex].address, nftData.address, ""],
-              });
+              try {
+                await createRelationshipFunction({
+                  args: [],
+                });
+              } catch (e) {
+                console.log(e);
+              }
             }}
           >
             {state == 0
