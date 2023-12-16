@@ -1,11 +1,11 @@
 const testnetDeployments = {
   relRegistry: "0xAa25e4A9db1F3e493B9a20279572e4F15Ce6eEa2",
-  pegoCraft: "0x649d81f1A8F4097eccA7ae1076287616E433c5E8",
+  inCraft: "0x649d81f1A8F4097eccA7ae1076287616E433c5E8",
   craftToken: "0x9b7a42bFE8f8Df9d43f368Baf9480fB7193Cf06a",
 };
 const mainnetDeployments = {
   relRegistry: "0x0c8b10bA7bA983AD927DDf3C426a661e280DC243",
-  pegoCraft: "0x1e167D5Cc4F0CaD6d12c5Aea356e780dE60dE437",
+  inCraft: "0x1e167D5Cc4F0CaD6d12c5Aea356e780dE60dE437",
   craftToken: "0x5193326E0fFD65C4433C2589466071dd831cd838",
 };
 const abi = {
@@ -14,7 +14,7 @@ const abi = {
       inputs: [
         {
           internalType: "address",
-          name: "pegoCraftNFT",
+          name: "inCraftNFT",
           type: "address",
         },
       ],
@@ -335,7 +335,7 @@ const abi = {
     },
     {
       inputs: [],
-      name: "i_pegoCraftNftAddress",
+      name: "i_inCraftNftAddress",
       outputs: [
         {
           internalType: "address",
@@ -485,7 +485,7 @@ const abi = {
       type: "function",
     },
   ],
-  pegoCraft: [
+  inCraft: [
     {
       inputs: [
         {
@@ -819,7 +819,7 @@ const abi = {
           type: "bool",
         },
       ],
-      name: "PegoCraftNFTBred",
+      name: "InCraftNFTBred",
       type: "event",
     },
     {
@@ -862,7 +862,7 @@ const abi = {
           type: "bool",
         },
       ],
-      name: "PegoCraftNFTCreated",
+      name: "InCraftNFTCreated",
       type: "event",
     },
     {

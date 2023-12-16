@@ -21,7 +21,7 @@ export default async function getProfile(req: { wallet: string }) {
           name: "Bob",
           image: "https://picsum.photos/500/500",
           cover: "https://picsum.photos/800/300",
-          description: "Hey there! I'm new to PegoCraft!",
+          description: "Hey there! I'm new to InCraft!",
         },
       };
     } else {

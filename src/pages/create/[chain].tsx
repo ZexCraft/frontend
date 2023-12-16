@@ -35,9 +35,9 @@ export default function Generate() {
   const { writeAsync: createNftFunction } = useContractWrite({
     address:
       chain?.id == 123456
-        ? (testnetDeployments.pegoCraft as `0x${string}`)
-        : (mainnetDeployments.pegoCraft as `0x${string}`),
-    abi: abi.pegoCraft,
+        ? (testnetDeployments.inCraft as `0x${string}`)
+        : (mainnetDeployments.inCraft as `0x${string}`),
+    abi: abi.inCraft,
     functionName: "createNft",
   });
   const { writeAsync: approve } = useContractWrite({
@@ -45,7 +45,7 @@ export default function Generate() {
       chain?.id == 123456
         ? (testnetDeployments.craftToken as `0x${string}`)
         : (mainnetDeployments.craftToken as `0x${string}`),
-    abi: abi.pegoCraft,
+    abi: abi.inCraft,
     functionName: "approve",
   });
 
@@ -78,13 +78,13 @@ export default function Generate() {
   useContractEvent({
     address:
       chain?.id == 123456
-        ? (testnetDeployments.pegoCraft as `0x${string}`)
-        : (mainnetDeployments.pegoCraft as `0x${string}`),
-    abi: abi.pegoCraft,
-    eventName: "PegoCraftNFTCreated",
+        ? (testnetDeployments.inCraft as `0x${string}`)
+        : (mainnetDeployments.inCraft as `0x${string}`),
+    abi: abi.inCraft,
+    eventName: "InCraftNFTCreated",
     listener(log) {
       const event = decodeEventLog({
-        abi: abi.pegoCraft,
+        abi: abi.inCraft,
         data: log[0].data,
         topics: log[0].topics,
       });
@@ -109,8 +109,8 @@ export default function Generate() {
           imageAlt: imageAlt,
           contractAddress:
             chain?.id == 123456
-              ? testnetDeployments.pegoCraft
-              : mainnetDeployments.pegoCraft,
+              ? testnetDeployments.inCraft
+              : mainnetDeployments.inCraft,
           parent: args.owner,
           rarity: Number(args.rarity),
           type: 0,
@@ -143,7 +143,7 @@ export default function Generate() {
         {confetttiAnimation && <Confetti width={width} height={height} />}
         <div className="flex">
           <div className=" flex flex-col justify-start">
-            <p className="text-5xl font-bold mb-5">Create New PegoCraft</p>
+            <p className="text-5xl font-bold mb-5">Create New InCraft</p>
             <p className="font-semibold text-xl text-[#9c9e9e] ml-2 mb-6">
               Let your imaginations go wild 👽
             </p>
@@ -208,8 +208,8 @@ export default function Generate() {
                     await approve({
                       args: [
                         chain?.id == 123456
-                          ? testnetDeployments.pegoCraft
-                          : mainnetDeployments.pegoCraft,
+                          ? testnetDeployments.inCraft
+                          : mainnetDeployments.inCraft,
                         "100000000000000000",
                       ],
                     });

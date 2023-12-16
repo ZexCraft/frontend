@@ -12,7 +12,7 @@ export default function Logo() {
         className="my-auto  mr-2"
       />
       <p className="font-noun font-logo font-light text-white text-3xl tracking-wider ml-1 my-auto mr-14">
-        PegoCraft
+        InCraft
       </p>
     </Link>
   );

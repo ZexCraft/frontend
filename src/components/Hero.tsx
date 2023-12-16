@@ -34,9 +34,7 @@ export default function Hero() {
           alt="logo"
           className="my-auto  mr-6"
         />
-        <p className=" font-noun font-logo mb-4 font-bold text-6xl">
-          PegoCraft
-        </p>
+        <p className=" font-noun font-logo mb-4 font-bold text-6xl">InCraft</p>
       </div>
       <p className="font-logo  font-semibold  text-4xl">
         Create/Breed NFTs using AI

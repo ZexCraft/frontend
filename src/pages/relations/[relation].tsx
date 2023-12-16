@@ -68,9 +68,9 @@ export default function Relation() {
   const { writeAsync: createNftFunction } = useContractWrite({
     address:
       chain?.id == 123456
-        ? (testnetDeployments.pegoCraft as `0x${string}`)
-        : (mainnetDeployments.pegoCraft as `0x${string}`),
-    abi: abi.pegoCraft,
+        ? (testnetDeployments.inCraft as `0x${string}`)
+        : (mainnetDeployments.inCraft as `0x${string}`),
+    abi: abi.inCraft,
     functionName: "createNft",
   });
   const { writeAsync: approve } = useContractWrite({
@@ -111,9 +111,9 @@ export default function Relation() {
   useContractEvent({
     address:
       chain?.id == 123456
-        ? (testnetDeployments.pegoCraft as `0x${string}`)
-        : (mainnetDeployments.pegoCraft as `0x${string}`),
-    abi: abi.pegoCraft,
+        ? (testnetDeployments.inCraft as `0x${string}`)
+        : (mainnetDeployments.inCraft as `0x${string}`),
+    abi: abi.inCraft,
     eventName: "Transfer",
     listener(log) {
       console.log(log);
@@ -141,8 +141,8 @@ export default function Relation() {
         imageAlt: imageAlt,
         contractAddress:
           chain?.id == 123456
-            ? testnetDeployments.pegoCraft
-            : mainnetDeployments.pegoCraft,
+            ? testnetDeployments.inCraft
+            : mainnetDeployments.inCraft,
         parent: args.to,
         rarity: Number(88),
         type: 0,
@@ -298,8 +298,8 @@ export default function Relation() {
                         await approve({
                           args: [
                             chain?.id == 123456
-                              ? testnetDeployments.pegoCraft
-                              : mainnetDeployments.pegoCraft,
+                              ? testnetDeployments.inCraft
+                              : mainnetDeployments.inCraft,
                             "100000000000000000",
                           ],
                         });

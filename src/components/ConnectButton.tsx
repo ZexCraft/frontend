@@ -44,7 +44,7 @@ const ConnectButton = () => {
       chain?.id == 123456
         ? (testnetDeployments.craftToken as `0x${string}`)
         : (mainnetDeployments.craftToken as `0x${string}`),
-    abi: abi.pegoCraft,
+    abi: abi.inCraft,
     eventName: "Transfer",
     listener(log) {
       console.log(log[0]);
