@@ -10,7 +10,7 @@ export default function resolveRarity(rarity: number) {
   } else if (rarity < 95) {
     return "Legendary";
   } else if (rarity < 100) {
-    return "PegoStar";
+    return "InStar";
   } else {
     return "Special Edition";
   }

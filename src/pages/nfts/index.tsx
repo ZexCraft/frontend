@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-
+import { useSignMessage } from "wagmi";
 export default function Nfts() {
   const [search, setSearch] = useState("");
   const [filters, setFilters] = useState(true);
@@ -21,6 +21,12 @@ export default function Nfts() {
       setNfts(nfts.response as any);
     })();
   }, []);
+
+  const { data, isError, isLoading, isSuccess, signMessage } = useSignMessage({
+    onSuccess(data, variables, context) {
+      console.log(data);
+    },
+  });
   return (
     <Layout>
       <div className="min-h-[90vh] mt-20">
@@ -34,8 +40,10 @@ export default function Nfts() {
                   : "bg-[#25272b] text-[#d0d1d1] hover:bg-[#303238]"
               } flex p-3 rounded-lg  `}
               onClick={() => {
-                if (filters) setFilters(false);
-                else setFilters(true);
+                signMessage({ message: "whaats" });
+
+                // if (filters) setFilters(false);
+                // else setFilters(true);
               }}
             >
               <FontAwesomeIcon
@@ -85,16 +93,6 @@ export default function Nfts() {
                 })}
             </div>
           </div>
-
-          {/* <Link
-          href={"/nfts"}
-          className="bg-[#25272b] m-8 py-4 flex justify-center rounded-xl"
-        >
-          <p className="mr-2 font-semibold text-lg font-theme">
-            View all CraftNFTs
-          </p>
-          <FontAwesomeIcon icon={faArrowRight} className="text-lg my-auto" />
-        </Link> */}
         </div>
       </div>
     </Layout>

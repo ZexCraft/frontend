@@ -2,48 +2,25 @@
 
 ### Frontend
 
-1. Change Hero - LOW
-2. DONE
-3. DONE
-4. DONE
-5. DONE
-6. DONE
-7. DONE
+1. Refactor NFT page UI
+2. Refactor Relationship page UI
 
-8. Create relationship feature - MORE
-9. Create baby feature - DONE
-10. Create profile Modal NOPE
-
-11. Fetch your NFTs in your profile
-12. Fetch all NFTs in home and NFTs page
-13. Fetch all Relationships in Relationships page
-14. Fetch all Families in Family Page
-15. Fetch trees in Family Trees Page
-16. Fetch NFT data in NFT page
-17. Fetch Relationship Data in Relationship page
-18. Fetch Tree data in Trees Page
-
-19. Show transaction status popup NOPE
-20. SHOW CFT Token balance NOEP
+3. Tree???
 
 ### Integrations
 
-1. DONE
-2. DONE
-3. Integrate CREATE RELATIONSHIP DONE
-4. Integrate BREED CALL DONE
+1. Make Supabase work
+2. Setup ethers/viem code to send transactions from the backend
 
 ### Contracts
 
-1. Fix sig validation - DONE
-2. Create NFT should create an account too DONE
-3. Next depoy remove mint(to,=>amount<=) DONE
-4. Remove onlyOwner and signing feature in // TODO:
+1. Signature verifications
 
 ### Backend
 
-1. Indexing with Supabase DONE
+1. Setup Supabase for usecase
+2. Iterative fetching the only solution?
 
 ## Pitch
 
-1. Demo TODO
+1. Design a pitch

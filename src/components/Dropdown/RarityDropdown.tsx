@@ -85,15 +85,15 @@ export default function RarityDropdown() {
           </button>
           <button
             className={` rounded-lg p-3  text-lg font-semibold ${
-              rarity == "PegoStar"
+              rarity == "InStar"
                 ? "bg-[#d0d1d1] text-black"
                 : "bg-[#25272b] text-white"
             }`}
             onClick={() => {
-              setRarity("PegoStar");
+              setRarity("InStar");
             }}
           >
-            PegoStar
+            InStar
           </button>
         </div>
       )}
