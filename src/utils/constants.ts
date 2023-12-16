@@ -1,7 +1,7 @@
 const testnetDeployments = {
-  relRegistry: "0x7125e097a72cCf547ED6e9e98bCc09BE3AC61997",
-  pegoCraft: "0x50751BD8d7b0a84c422DE96A56426a370F31a42D",
-  craftToken: "0x08AC2b69feB202b34aD7c65E5Ac876E901CA6216",
+  relRegistry: "0x70e6A6B036cf5b8759E8E7105168568086d05430",
+  pegoCraft: "0x8DecD86959b87c64Be4978029a27D19c3e5d49DE",
+  craftToken: "0xB32e77dc18A4a6afDccBD58517f869A905E58Ca8",
 };
 const mainnetDeployments = {
   relRegistry: "0x71aE8049A11E369FD2d464958C175c6a37B80DD4",

@@ -9,7 +9,8 @@ const orgChart = {
   attributes: {
     relationship: "0x71B43a66324C7b80468F1eE676E7FCDaF63eB6Ac",
     nft1: {
-      image: "/sample-nfts/noun.png",
+      image:
+        "https://ipfs.io/ipfs/bafybeigjqyt2kcfakmzhggxntsoh2rsz7ygowmcliuvso7o54unhrdpu6u/image.jpg",
       isChild: false,
       rarity: "Rare",
       tokenId: "45362345",
@@ -18,7 +19,8 @@ const orgChart = {
       tokenAddress: "0x71B43a66324C7b80468F1eE676E7FCDaF63eB6Ac",
     },
     nft2: {
-      image: "/sample-nfts/noun.png",
+      image:
+        "https://ipfs.io/ipfs/bafybeidkssqe6hontgw6ujc5w5gug2kjzp5vxzbg7gnmug6fyppbeap7ve/image.jpg",
       isChild: false,
       rarity: "Rare",
       tokenId: "45362345",
@@ -33,7 +35,8 @@ const orgChart = {
       attributes: {
         relationship: "0x71B43a66324C7b80468F1eE676E7FCDaF63eB6Ac",
         nft1: {
-          image: "/sample-nfts/noun.png",
+          image:
+            "https://cdn.midjourney.com/87ebd8ca-98c9-47d0-968d-48ce7b625ac1/0_0.png",
           isChild: false,
           rarity: "Rare",
           tokenId: "45362345",
@@ -42,7 +45,8 @@ const orgChart = {
           tokenAddress: "0x71B43a66324C7b80468F1eE676E7FCDaF63eB6Ac",
         },
         nft2: {
-          image: "/sample-nfts/noun.png",
+          image:
+            "https://cdn.midjourney.com/2e701814-f78b-4443-88ba-e76c6642d806/0_0.png",
           isChild: false,
           rarity: "Rare",
           tokenId: "45362345",
@@ -57,7 +61,8 @@ const orgChart = {
           attributes: {
             relationship: "0x71B43a66324C7b80468F1eE676E7FCDaF63eB6Ac",
             nft1: {
-              image: "/sample-nfts/noun.png",
+              image:
+                "https://cdn.midjourney.com/eaca9f3d-94ad-43eb-ae7d-6b1d0b775d38/0_0.png",
               isChild: false,
               rarity: "Rare",
               tokenId: "45362345",
@@ -66,7 +71,8 @@ const orgChart = {
               tokenAddress: "0x71B43a66324C7b80468F1eE676E7FCDaF63eB6Ac",
             },
             nft2: {
-              image: "/sample-nfts/noun.png",
+              image:
+                "https://cdn.midjourney.com/a2297ad1-6f12-4170-b29b-1a911ba76dce/0_0.png",
               isChild: false,
               rarity: "Rare",
               tokenId: "45362345",
@@ -81,7 +87,8 @@ const orgChart = {
               attributes: {
                 relationship: "0x71B43a66324C7b80468F1eE676E7FCDaF63eB6Ac",
                 nft1: {
-                  image: "/sample-nfts/noun.png",
+                  image:
+                    "https://cdn.midjourney.com/a44a0796-8a95-4507-bde6-c4cd80e826bf/0_0.png",
                   isChild: false,
                   rarity: "Rare",
                   tokenId: "45362345",
@@ -90,7 +97,8 @@ const orgChart = {
                   tokenAddress: "0x71B43a66324C7b80468F1eE676E7FCDaF63eB6Ac",
                 },
                 nft2: {
-                  image: "/sample-nfts/noun.png",
+                  image:
+                    "https://cdn.midjourney.com/31f9f67e-1acf-4643-8189-7b02a613966f/0_0.png",
                   isChild: false,
                   rarity: "Rare",
                   tokenId: "45362345",
@@ -107,7 +115,8 @@ const orgChart = {
           attributes: {
             relationship: "0x71B43a66324C7b80468F1eE676E7FCDaF63eB6Ac",
             nft1: {
-              image: "/sample-nfts/noun.png",
+              image:
+                "https://cdn.midjourney.com/eaca9f3d-94ad-43eb-ae7d-6b1d0b775d38/0_2.png",
               isChild: false,
               rarity: "Rare",
               tokenId: "45362345",
@@ -116,7 +125,8 @@ const orgChart = {
               tokenAddress: "0x71B43a66324C7b80468F1eE676E7FCDaF63eB6Ac",
             },
             nft2: {
-              image: "/sample-nfts/noun.png",
+              image:
+                "https://cdn.midjourney.com/26d5a566-e213-43ee-87ca-96f20d613515/0_0.png",
               isChild: false,
               rarity: "Rare",
               tokenId: "45362345",
@@ -131,7 +141,8 @@ const orgChart = {
               attributes: {
                 relationship: "0x71B43a66324C7b80468F1eE676E7FCDaF63eB6Ac",
                 nft1: {
-                  image: "/sample-nfts/noun.png",
+                  image:
+                    "https://cdn.midjourney.com/d9222b6a-decc-4d47-9759-c74092a50867/0_0.png",
                   isChild: false,
                   rarity: "Rare",
                   tokenId: "45362345",
@@ -140,7 +151,8 @@ const orgChart = {
                   tokenAddress: "0x71B43a66324C7b80468F1eE676E7FCDaF63eB6Ac",
                 },
                 nft2: {
-                  image: "/sample-nfts/noun.png",
+                  image:
+                    "https://cdn.midjourney.com/31f9f67e-1acf-4643-8189-7b02a613966f/0_0.png",
                   isChild: false,
                   rarity: "Rare",
                   tokenId: "45362345",

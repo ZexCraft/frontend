@@ -2,7 +2,7 @@ import Layout from "@/components/Layout";
 import NFTCard from "@/components/NFTCard";
 import LoadingSpinner from "@/components/Spinner";
 import { shortenEthereumAddress } from "@/utils";
-import { abi, mumbaiDeployments, pegoDeployments } from "@/utils/constants";
+import { abi, testnetDeployments, mainnetDeployments } from "@/utils/constants";
 import resolveRarity from "@/utils/resolveRarity";
 import createNft from "@/utils/supabase/create-nft";
 import createRelationship from "@/utils/supabase/create-relationship";
@@ -49,9 +49,9 @@ export default function Relation() {
 
   const { writeAsync: createRelationshipFunction } = useContractWrite({
     address:
-      chain?.id == 80001
-        ? (mumbaiDeployments.relRegistry as `0x${string}`)
-        : (pegoDeployments.relRegistry as `0x${string}`),
+      chain?.id == 123456
+        ? (testnetDeployments.relRegistry as `0x${string}`)
+        : (mainnetDeployments.relRegistry as `0x${string}`),
     abi: abi.relRegistry,
     functionName: "createRelationship",
     onSuccess(data) {
@@ -60,9 +60,9 @@ export default function Relation() {
   });
   useContractEvent({
     address:
-      chain?.id == 80001
-        ? (mumbaiDeployments.relRegistry as `0x${string}`)
-        : (pegoDeployments.relRegistry as `0x${string}`),
+      chain?.id == 123456
+        ? (testnetDeployments.relRegistry as `0x${string}`)
+        : (mainnetDeployments.relRegistry as `0x${string}`),
     abi: abi.relRegistry,
     eventName: "RelationshipCreated",
     listener(log) {

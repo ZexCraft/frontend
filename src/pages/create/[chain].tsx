@@ -1,7 +1,7 @@
 import Layout from "@/components/Layout";
 import LoadingSpinner from "@/components/Spinner";
 import { capitalizeString, shortenEthereumAddress } from "@/utils";
-import { abi, mumbaiDeployments, pegoDeployments } from "@/utils/constants";
+import { abi, testnetDeployments, mainnetDeployments } from "@/utils/constants";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -34,26 +34,26 @@ export default function Generate() {
 
   const { writeAsync: createNftFunction } = useContractWrite({
     address:
-      chain?.id == 80001
-        ? (mumbaiDeployments.pegocraft as `0x${string}`)
-        : (pegoDeployments.pegocraft as `0x${string}`),
+      chain?.id == 123456
+        ? (testnetDeployments.pegoCraft as `0x${string}`)
+        : (mainnetDeployments.pegoCraft as `0x${string}`),
     abi: abi.pegoCraft,
     functionName: "createNft",
   });
   const { writeAsync: approve } = useContractWrite({
     address:
-      chain?.id == 80001
-        ? (mumbaiDeployments.craftToken as `0x${string}`)
-        : (pegoDeployments.craftToken as `0x${string}`),
+      chain?.id == 123456
+        ? (testnetDeployments.craftToken as `0x${string}`)
+        : (mainnetDeployments.craftToken as `0x${string}`),
     abi: abi.pegoCraft,
     functionName: "approve",
   });
 
   useContractEvent({
     address:
-      chain?.id == 80001
-        ? (mumbaiDeployments.craftToken as `0x${string}`)
-        : (pegoDeployments.craftToken as `0x${string}`),
+      chain?.id == 123456
+        ? (testnetDeployments.craftToken as `0x${string}`)
+        : (mainnetDeployments.craftToken as `0x${string}`),
     abi: abi.craftToken,
     eventName: "Approval",
     listener(log) {
@@ -77,9 +77,9 @@ export default function Generate() {
 
   useContractEvent({
     address:
-      chain?.id == 80001
-        ? (mumbaiDeployments.pegocraft as `0x${string}`)
-        : (pegoDeployments.pegocraft as `0x${string}`),
+      chain?.id == 123456
+        ? (testnetDeployments.pegoCraft as `0x${string}`)
+        : (mainnetDeployments.pegoCraft as `0x${string}`),
     abi: abi.pegoCraft,
     eventName: "Transfer",
     listener(log) {
@@ -107,9 +107,9 @@ export default function Generate() {
           image: image,
           imageAlt: imageAlt,
           contractAddress:
-            chain?.id == 80001
-              ? mumbaiDeployments.pegocraft
-              : pegoDeployments.pegocraft,
+            chain?.id == 123456
+              ? testnetDeployments.pegoCraft
+              : mainnetDeployments.pegoCraft,
           parent: args.to,
           rarity: Number(args.rarity),
           type: 0,
@@ -206,9 +206,9 @@ export default function Generate() {
                   try {
                     await approve({
                       args: [
-                        chain?.id == 80001
-                          ? mumbaiDeployments.pegocraft
-                          : pegoDeployments.pegocraft,
+                        chain?.id == 123456
+                          ? testnetDeployments.pegoCraft
+                          : mainnetDeployments.pegoCraft,
                         "100000000000000000",
                       ],
                     });
@@ -282,7 +282,7 @@ export default function Generate() {
 
                   try {
                     await createNftFunction({
-                      args: [fetchedImage.image, address, "0x"],
+                      args: [fetchedImage.image],
                     });
                     setImage(fetchedImage.image);
                     setImageAlt(fetchedImage.imageAlt);
