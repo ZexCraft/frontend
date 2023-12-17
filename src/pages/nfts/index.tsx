@@ -9,11 +9,22 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { useSignMessage } from "wagmi";
+import { useAccount, useNetwork, useSignMessage, useWalletClient } from "wagmi";
+
+import { WalletClient, encodePacked, keccak256, toBytes } from "viem";
+import signMessage from "@/utils/sign/signMessage";
+import getPermitSignature from "@/utils/getPermitSignature";
+
 export default function Nfts() {
   const [search, setSearch] = useState("");
   const [filters, setFilters] = useState(true);
+  const { address } = useAccount();
   const [nfts, setNfts] = useState([]);
+  const [tokenURI, setTokenURI] = useState("jeex");
+  const [signData, setSignData] = useState("");
+  const { data: walletClient } = useWalletClient();
+  const [sig, setSig] = useState("");
+
   useEffect(() => {
     (async function () {
       const nfts = await getNfts();
@@ -22,11 +33,18 @@ export default function Nfts() {
     })();
   }, []);
 
-  const { data, isError, isLoading, isSuccess, signMessage } = useSignMessage({
-    onSuccess(data, variables, context) {
-      console.log(data);
-    },
-  });
+  useEffect(() => {
+    const encodedData = keccak256(
+      encodePacked(
+        ["string", "string", "address"],
+        ["INCRAFT_MINT", tokenURI, address as `0x${string}`]
+      )
+    );
+    setSignData(encodedData);
+    console.log("encodedData");
+    console.log(encodedData);
+  }, [tokenURI, address]);
+
   return (
     <Layout>
       <div className="min-h-[90vh] mt-20">
@@ -39,11 +57,28 @@ export default function Nfts() {
                   ? "bg-[#d0d1d1] text-black"
                   : "bg-[#25272b] text-[#d0d1d1] hover:bg-[#303238]"
               } flex p-3 rounded-lg  `}
-              onClick={() => {
-                signMessage({ message: "whaats" });
-
-                // if (filters) setFilters(false);
-                // else setFilters(true);
+              onClick={async () => {
+                console.log("Token URI: ", tokenURI);
+                console.log("Addresss: ", address);
+                try {
+                  const { v, r, s } = await getPermitSignature({
+                    walletClient: walletClient as WalletClient,
+                    nonce: 0,
+                    name: "CraftToken",
+                    chainId: 80001,
+                    tokenAddress: "0x5193326E0fFD65C4433C2589466071dd831cd838",
+                    spender: "0x0429A2Da7884CA14E53142988D5845952fE4DF6a",
+                    value: "1000000000000000000",
+                    deadline:
+                      "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+                  });
+                  console.log("v: ", v);
+                  console.log("r: ", r);
+                  console.log("s: ", s);
+                } catch (e) {
+                  console.log(e);
+                }
+                //  setFilters(!filters);
               }}
             >
               <FontAwesomeIcon

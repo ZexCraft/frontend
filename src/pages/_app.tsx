@@ -8,6 +8,7 @@ import type { AppProps } from "next/app";
 import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { Chain, configureChains, createConfig, WagmiConfig } from "wagmi";
 import { publicProvider } from "wagmi/providers/public";
+import { polygonMumbai } from "viem/chains";
 
 const pegoMainnet: Chain = {
   name: "PEGO Mainnet",
@@ -61,7 +62,7 @@ const pegoTestnet: Chain = {
 };
 
 const { chains, publicClient } = configureChains(
-  [pegoMainnet, pegoTestnet],
+  [pegoMainnet, pegoTestnet, polygonMumbai],
   [publicProvider()]
 );
 

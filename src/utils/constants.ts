@@ -9,6 +9,7 @@ const mainnetDeployments = {
   craftToken: "0x5193326E0fFD65C4433C2589466071dd831cd838",
 };
 const abi = {
+  relationship: [],
   craftToken: [
     {
       inputs: [
