@@ -27,7 +27,8 @@ export default async function createNft(req: {
   try {
     const { data: fetchedNft, error: fetchError } = await supabase
       .from("nft")
-      .select("*");
+      .select("*")
+      .eq("address", address);
     console.log(fetchedNft);
 
     if (fetchError || fetchedNft == null || fetchedNft.length === 0) {

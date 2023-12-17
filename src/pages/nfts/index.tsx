@@ -118,7 +118,7 @@ export default function Nfts() {
                       image={nft.image}
                       imageAlt={nft.image_alt}
                       owner={nft.parent}
-                      address={nft.contract_address}
+                      address={nft.address}
                       rarity={resolveRarity(nft.rarity)}
                       tokenId={nft.token_id}
                       mode={nft.type == 0 ? "create ✨" : "breed ❤️"}

@@ -4,11 +4,10 @@
 
 1. Refactor NFT page UI
 
-   - Make supabase create NFT work
+   - Get Data from Supabase
 
 2. Refactor Create Relationship page UI
 
-   - Send Relationship Request
    - If you own the NFT, display all relationship requests. On relationship created, direct to relationship page confetti animation
    - If you do not own the NFT, show all of your NFTs to form the relationship.
 

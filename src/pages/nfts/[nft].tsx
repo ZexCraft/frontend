@@ -9,9 +9,12 @@ import {
 } from "@/utils/constants";
 import resolveRarity from "@/utils/resolveRarity";
 import signCreateRelationship from "@/utils/sign/signCreateRelationship";
+import createBreedRequest from "@/utils/supabase/create-breed-request";
 import createRelationship from "@/utils/supabase/create-relationship";
+import getBreedRequest from "@/utils/supabase/get-breed-request";
 import getNft from "@/utils/supabase/get-nft";
 import getNftsByOwner from "@/utils/supabase/get-nfts-by-owner";
+import Image from "next/image";
 
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -29,14 +32,34 @@ export default function Relation() {
   const { nft } = router.query;
   const [nftData, setNftData] = useState<any>(null);
   const [ownedNfts, setOwnedNfts] = useState<any>(null);
+  const [breedingRequests, setBreedingRequests] = useState<any>(null); // [nft1, nft2, relationship
   const [selectedIndex, setSelectedIndex] = useState(0);
   const { chain } = useNetwork();
   const { data: walletClient } = useWalletClient();
   const [state, setState] = useState(0);
 
   useEffect(() => {
+    if (ownedNfts == null) return;
+    if (nftData == null) return;
+    const requester = ownedNfts[selectedIndex].address;
+    const receiver = nftData.address;
+    console.log("GETTING BREED REQUEST");
+    console.log(requester);
+    console.log(receiver);
+    (async function () {
+      const result = await getBreedRequest({
+        requester,
+        receiver,
+      });
+      console.log(result);
+      if (result.response != null) {
+        setState(1);
+      } else {
+        setState(0);
+      }
+    })();
     // Check if the selected Index already sent breeding request
-  }, [selectedIndex]);
+  }, [selectedIndex, nftData, ownedNfts]);
 
   useEffect(() => {
     // Fetch relationship
@@ -45,13 +68,18 @@ export default function Relation() {
       const fetchedNft = await getNft({ address: nft as string });
       console.log(fetchedNft.response);
       setNftData(fetchedNft.response);
-
-      const data = await getNftsByOwner({ address: address as string });
-      console.log("Owned NFTs");
-      console.log(data);
-      setOwnedNfts(data.response);
+      if (fetchedNft.response) {
+        if (fetchedNft.response.parent == address) {
+          setBreedingRequests([]);
+        } else {
+          const data = await getNftsByOwner({ address: address as string });
+          console.log("Owned NFTs");
+          console.log(data);
+          setOwnedNfts(data.response);
+        }
+      }
     })();
-  }, [router.query]);
+  }, []);
 
   useContractEvent({
     address:
@@ -85,101 +113,6 @@ export default function Relation() {
   return (
     <Layout>
       <div className="min-h-[90vh] mt-20 w-[80%]  mx-auto flex space-x-32 justify-between">
-        <div>
-          <p className="text-4xl font-bold mb-8">Your NFTs</p>
-          <div className="grid grid-cols-5 space-x-8">
-            {ownedNfts &&
-              ownedNfts.length > 0 &&
-              ownedNfts.map((nft: any, index: number) => {
-                return (
-                  <div className=" border-[#3c3f41] border-2">
-                    <NFTCard
-                      image={nft.image}
-                      imageAlt={nft.image_alt}
-                      owner={nft.parent}
-                      address={nft.contract_address}
-                      rarity={resolveRarity(nft.rarity)}
-                      tokenId={nft.token_id}
-                      mode={nft.type == 0 ? "create ✨" : "breed ❤️"}
-                      size={200}
-                    />
-                    <div className="flex justify-center my-4">
-                      <button
-                        onClick={() => {
-                          setSelectedIndex(index);
-                        }}
-                        disabled={
-                          selectedIndex == index ||
-                          nftData.address == nft.contract_address
-                        }
-                        className={`${
-                          selectedIndex == index
-                            ? "bg-[#25272b] text-[#5b5e5b]"
-                            : nftData.address == nft.contract_address
-                            ? "bg-[#7c7c7c] text-[#2e3136] font-bold"
-                            : "bg-white text-black"
-                        }
-            px-4 py-2 rounded-xl font-semibold max-w-fit  `}
-                      >
-                        {nftData.address == nft.contract_address
-                          ? "Disabled ⛔"
-                          : selectedIndex == index
-                          ? "Selected ✅"
-                          : "Select"}
-                      </button>
-                    </div>
-                  </div>
-                );
-              })}
-          </div>
-          <p className="text-4xl font-bold mt-12 mb-8">Breeding Requests</p>
-          <div className="grid grid-cols-5 space-x-8">
-            {ownedNfts &&
-              ownedNfts.length > 0 &&
-              ownedNfts.map((nft: any, index: number) => {
-                return (
-                  <div className=" border-[#3c3f41] border-2">
-                    <NFTCard
-                      image={nft.image}
-                      imageAlt={nft.image_alt}
-                      owner={nft.parent}
-                      address={nft.contract_address}
-                      rarity={resolveRarity(nft.rarity)}
-                      tokenId={nft.token_id}
-                      mode={nft.type == 0 ? "create ✨" : "breed ❤️"}
-                      size={200}
-                    />
-                    <div className="flex justify-center my-4">
-                      <button
-                        onClick={() => {
-                          setSelectedIndex(index);
-                        }}
-                        disabled={
-                          selectedIndex == index ||
-                          nftData.address == nft.contract_address
-                        }
-                        className={`${
-                          selectedIndex == index
-                            ? "bg-[#25272b] text-[#5b5e5b]"
-                            : nftData.address == nft.contract_address
-                            ? "bg-[#7c7c7c] text-[#2e3136] font-bold"
-                            : "bg-white text-black"
-                        }
-            px-4 py-2 rounded-xl font-semibold max-w-fit  `}
-                      >
-                        {nftData.address == nft.contract_address
-                          ? "Disabled ⛔"
-                          : selectedIndex == index
-                          ? "Selected ✅"
-                          : "Select"}
-                      </button>
-                    </div>
-                  </div>
-                );
-              })}
-          </div>
-        </div>
-
         <div className="flex-1 flex flex-col justify-center">
           <div className="flex justify-center">
             {nftData != null && (
@@ -195,28 +128,153 @@ export default function Relation() {
               />
             )}
           </div>
-          <button
-            className={`${
-              state != 0 ? "bg-[#25272b] text-[#5b5e5b]" : "bg-white text-black"
-            } px-4 py-2 rounded-xl font-semibold max-w-fit mx-auto mt-14`}
-            onClick={async () => {
-              try {
-                const sig = await signCreateRelationship({
-                  walletClient: walletClient as WalletClient,
-                  breedingAccount: ownedNfts[selectedIndex]
-                    .contract_address as `0x${string}`,
-                  otherAccount: nftData.address as `0x${string}`,
-                });
-                setState(1);
+          {nftData && nftData.parent != address && (
+            <button
+              className={`${
+                state != 0
+                  ? "bg-[#25272b] text-[#5b5e5b]"
+                  : "bg-white text-black"
+              } px-4 py-2 rounded-xl font-semibold max-w-fit mx-auto mt-10`}
+              disabled={state != 0}
+              onClick={async () => {
+                try {
+                  const sig = await signCreateRelationship({
+                    walletClient: walletClient as WalletClient,
+                    breedingAccount: ownedNfts[selectedIndex]
+                      .address as `0x${string}`,
+                    otherAccount: nftData.address as `0x${string}`,
+                  });
+                  setState(1);
+                  createBreedRequest({
+                    receiver: nftData.address,
+                    requester: ownedNfts[selectedIndex].address,
+                    signature: sig,
+                  });
+                  // Send it to the backend
+                } catch (e) {
+                  console.log(e);
+                }
+              }}
+            >
+              {state == 0 ? "Create Relationship 💘" : "Request Sent ⏳"}
+            </button>
+          )}
+        </div>
+        <div className="min-w-[60%] text-center">
+          {ownedNfts && <p className="text-4xl font-bold mb-8">Your NFTs</p>}
+          <div className="grid grid-cols-4 space-x-8 space-y-8">
+            {ownedNfts &&
+              ownedNfts.length > 0 &&
+              ownedNfts.map((nft: any, index: number) => {
+                return (
+                  <div className="my-8 mx-4">
+                    <NFTCard
+                      image={nft.image}
+                      imageAlt={nft.image_alt}
+                      owner={nft.parent}
+                      address={nft.contract_address}
+                      rarity={resolveRarity(nft.rarity)}
+                      tokenId={nft.token_id}
+                      mode={nft.type == 0 ? "create ✨" : "breed ❤️"}
+                      size={200}
+                    />
 
-                // Send it to the backend
-              } catch (e) {
-                console.log(e);
-              }
-            }}
-          >
-            {state == 0 ? "Create Relationship 💘" : "Request Sent ✅"}
-          </button>
+                    <div className="flex justify-center my-4">
+                      <button
+                        onClick={() => {
+                          setSelectedIndex(index);
+                        }}
+                        disabled={
+                          selectedIndex == index ||
+                          nftData.address == nft.contract_address
+                        }
+                        className={`${
+                          selectedIndex == index
+                            ? "bg-[#25272b] text-[#5b5e5b]"
+                            : nftData.address == nft.contract_address
+                            ? "bg-[#7c7c7c] text-[#2e3136] font-bold"
+                            : "bg-white text-black"
+                        }
+            px-4 py-2 rounded-xl font-semibold max-w-fit  `}
+                      >
+                        {nftData.address == nft.contract_address
+                          ? "Disabled ⛔"
+                          : selectedIndex == index
+                          ? "Selected ✅"
+                          : "Select 🧿"}
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
+          </div>
+          {breedingRequests && (
+            <p className="text-4xl font-bold mb-12">Breeding Requests</p>
+          )}
+          {breedingRequests && breedingRequests.length > 0 ? (
+            <div className="grid grid-cols-2 space-x-8">
+              {breedingRequests.map((req: any, index: number) => {
+                return (
+                  <div className=" border-[#3c3f41] border-2">
+                    <NFTCard
+                      image={req.image}
+                      imageAlt={req.image_alt}
+                      owner={req.parent}
+                      address={req.contract_address}
+                      rarity={resolveRarity(req.rarity)}
+                      tokenId={req.token_id}
+                      mode={req.type == 0 ? "create ✨" : "breed ❤️"}
+                      size={200}
+                    />
+                    <div className="flex justify-center my-4">
+                      <button
+                        onClick={() => {
+                          setSelectedIndex(index);
+                        }}
+                        disabled={
+                          selectedIndex == index ||
+                          nftData.address == req.contract_address
+                        }
+                        className={`${
+                          selectedIndex == index
+                            ? "bg-[#25272b] text-[#5b5e5b]"
+                            : nftData.address == req.contract_address
+                            ? "bg-[#7c7c7c] text-[#2e3136] font-bold"
+                            : "bg-white text-black"
+                        }
+px-4 py-2 rounded-xl font-semibold max-w-fit  `}
+                      >
+                        {nftData.address == req.contract_address
+                          ? "Disabled ⛔"
+                          : selectedIndex == index
+                          ? "Selected ✅"
+                          : "Select"}
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            breedingRequests &&
+            breedingRequests.length == 0 && (
+              <div className="flex flex-col text-[#9c9c9e] justify-center items-center h-full">
+                <Image
+                  src="/animations/sad.gif"
+                  width={350}
+                  height={350}
+                  alt="sad cat"
+                  className="mb-16 rounded-xl"
+                />
+                <p className="font-semibold text-lg">
+                  Your NFT does not have any breeding requests yet 🥲
+                </p>
+                <p className="font-semibold text-lg">
+                  Purchase boosts and keep hustling 🚀
+                </p>
+              </div>
+            )
+          )}
         </div>
       </div>
     </Layout>
