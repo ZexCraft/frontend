@@ -10,59 +10,33 @@ import { Chain, configureChains, createConfig, WagmiConfig } from "wagmi";
 import { publicProvider } from "wagmi/providers/public";
 import { polygonMumbai } from "viem/chains";
 
-const pegoMainnet: Chain = {
-  name: "PEGO Mainnet",
-  id: 20201022,
-  network: "pego-mainnet",
-  nativeCurrency: { name: "PEGO", symbol: "PG", decimals: 18 },
+const injectiveDevnet: Chain = {
+  name: "Injective EVM",
+  id: 1738,
+  network: "injective",
+  nativeCurrency: { name: "INJECTIVE", symbol: "INJ", decimals: 18 },
   rpcUrls: {
     default: {
-      http: ["https://pegorpc.com"],
+      http: ["https://inevm-rpc.caldera.dev"],
     },
     public: {
-      http: ["https://pegorpc.com"],
+      http: ["https://inevm-rpc.caldera.dev"],
     },
   },
   blockExplorers: {
     etherscan: {
-      name: "PEGO Scan",
-      url: "https://scan.pego.network",
+      name: "Injective Caldera Explorer",
+      url: "https://inevm.calderaexplorer.xyz/",
     },
     default: {
-      name: "PEGO Scan",
-      url: "https://scan.pego.network",
-    },
-  },
-  testnet: false,
-};
-const pegoTestnet: Chain = {
-  name: "PEGO Testnet",
-  id: 123456,
-  network: "pego-testnet",
-  nativeCurrency: { name: "TestPEGO", symbol: "tPG", decimals: 18 },
-  rpcUrls: {
-    default: {
-      http: ["https://rpc.pegotest.net/"],
-    },
-    public: {
-      http: ["https://rpc.pegotest.net/"],
-    },
-  },
-  blockExplorers: {
-    etherscan: {
-      name: "PEGO Scan",
-      url: "https://scan.pegotest.net/",
-    },
-    default: {
-      name: "PEGO Scan",
-      url: "https://scan.pegotest.net/",
+      name: "Injective Caldera Explorer",
+      url: "https://inevm.calderaexplorer.xyz/",
     },
   },
   testnet: true,
 };
-
 const { chains, publicClient } = configureChains(
-  [pegoMainnet, pegoTestnet, polygonMumbai],
+  [injectiveDevnet, polygonMumbai],
   [publicProvider()]
 );
 

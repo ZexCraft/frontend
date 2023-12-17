@@ -3,7 +3,11 @@ import NFTCard from "@/components/NFTCard";
 import LoadingSpinner from "@/components/Spinner";
 import useWindowSize from "@/hooks/useWindowSize";
 import { shortenEthereumAddress } from "@/utils";
-import { abi, testnetDeployments, mainnetDeployments } from "@/utils/constants";
+import {
+  abi,
+  mumbaiDeployments,
+  injectiveDeployments,
+} from "@/utils/constants";
 import resolveRarity from "@/utils/resolveRarity";
 import createNft from "@/utils/supabase/create-nft";
 import getNft from "@/utils/supabase/get-nft";
@@ -67,26 +71,26 @@ export default function Relation() {
 
   const { writeAsync: createNftFunction } = useContractWrite({
     address:
-      chain?.id == 123456
-        ? (testnetDeployments.inCraft as `0x${string}`)
-        : (mainnetDeployments.inCraft as `0x${string}`),
+      chain?.id == 80001
+        ? (mumbaiDeployments.inCraft as `0x${string}`)
+        : (injectiveDeployments.inCraft as `0x${string}`),
     abi: abi.inCraft,
     functionName: "createNft",
   });
   const { writeAsync: approve } = useContractWrite({
     address:
-      chain?.id == 123456
-        ? (testnetDeployments.craftToken as `0x${string}`)
-        : (mainnetDeployments.craftToken as `0x${string}`),
+      chain?.id == 80001
+        ? (mumbaiDeployments.craftToken as `0x${string}`)
+        : (injectiveDeployments.craftToken as `0x${string}`),
     abi: abi.craftToken,
     functionName: "approve",
   });
 
   useContractEvent({
     address:
-      chain?.id == 123456
-        ? (testnetDeployments.craftToken as `0x${string}`)
-        : (mainnetDeployments.craftToken as `0x${string}`),
+      chain?.id == 80001
+        ? (mumbaiDeployments.craftToken as `0x${string}`)
+        : (injectiveDeployments.craftToken as `0x${string}`),
     abi: abi.craftToken,
     eventName: "Approval",
     listener(log) {
@@ -110,9 +114,9 @@ export default function Relation() {
 
   useContractEvent({
     address:
-      chain?.id == 123456
-        ? (testnetDeployments.inCraft as `0x${string}`)
-        : (mainnetDeployments.inCraft as `0x${string}`),
+      chain?.id == 80001
+        ? (mumbaiDeployments.inCraft as `0x${string}`)
+        : (injectiveDeployments.inCraft as `0x${string}`),
     abi: abi.inCraft,
     eventName: "Transfer",
     listener(log) {
@@ -140,9 +144,9 @@ export default function Relation() {
         image: image,
         imageAlt: imageAlt,
         contractAddress:
-          chain?.id == 123456
-            ? testnetDeployments.inCraft
-            : mainnetDeployments.inCraft,
+          chain?.id == 80001
+            ? mumbaiDeployments.inCraft
+            : injectiveDeployments.inCraft,
         parent: args.to,
         rarity: Number(88),
         type: 0,
@@ -297,9 +301,9 @@ export default function Relation() {
                       try {
                         await approve({
                           args: [
-                            chain?.id == 123456
-                              ? testnetDeployments.inCraft
-                              : mainnetDeployments.inCraft,
+                            chain?.id == 80001
+                              ? mumbaiDeployments.inCraft
+                              : injectiveDeployments.inCraft,
                             "100000000000000000",
                           ],
                         });

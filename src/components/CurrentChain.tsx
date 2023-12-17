@@ -33,14 +33,14 @@ const CurrentChain = () => {
             ? ""
             : chain.name == "Polygon Mumbai"
             ? "/tech/polygon.png"
-            : chain.name == "PEGO Mainnet" || chain.name == "PEGO Testnet"
-            ? "/tech/pego.png"
+            : chain.name == "Injective EVM"
+            ? "/tech/injective.png"
             : "/wrong.png"
         }
         width={25}
         height={25}
         alt="chain"
-        className="mr-2"
+        className="mr-2 "
       />
       <p className="font-theme text-[#201c1c] text-md font-bold">
         {chain == undefined

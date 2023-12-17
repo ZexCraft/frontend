@@ -1,12 +1,20 @@
-const testnetDeployments = {
-  relRegistry: "0xAa25e4A9db1F3e493B9a20279572e4F15Ce6eEa2",
-  inCraft: "0x649d81f1A8F4097eccA7ae1076287616E433c5E8",
-  craftToken: "0x9b7a42bFE8f8Df9d43f368Baf9480fB7193Cf06a",
+const mumbaiDeployments = {
+  implementation: "0x29f42484e15709b60cDC89A1f102fa9a563Cf608",
+  registry: "0x170d6BC5cb1FF0f44dA7D59fC0DEEa6c42a5f412",
+  relImplementation: "0xBE3D118760d9be86688D88929c2122cEc9Ec4635",
+  relRegistry: "0x4393eD225A2F48C27eA6CeBec139190cb8EA8A5F",
+  inCraft: "0x9FafD4cB45410a931b538F1D97EFCC28b147E449",
+  mintFee: "100000000000000000",
+  craftToken: "0x5494EE4a6d7D087DEbAfc2C16340cCE93f763D38",
 };
-const mainnetDeployments = {
-  relRegistry: "0x0c8b10bA7bA983AD927DDf3C426a661e280DC243",
-  inCraft: "0x1e167D5Cc4F0CaD6d12c5Aea356e780dE60dE437",
-  craftToken: "0x5193326E0fFD65C4433C2589466071dd831cd838",
+const injectiveDeployments = {
+  implementation: "0x29f42484e15709b60cDC89A1f102fa9a563Cf608",
+  registry: "0x170d6BC5cb1FF0f44dA7D59fC0DEEa6c42a5f412",
+  relImplementation: "0xBE3D118760d9be86688D88929c2122cEc9Ec4635",
+  relRegistry: "0x4393eD225A2F48C27eA6CeBec139190cb8EA8A5F",
+  inCraft: "0x9FafD4cB45410a931b538F1D97EFCC28b147E449",
+  mintFee: "100000000000000000",
+  craftToken: "0xD1dfbEd2a946a81324ed59D4C1396BB65aBa99B0",
 };
 const abi = {
   relationship: [],
@@ -21,6 +29,33 @@ const abi = {
       ],
       stateMutability: "nonpayable",
       type: "constructor",
+    },
+    {
+      inputs: [],
+      name: "ECDSAInvalidSignature",
+      type: "error",
+    },
+    {
+      inputs: [
+        {
+          internalType: "uint256",
+          name: "length",
+          type: "uint256",
+        },
+      ],
+      name: "ECDSAInvalidSignatureLength",
+      type: "error",
+    },
+    {
+      inputs: [
+        {
+          internalType: "bytes32",
+          name: "s",
+          type: "bytes32",
+        },
+      ],
+      name: "ECDSAInvalidSignatureS",
+      type: "error",
     },
     {
       inputs: [
@@ -267,61 +302,6 @@ const abi = {
       type: "function",
     },
     {
-      inputs: [
-        {
-          internalType: "uint256",
-          name: "value",
-          type: "uint256",
-        },
-      ],
-      name: "burn",
-      outputs: [],
-      stateMutability: "nonpayable",
-      type: "function",
-    },
-    {
-      inputs: [
-        {
-          internalType: "address",
-          name: "account",
-          type: "address",
-        },
-        {
-          internalType: "uint256",
-          name: "value",
-          type: "uint256",
-        },
-      ],
-      name: "burnFrom",
-      outputs: [],
-      stateMutability: "nonpayable",
-      type: "function",
-    },
-    {
-      inputs: [
-        {
-          internalType: "address",
-          name: "creator",
-          type: "address",
-        },
-        {
-          internalType: "uint256",
-          name: "amount",
-          type: "uint256",
-        },
-      ],
-      name: "burnTokens",
-      outputs: [
-        {
-          internalType: "bool",
-          name: "",
-          type: "bool",
-        },
-      ],
-      stateMutability: "nonpayable",
-      type: "function",
-    },
-    {
       inputs: [],
       name: "decimals",
       outputs: [
@@ -374,6 +354,25 @@ const abi = {
       type: "function",
     },
     {
+      inputs: [
+        {
+          internalType: "address",
+          name: "",
+          type: "address",
+        },
+      ],
+      name: "nonces",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
       inputs: [],
       name: "owner",
       outputs: [
@@ -384,6 +383,39 @@ const abi = {
         },
       ],
       stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "address",
+          name: "owner",
+          type: "address",
+        },
+        {
+          internalType: "uint256",
+          name: "amount",
+          type: "uint256",
+        },
+        {
+          internalType: "address",
+          name: "spender",
+          type: "address",
+        },
+        {
+          internalType: "uint256",
+          name: "deadline",
+          type: "uint256",
+        },
+        {
+          internalType: "bytes",
+          name: "signature",
+          type: "bytes",
+        },
+      ],
+      name: "permit",
+      outputs: [],
+      stateMutability: "nonpayable",
       type: "function",
     },
     {
@@ -485,6 +517,35 @@ const abi = {
       stateMutability: "nonpayable",
       type: "function",
     },
+    {
+      inputs: [
+        {
+          internalType: "address",
+          name: "creator",
+          type: "address",
+        },
+        {
+          internalType: "bytes32",
+          name: "dataHash",
+          type: "bytes32",
+        },
+        {
+          internalType: "bytes",
+          name: "signature",
+          type: "bytes",
+        },
+      ],
+      name: "verifySignature",
+      outputs: [
+        {
+          internalType: "bool",
+          name: "",
+          type: "bool",
+        },
+      ],
+      stateMutability: "pure",
+      type: "function",
+    },
   ],
   inCraft: [
     {
@@ -495,8 +556,8 @@ const abi = {
           type: "address",
         },
         {
-          internalType: "address",
-          name: "accountRegistry",
+          internalType: "contract IERC6551Registry",
+          name: "_accountRegistry",
           type: "address",
         },
         {
@@ -507,6 +568,33 @@ const abi = {
       ],
       stateMutability: "nonpayable",
       type: "constructor",
+    },
+    {
+      inputs: [],
+      name: "ECDSAInvalidSignature",
+      type: "error",
+    },
+    {
+      inputs: [
+        {
+          internalType: "uint256",
+          name: "length",
+          type: "uint256",
+        },
+      ],
+      name: "ECDSAInvalidSignatureLength",
+      type: "error",
+    },
+    {
+      inputs: [
+        {
+          internalType: "bytes32",
+          name: "s",
+          type: "bytes32",
+        },
+      ],
+      name: "ECDSAInvalidSignatureS",
+      type: "error",
     },
     {
       inputs: [
@@ -612,28 +700,6 @@ const abi = {
       type: "error",
     },
     {
-      inputs: [
-        {
-          internalType: "address",
-          name: "owner",
-          type: "address",
-        },
-      ],
-      name: "OwnableInvalidOwner",
-      type: "error",
-    },
-    {
-      inputs: [
-        {
-          internalType: "address",
-          name: "account",
-          type: "address",
-        },
-      ],
-      name: "OwnableUnauthorizedAccount",
-      type: "error",
-    },
-    {
       anonymous: false,
       inputs: [
         {
@@ -708,38 +774,6 @@ const abi = {
         {
           indexed: false,
           internalType: "uint256",
-          name: "_tokenId",
-          type: "uint256",
-        },
-      ],
-      name: "MetadataUpdate",
-      type: "event",
-    },
-    {
-      anonymous: false,
-      inputs: [
-        {
-          indexed: true,
-          internalType: "address",
-          name: "previousOwner",
-          type: "address",
-        },
-        {
-          indexed: true,
-          internalType: "address",
-          name: "newOwner",
-          type: "address",
-        },
-      ],
-      name: "OwnershipTransferred",
-      type: "event",
-    },
-    {
-      anonymous: false,
-      inputs: [
-        {
-          indexed: false,
-          internalType: "uint256",
           name: "tokenId",
           type: "uint256",
         },
@@ -756,50 +790,16 @@ const abi = {
           type: "address",
         },
         {
-          components: [
-            {
-              internalType: "address",
-              name: "tokenAddress",
-              type: "address",
-            },
-            {
-              internalType: "uint256",
-              name: "tokenId",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "chainId",
-              type: "uint256",
-            },
-          ],
           indexed: false,
-          internalType: "struct NFT",
+          internalType: "address",
           name: "parent1",
-          type: "tuple",
+          type: "address",
         },
         {
-          components: [
-            {
-              internalType: "address",
-              name: "tokenAddress",
-              type: "address",
-            },
-            {
-              internalType: "uint256",
-              name: "tokenId",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "chainId",
-              type: "uint256",
-            },
-          ],
           indexed: false,
-          internalType: "struct NFT",
+          internalType: "address",
           name: "parent2",
-          type: "tuple",
+          type: "address",
         },
         {
           indexed: false,
@@ -870,6 +870,19 @@ const abi = {
       anonymous: false,
       inputs: [
         {
+          indexed: false,
+          internalType: "uint256",
+          name: "_tokenId",
+          type: "uint256",
+        },
+      ],
+      name: "MetadataUpdate",
+      type: "event",
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
           indexed: true,
           internalType: "address",
           name: "from",
@@ -890,6 +903,19 @@ const abi = {
       ],
       name: "Transfer",
       type: "event",
+    },
+    {
+      inputs: [],
+      name: "MINT_ACTION",
+      outputs: [
+        {
+          internalType: "string",
+          name: "",
+          type: "string",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
     },
     {
       inputs: [],
@@ -976,63 +1002,19 @@ const abi = {
     {
       inputs: [
         {
-          components: [
-            {
-              internalType: "address",
-              name: "tokenAddress",
-              type: "address",
-            },
-            {
-              internalType: "uint256",
-              name: "tokenId",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "chainId",
-              type: "uint256",
-            },
-          ],
-          internalType: "struct NFT",
-          name: "nft1",
-          type: "tuple",
+          internalType: "address",
+          name: "nft1Address",
+          type: "address",
         },
         {
-          components: [
-            {
-              internalType: "address",
-              name: "tokenAddress",
-              type: "address",
-            },
-            {
-              internalType: "uint256",
-              name: "tokenId",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "chainId",
-              type: "uint256",
-            },
-          ],
-          internalType: "struct NFT",
-          name: "nft2",
-          type: "tuple",
+          internalType: "address",
+          name: "nft2Address",
+          type: "address",
         },
         {
           internalType: "string",
           name: "tokenURI",
           type: "string",
-        },
-        {
-          internalType: "bytes",
-          name: "createBabyData",
-          type: "bytes",
-        },
-        {
-          internalType: "bytes",
-          name: "signatures",
-          type: "bytes",
         },
       ],
       name: "createBaby",
@@ -1052,6 +1034,21 @@ const abi = {
           internalType: "string",
           name: "tokenURI",
           type: "string",
+        },
+        {
+          internalType: "address",
+          name: "creator",
+          type: "address",
+        },
+        {
+          internalType: "bytes",
+          name: "permitTokensSignature",
+          type: "bytes",
+        },
+        {
+          internalType: "bytes",
+          name: "createNftSignature",
+          type: "bytes",
         },
       ],
       name: "createNft",
@@ -1149,7 +1146,7 @@ const abi = {
     },
     {
       inputs: [],
-      name: "owner",
+      name: "operator",
       outputs: [
         {
           internalType: "address",
@@ -1209,13 +1206,6 @@ const abi = {
         },
       ],
       stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [],
-      name: "renounceOwnership",
-      outputs: [],
-      stateMutability: "nonpayable",
       type: "function",
     },
     {
@@ -1391,13 +1381,29 @@ const abi = {
       inputs: [
         {
           internalType: "address",
-          name: "newOwner",
+          name: "creator",
           type: "address",
         },
+        {
+          internalType: "bytes32",
+          name: "dataHash",
+          type: "bytes32",
+        },
+        {
+          internalType: "bytes",
+          name: "signature",
+          type: "bytes",
+        },
       ],
-      name: "transferOwnership",
-      outputs: [],
-      stateMutability: "nonpayable",
+      name: "verifySignature",
+      outputs: [
+        {
+          internalType: "bool",
+          name: "",
+          type: "bool",
+        },
+      ],
+      stateMutability: "pure",
       type: "function",
     },
   ],
@@ -2177,4 +2183,4 @@ const abi = {
     },
   ],
 };
-export { testnetDeployments, mainnetDeployments, abi };
+export { mumbaiDeployments, injectiveDeployments, abi };

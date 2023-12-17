@@ -14,7 +14,11 @@ import {
   useNetwork,
 } from "wagmi";
 import NavItem from "./NavItem";
-import { abi, testnetDeployments, mainnetDeployments } from "@/utils/constants";
+import {
+  abi,
+  mumbaiDeployments,
+  injectiveDeployments,
+} from "@/utils/constants";
 const ConnectButton = () => {
   const { openConnectModal } = useConnectModal();
   const { openAccountModal } = useAccountModal();
@@ -29,9 +33,9 @@ const ConnectButton = () => {
     write: mint,
   } = useContractWrite({
     address:
-      chain?.id == 123456
-        ? (testnetDeployments.craftToken as `0x${string}`)
-        : (mainnetDeployments.craftToken as `0x${string}`),
+      chain?.id == 80001
+        ? (mumbaiDeployments.craftToken as `0x${string}`)
+        : (injectiveDeployments.craftToken as `0x${string}`),
     abi: abi.craftToken,
     functionName: "mint",
     onSuccess(data) {
@@ -41,9 +45,9 @@ const ConnectButton = () => {
 
   useContractEvent({
     address:
-      chain?.id == 123456
-        ? (testnetDeployments.craftToken as `0x${string}`)
-        : (mainnetDeployments.craftToken as `0x${string}`),
+      chain?.id == 80001
+        ? (mumbaiDeployments.craftToken as `0x${string}`)
+        : (injectiveDeployments.craftToken as `0x${string}`),
     abi: abi.inCraft,
     eventName: "Transfer",
     listener(log) {

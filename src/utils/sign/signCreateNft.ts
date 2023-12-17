@@ -1,6 +1,6 @@
-import { WalletClient, encodePacked, toBytes } from "viem";
+import { WalletClient, encodePacked, toBytes, keccak256 } from "viem";
 
-export default async function signCreateBaby(args: {
+export default async function signCreateNft(args: {
   walletClient: WalletClient;
   tokenURI: string;
   creator: `0x${string}`;
@@ -17,9 +17,11 @@ export default async function signCreateBaby(args: {
     account,
     message: {
       raw: toBytes(
-        encodePacked(
-          ["string", "string", "address"],
-          [MINT_ACTION, tokenURI, creator]
+        keccak256(
+          encodePacked(
+            ["string", "string", "address"],
+            [MINT_ACTION, tokenURI, creator]
+          )
         )
       ),
     },
