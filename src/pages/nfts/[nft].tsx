@@ -117,6 +117,10 @@ export default function Relation() {
                         onClick={() => {
                           setSelectedIndex(index);
                         }}
+                        disabled={
+                          selectedIndex == index ||
+                          nftData.address == nft.contract_address
+                        }
                         className={`${
                           selectedIndex == index
                             ? "bg-[#25272b] text-[#5b5e5b]"
@@ -124,7 +128,11 @@ export default function Relation() {
                         }
             px-4 py-2 rounded-xl font-semibold max-w-fit  `}
                       >
-                        {selectedIndex == index ? "Selected ✅" : "Select"}
+                        {nftData.address == nft.contract_address
+                          ? "Disabled ⛔"
+                          : selectedIndex == index
+                          ? "Selected ✅"
+                          : "Select"}
                       </button>
                     </div>
                   </div>
