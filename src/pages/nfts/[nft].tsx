@@ -8,23 +8,19 @@ import {
   injectiveDeployments,
 } from "@/utils/constants";
 import resolveRarity from "@/utils/resolveRarity";
-import createNft from "@/utils/supabase/create-nft";
+import signCreateRelationship from "@/utils/sign/signCreateRelationship";
 import createRelationship from "@/utils/supabase/create-relationship";
 import getNft from "@/utils/supabase/get-nft";
 import getNftsByOwner from "@/utils/supabase/get-nfts-by-owner";
-import getRelationship from "@/utils/supabase/get-relationship";
-import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Image from "next/image";
-import Link from "next/link";
+
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { decodeEventLog } from "viem";
+import { WalletClient, decodeEventLog } from "viem";
 import {
   useAccount,
   useContractEvent,
-  useContractWrite,
   useNetwork,
+  useWalletClient,
 } from "wagmi";
 
 export default function Relation() {
@@ -35,7 +31,13 @@ export default function Relation() {
   const [ownedNfts, setOwnedNfts] = useState<any>(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const { chain } = useNetwork();
+  const { data: walletClient } = useWalletClient();
   const [state, setState] = useState(0);
+
+  useEffect(() => {
+    // Check if the selected Index already sent breeding request
+  }, [selectedIndex]);
+
   useEffect(() => {
     // Fetch relationship
     (async function () {
@@ -51,17 +53,6 @@ export default function Relation() {
     })();
   }, [router.query]);
 
-  const { writeAsync: createRelationshipFunction } = useContractWrite({
-    address:
-      chain?.id == 80001
-        ? (mumbaiDeployments.relRegistry as `0x${string}`)
-        : (injectiveDeployments.relRegistry as `0x${string}`),
-    abi: abi.relRegistry,
-    functionName: "createRelationship",
-    onSuccess(data) {
-      console.log("Hash: ", data.hash);
-    },
-  });
   useContractEvent({
     address:
       chain?.id == 80001
@@ -96,7 +87,7 @@ export default function Relation() {
       <div className="min-h-[90vh] mt-20 w-[80%]  mx-auto flex space-x-32 justify-between">
         <div>
           <p className="text-4xl font-bold mb-8">Your NFTs</p>
-          <div className="grid grid-cols-3 space-x-8">
+          <div className="grid grid-cols-5 space-x-8">
             {ownedNfts &&
               ownedNfts.length > 0 &&
               ownedNfts.map((nft: any, index: number) => {
@@ -124,6 +115,54 @@ export default function Relation() {
                         className={`${
                           selectedIndex == index
                             ? "bg-[#25272b] text-[#5b5e5b]"
+                            : nftData.address == nft.contract_address
+                            ? "bg-[#7c7c7c] text-[#2e3136] font-bold"
+                            : "bg-white text-black"
+                        }
+            px-4 py-2 rounded-xl font-semibold max-w-fit  `}
+                      >
+                        {nftData.address == nft.contract_address
+                          ? "Disabled ⛔"
+                          : selectedIndex == index
+                          ? "Selected ✅"
+                          : "Select"}
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
+          </div>
+          <p className="text-4xl font-bold mt-12 mb-8">Breeding Requests</p>
+          <div className="grid grid-cols-5 space-x-8">
+            {ownedNfts &&
+              ownedNfts.length > 0 &&
+              ownedNfts.map((nft: any, index: number) => {
+                return (
+                  <div className=" border-[#3c3f41] border-2">
+                    <NFTCard
+                      image={nft.image}
+                      imageAlt={nft.image_alt}
+                      owner={nft.parent}
+                      address={nft.contract_address}
+                      rarity={resolveRarity(nft.rarity)}
+                      tokenId={nft.token_id}
+                      mode={nft.type == 0 ? "create ✨" : "breed ❤️"}
+                      size={200}
+                    />
+                    <div className="flex justify-center my-4">
+                      <button
+                        onClick={() => {
+                          setSelectedIndex(index);
+                        }}
+                        disabled={
+                          selectedIndex == index ||
+                          nftData.address == nft.contract_address
+                        }
+                        className={`${
+                          selectedIndex == index
+                            ? "bg-[#25272b] text-[#5b5e5b]"
+                            : nftData.address == nft.contract_address
+                            ? "bg-[#7c7c7c] text-[#2e3136] font-bold"
                             : "bg-white text-black"
                         }
             px-4 py-2 rounded-xl font-semibold max-w-fit  `}
@@ -161,21 +200,22 @@ export default function Relation() {
               state != 0 ? "bg-[#25272b] text-[#5b5e5b]" : "bg-white text-black"
             } px-4 py-2 rounded-xl font-semibold max-w-fit mx-auto mt-14`}
             onClick={async () => {
-              setState(1);
               try {
-                await createRelationshipFunction({
-                  args: [],
+                const sig = await signCreateRelationship({
+                  walletClient: walletClient as WalletClient,
+                  breedingAccount: ownedNfts[selectedIndex]
+                    .contract_address as `0x${string}`,
+                  otherAccount: nftData.address as `0x${string}`,
                 });
+                setState(1);
+
+                // Send it to the backend
               } catch (e) {
                 console.log(e);
               }
             }}
           >
-            {state == 0
-              ? "Create Relationship 💘"
-              : state == 1
-              ? "Loading..."
-              : "Done ✅"}
+            {state == 0 ? "Create Relationship 💘" : "Request Sent ✅"}
           </button>
         </div>
       </div>

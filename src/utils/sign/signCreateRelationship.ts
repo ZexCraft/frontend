@@ -1,4 +1,4 @@
-import { WalletClient, encodePacked, toBytes } from "viem";
+import { WalletClient, encodePacked, keccak256, toBytes } from "viem";
 
 export default async function signCreateRelationship(args: {
   walletClient: WalletClient;
@@ -15,7 +15,9 @@ export default async function signCreateRelationship(args: {
     account,
     message: {
       raw: toBytes(
-        encodePacked(["address", "address"], [breedingAccount, otherAccount])
+        keccak256(
+          encodePacked(["address", "address"], [breedingAccount, otherAccount])
+        )
       ),
     },
   });
