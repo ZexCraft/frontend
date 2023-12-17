@@ -19,10 +19,11 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Confetti from "react-confetti";
-import { decodeEventLog } from "viem";
+import { decodeEventLog, formatUnits } from "viem";
 import {
   useAccount,
   useContractEvent,
+  useContractRead,
   useContractWrite,
   useNetwork,
 } from "wagmi";
@@ -68,6 +69,13 @@ export default function Relation() {
       setNft2(nft2.response);
     })();
   }, [router.query]);
+
+  const { data: balance, refetch: fetchBalance } = useContractRead({
+    address: relation as `0x${string}`,
+    abi: abi.craftToken,
+    functionName: "balanceOf",
+    args: [address],
+  });
 
   const { writeAsync: createNftFunction } = useContractWrite({
     address:
@@ -174,7 +182,7 @@ export default function Relation() {
   }
   return (
     <Layout>
-      <div className="min-h-[90vh] mt-20 w-[80%]  mx-auto flex space-x-32 justify-between">
+      <div className="min-h-[90vh] mt-20 w-[80%]  mx-auto flex space-x-32 justify-between text-center">
         {confettiAnimation && <Confetti width={width} height={height} />}
         <div className="flex flex-col justify-center">
           {nft1 != null && (
@@ -208,7 +216,15 @@ export default function Relation() {
               className="text-[#9c9e9e] text-sm font-normal my-auto"
             />
           </Link>
-          <div className="flex mt-16">
+          <p className="mt-4 font-semibold text-2xl">Balance</p>
+          <p className="mt-1 text-[#9c9e9e] font-semibold text-lg">
+            {formatUnits(
+              balance != undefined ? (balance as bigint) : BigInt(0),
+              18
+            )}{" "}
+            CFT
+          </p>
+          <div className="flex justify-center mt-10">
             <button
               onClick={() => {
                 setSelected(0);
