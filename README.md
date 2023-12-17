@@ -3,9 +3,22 @@
 ### Frontend
 
 1. Refactor NFT page UI
-2. Refactor Relationship page UI
 
-3. Tree???
+   - Instead of first transaction make signature
+   - Instead of second transaction make user sign
+     - Setup api/ to receive and make a transaction using DEV wallet
+     - Send transaction hash back
+   - Display transaction hash
+   - Make supabase create NFT work
+
+2. Refactor Create Relationship page UI
+
+   - Send Relationship Request
+   - If you own the NFT, display all relationship requests. On relationship created, direct to relationship page confetti animation
+   - If you do not own the NFT, show all of your NFTs to form the relationship.
+   - Relationship page. Display NFT and your children etc.
+
+3. Tree??? - NO
 
 ### Integrations
 
