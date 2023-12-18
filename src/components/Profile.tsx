@@ -8,27 +8,45 @@ import { useEffect, useState } from "react";
 import NFTCard from "./NFTCard";
 import getNftsByOwner from "@/utils/supabase/get-nfts-by-owner";
 import resolveRarity from "@/utils/resolveRarity";
+import getRelationshipsByCreator from "@/utils/supabase/get-relationships-by-creator";
+import RelationshipCard from "./RelationshipCard";
 
 export default function Profile(props: { address: string }) {
   const { address } = props;
   const [selected, setSelected] = useState(0);
   const [ownedNfts, setOwnedNfts] = useState([]);
   const [relationships, setRelationships] = useState([]);
-  const [familyTrees, setFamilyTrees] = useState([]);
-  const [powerups, setPowerups] = useState([]);
+  // const [familyTrees, setFamilyTrees] = useState([]);
+  // const [powerups, setPowerups] = useState([]);
+
+  const sampleProfile = {
+    wallet: address,
+    name: "Bob",
+    image: "https://picsum.photos/500/500",
+    cover: "https://picsum.photos/800/300",
+    description: "Hey there! I'm new to InCraft!",
+  };
+
+  useEffect(() => {}, []);
 
   useEffect(() => {
-    console.log(selected);
-    if (selected == 0) {
-      (async function () {
-        const nfts = await getNftsByOwner({ address: address });
-        console.log(nfts.response);
-        setOwnedNfts(nfts.response as any);
-      })();
-    }
+    (async function () {
+      const nfts = await getNftsByOwner({ address: address });
+      console.log(nfts.response);
+      setOwnedNfts(nfts.response as any);
+    })();
     console.log("Owned NFTs");
     console.log(ownedNfts);
-  }, [selected]);
+
+    (async function () {
+      const rels = await getRelationshipsByCreator({
+        actual_parent: address,
+      });
+      if (rels.response != null) {
+        setRelationships(rels.response as any);
+      }
+    })();
+  }, [address]);
   return (
     <div className="flex flex-col justify-start min-h-[90vh]  ">
       <Image
@@ -45,15 +63,15 @@ export default function Profile(props: { address: string }) {
       <div className="relative">
         <div className="absolute bottom-24 left-10 w-full h-full">
           <Image
-            src={"/collections/punk.png"}
+            src={"/tech/injective.png"}
             width={150}
             height={150}
             alt="pfp"
-            className="rounded-full"
+            className="rounded-full bg-[#28385a] "
           ></Image>
         </div>
         <div className="mt-20 ml-10">
-          <p className=" font-semibold text-4xl ">Gabrielaxy</p>
+          <p className=" font-semibold text-4xl ">John Doe</p>
           <Link
             href={"https://etherscan.io/address/" + address}
             target="_blank"
@@ -136,6 +154,12 @@ export default function Profile(props: { address: string }) {
                     size={300}
                   />
                 );
+              })}
+            {selected == 1 &&
+              relationships.length > 0 &&
+              relationships.map((rel: any) => {
+                return <></>;
+                // return <RelationshipCard image={rel.image} name={rel.name} description={rel.description} address={rel.child} size={300} />
               })}
           </div>
         </div>

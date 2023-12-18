@@ -16,13 +16,7 @@ export default async function getProfile(req: { wallet: string }) {
     if (fetchError || fetchedProfile == null || fetchedProfile.length === 0) {
       return {
         message: "Profile does not exist",
-        response: {
-          wallet: wallet,
-          name: "Bob",
-          image: "https://picsum.photos/500/500",
-          cover: "https://picsum.photos/800/300",
-          description: "Hey there! I'm new to InCraft!",
-        },
+        response: null,
       };
     } else {
       return {
@@ -32,6 +26,6 @@ export default async function getProfile(req: { wallet: string }) {
     }
   } catch (error) {
     console.error("Error fetching profile:", error);
-    return { message: "Internal Server Error" };
+    return { message: "Internal Server Error", response: null };
   }
 }

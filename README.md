@@ -4,8 +4,8 @@
 
 1. Refactor Create Relationship page UI
 
-   - Create relationship
-   - On relationship created, direct to relationship page confetti animation.
+   - Create relationship smart contract call
+   - On relationship created, direct to relationship page.
 
 2. Relationship page UI
 
@@ -17,6 +17,10 @@
 3. Profile page - Fetch all your relationships and trees
 
 4. Tree??? - NO
+
+5. Regarding queries
+   - Sort out get relationships by creator (LOW)
+   - Everything in relationship page (HIGH)
 
 ### Integrations
 

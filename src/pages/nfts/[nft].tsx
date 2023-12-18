@@ -137,6 +137,7 @@ export default function Relation() {
         isRoot: true,
       });
       setState(2);
+      // router.push(`/relations/${args.relationship}`)
     },
   });
 
