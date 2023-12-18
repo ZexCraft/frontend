@@ -2,36 +2,45 @@
 
 ### Frontend
 
-1. Refactor NFT page UI
+1. Refactor Create Relationship page UI
 
-   - Get Data from Supabase
+   - Create relationship
+   - On relationship created, direct to relationship page confetti animation.
 
-2. Refactor Create Relationship page UI
+2. Relationship page UI
 
-   - If you own the NFT, display all relationship requests. On relationship created, direct to relationship page confetti animation
-   - If you do not own the NFT, show all of your NFTs to form the relationship.
+   - Disable and enable buttons to sign and create babies
+   - UI to deposit CFT tokens to the relationship
+   - Display NFT and your children etc. - PENDING
+   - Make Supabase work - PENDING
 
-3. Relationship page UI
-
-   - Display NFT and your children etc.
-   - Make Supabase work
+3. Profile page - Fetch all your relationships and trees
 
 4. Tree??? - NO
 
 ### Integrations
 
-1. Make Supabase work
-2. Store signatures in the backend in case we need consent in the relationship
+DONE
 
 ### Contracts
 
-1. Heirarchical breeding contracts - NO
+1. Redeploy and test create relationship and create baby
 
 ### Backend
 
-1. Setup Supabase for usecase - PENDING STORING SIGs
-2. Iterative fetching the only solution? - NO
+DONE
 
 ## Pitch
 
-1. Make a pitch
+1. Make a pitch - PENDING
+
+## Next steps
+
+1. Clean up existing stuff. All features working
+2. Improve contracts to support heirarchical breeding
+3. Tree UI
+4. Supabase improve data structuring (fix iterative fetching issue, use foreign keys) or other indexing solutions
+5. Powerups support
+6. Import other NFT collections
+7. Marketplace like, trade your children etc.
+8. Opensourcing, SDK, etc.

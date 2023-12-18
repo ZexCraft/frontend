@@ -12,6 +12,7 @@ import signCreateRelationship from "@/utils/sign/signCreateRelationship";
 import createBreedRequest from "@/utils/supabase/create-breed-request";
 import createRelationship from "@/utils/supabase/create-relationship";
 import getBreedRequest from "@/utils/supabase/get-breed-request";
+import getBreedRequests from "@/utils/supabase/get-breed-requests";
 import getNft from "@/utils/supabase/get-nft";
 import getNftsByOwner from "@/utils/supabase/get-nfts-by-owner";
 import Image from "next/image";
@@ -22,6 +23,7 @@ import { WalletClient, decodeEventLog } from "viem";
 import {
   useAccount,
   useContractEvent,
+  useContractWrite,
   useNetwork,
   useWalletClient,
 } from "wagmi";
@@ -37,6 +39,34 @@ export default function Relation() {
   const { chain } = useNetwork();
   const { data: walletClient } = useWalletClient();
   const [state, setState] = useState(0);
+
+  const { writeAsync: createRelationshipFunction } = useContractWrite({
+    address: nftData.address,
+    abi: abi.account,
+    functionName: "createRelationship",
+    onSuccess(data) {
+      console.log("Hash: ", data.hash);
+    },
+  });
+
+  useEffect(() => {
+    if (nftData == null) return;
+    if (nftData.parent == address) {
+      (async function () {
+        const res = await getBreedRequests({ receiver: nftData.address });
+        console.log(res.response);
+        let reqs = [];
+        for (let i = 0; i < res.response.length; i++) {
+          const nft = await getNft({ address: res.response[i].requester });
+          reqs.push({
+            ...nft.response,
+            signature: res.response[i].requester_sig,
+          });
+        }
+        setBreedingRequests(reqs);
+      })();
+    }
+  }, [nftData]);
 
   useEffect(() => {
     if (ownedNfts == null) return;
@@ -209,18 +239,18 @@ export default function Relation() {
               })}
           </div>
           {breedingRequests && (
-            <p className="text-4xl font-bold mb-12">Breeding Requests</p>
+            <p className="text-4xl font-bold mb-8">Breeding Requests</p>
           )}
           {breedingRequests && breedingRequests.length > 0 ? (
-            <div className="grid grid-cols-2 space-x-8">
+            <div className="grid grid-cols-3 space-x-8">
               {breedingRequests.map((req: any, index: number) => {
                 return (
-                  <div className=" border-[#3c3f41] border-2">
+                  <div className="my-8 mx-4">
                     <NFTCard
                       image={req.image}
                       imageAlt={req.image_alt}
                       owner={req.parent}
-                      address={req.contract_address}
+                      address={req.address}
                       rarity={resolveRarity(req.rarity)}
                       tokenId={req.token_id}
                       mode={req.type == 0 ? "create ✨" : "breed ❤️"}
@@ -228,27 +258,23 @@ export default function Relation() {
                     />
                     <div className="flex justify-center my-4">
                       <button
-                        onClick={() => {
-                          setSelectedIndex(index);
+                        onClick={async () => {
+                          const tx = await createRelationshipFunction({
+                            args: [
+                              mumbaiDeployments.relRegistry,
+                              req.address,
+                              req.signature,
+                            ],
+                          });
+                          console.log(tx);
+
+                          // TODO: Create relationship in the backend and remove it from the requests
                         }}
-                        disabled={
-                          selectedIndex == index ||
-                          nftData.address == req.contract_address
-                        }
-                        className={`${
-                          selectedIndex == index
-                            ? "bg-[#25272b] text-[#5b5e5b]"
-                            : nftData.address == req.contract_address
-                            ? "bg-[#7c7c7c] text-[#2e3136] font-bold"
-                            : "bg-white text-black"
-                        }
-px-4 py-2 rounded-xl font-semibold max-w-fit  `}
+                        disabled={false}
+                        className={`
+                          bg-white text-black px-4 py-2 rounded-xl font-semibold max-w-fit  `}
                       >
-                        {nftData.address == req.contract_address
-                          ? "Disabled ⛔"
-                          : selectedIndex == index
-                          ? "Selected ✅"
-                          : "Select"}
+                        {"Accept 🥰"}
                       </button>
                     </div>
                   </div>
