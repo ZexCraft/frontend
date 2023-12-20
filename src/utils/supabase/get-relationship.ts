@@ -23,7 +23,7 @@ export default async function getRelationship(req: {
     ) {
       return {
         message: "Relationship does not exist",
-        response: "",
+        response: null,
       };
     } else {
       return {
@@ -33,6 +33,6 @@ export default async function getRelationship(req: {
     }
   } catch (error) {
     console.error("Error getting relationship:", error);
-    return { message: "Internal Server Error", response: "" };
+    return { message: "Internal Server Error", response: null };
   }
 }

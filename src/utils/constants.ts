@@ -17,7 +17,296 @@ const injectiveDeployments = {
   craftToken: "0xD1dfbEd2a946a81324ed59D4C1396BB65aBa99B0",
 };
 const abi = {
-  relationship: [],
+  relationship: [
+    {
+      inputs: [],
+      name: "ECDSAInvalidSignature",
+      type: "error",
+    },
+    {
+      inputs: [
+        {
+          internalType: "uint256",
+          name: "length",
+          type: "uint256",
+        },
+      ],
+      name: "ECDSAInvalidSignatureLength",
+      type: "error",
+    },
+    {
+      inputs: [
+        {
+          internalType: "bytes32",
+          name: "s",
+          type: "bytes32",
+        },
+      ],
+      name: "ECDSAInvalidSignatureS",
+      type: "error",
+    },
+    {
+      inputs: [],
+      name: "MINT_ACTION",
+      outputs: [
+        {
+          internalType: "string",
+          name: "",
+          type: "string",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "string",
+          name: "tokenURI",
+          type: "string",
+        },
+        {
+          internalType: "bytes[2]",
+          name: "signatures",
+          type: "bytes[2]",
+        },
+      ],
+      name: "createBaby",
+      outputs: [
+        {
+          internalType: "address",
+          name: "account",
+          type: "address",
+        },
+      ],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "devWallet",
+      outputs: [
+        {
+          internalType: "address",
+          name: "",
+          type: "address",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "address",
+          name: "to",
+          type: "address",
+        },
+        {
+          internalType: "uint256",
+          name: "value",
+          type: "uint256",
+        },
+        {
+          internalType: "bytes",
+          name: "data",
+          type: "bytes",
+        },
+        {
+          internalType: "uint8",
+          name: "operation",
+          type: "uint8",
+        },
+        {
+          internalType: "bytes[2]",
+          name: "signatures",
+          type: "bytes[2]",
+        },
+      ],
+      name: "execute",
+      outputs: [
+        {
+          internalType: "bytes",
+          name: "result",
+          type: "bytes",
+        },
+      ],
+      stateMutability: "payable",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "getParents",
+      outputs: [
+        {
+          internalType: "address",
+          name: "",
+          type: "address",
+        },
+        {
+          internalType: "address",
+          name: "",
+          type: "address",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "getSignData",
+      outputs: [
+        {
+          internalType: "bytes32",
+          name: "",
+          type: "bytes32",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "inCraft",
+      outputs: [
+        {
+          internalType: "address",
+          name: "",
+          type: "address",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "address[2]",
+          name: "_nfts",
+          type: "address[2]",
+        },
+        {
+          internalType: "address",
+          name: "_devWallet",
+          type: "address",
+        },
+        {
+          internalType: "uint256",
+          name: "_mintFee",
+          type: "uint256",
+        },
+        {
+          internalType: "address",
+          name: "_inCraft",
+          type: "address",
+        },
+      ],
+      name: "initialize",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "isInitialized",
+      outputs: [
+        {
+          internalType: "bool",
+          name: "",
+          type: "bool",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "mintFee",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+      ],
+      name: "nfts",
+      outputs: [
+        {
+          internalType: "address",
+          name: "",
+          type: "address",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "nonce",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "state",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "address",
+          name: "creator",
+          type: "address",
+        },
+        {
+          internalType: "bytes32",
+          name: "dataHash",
+          type: "bytes32",
+        },
+        {
+          internalType: "bytes",
+          name: "signature",
+          type: "bytes",
+        },
+      ],
+      name: "verifySignature",
+      outputs: [
+        {
+          internalType: "bool",
+          name: "",
+          type: "bool",
+        },
+      ],
+      stateMutability: "pure",
+      type: "function",
+    },
+  ],
   account: [
     {
       inputs: [

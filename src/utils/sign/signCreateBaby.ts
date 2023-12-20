@@ -1,32 +1,29 @@
-import { WalletClient, encodePacked, toBytes } from "viem";
+import { WalletClient, encodePacked, keccak256, toBytes } from "viem";
 import { useContractRead } from "wagmi";
 import { abi } from "../constants";
 
 export default async function signCreateBaby(args: {
   walletClient: WalletClient;
   relationship: `0x${string}`;
+  nonce: bigint;
 }) {
-  const { walletClient, relationship } = args;
+  const { walletClient, relationship, nonce } = args;
   const MINT_ACTION = "INCRAFT_MINT";
   const [account] = await walletClient.getAddresses();
 
-  const { data: nonce } = useContractRead({
-    address: relationship as `0x${string}`,
-    abi: abi.relationship,
-    functionName: "nonce",
-  });
-
   console.log("Mint Action: ", MINT_ACTION);
   console.log("Relationship: ", relationship);
-  console.log("Nonce: ", nonce);
+  console.log("Nonce: ", BigInt(nonce));
 
   let signature = await walletClient?.signMessage({
     account,
     message: {
       raw: toBytes(
-        encodePacked(
-          ["string", "address", "uint256"],
-          [MINT_ACTION, relationship, nonce]
+        keccak256(
+          encodePacked(
+            ["string", "address", "uint256"],
+            [MINT_ACTION, relationship, BigInt(nonce)]
+          )
         )
       ),
     },
