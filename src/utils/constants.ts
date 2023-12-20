@@ -1,11 +1,11 @@
 const mumbaiDeployments = {
-  implementation: "0x29f42484e15709b60cDC89A1f102fa9a563Cf608",
-  registry: "0x170d6BC5cb1FF0f44dA7D59fC0DEEa6c42a5f412",
-  relImplementation: "0xBE3D118760d9be86688D88929c2122cEc9Ec4635",
-  relRegistry: "0x4393eD225A2F48C27eA6CeBec139190cb8EA8A5F",
-  inCraft: "0x9FafD4cB45410a931b538F1D97EFCC28b147E449",
+  implementation: "0x5Ca8b540FCc09ac4d5719cf645c8E636984900F0",
+  registry: "0x6036BdC357A2dF2a69621e658A4Bb951B60ca799",
+  relImplementation: "0x81692a7278869Bb5bf98A1adD937fdB7EEfFe09c",
+  relRegistry: "0x4a0DC91781A116e83770A17AD09b63fa3E50d7Ce",
+  inCraft: "0xC7297019FCDA5774c22180cd7E1801fed7EC10A9",
   mintFee: "100000000000000000",
-  craftToken: "0x5494EE4a6d7D087DEbAfc2C16340cCE93f763D38",
+  craftToken: "0xf514E2910c6f78c1Dc6B765A0d06adfd75C8450c",
 };
 const injectiveDeployments = {
   implementation: "0x29f42484e15709b60cDC89A1f102fa9a563Cf608",
@@ -1947,6 +1947,11 @@ const abi = {
           name: "_relationshipImplementation",
           type: "address",
         },
+        {
+          internalType: "uint256",
+          name: "_mintFee",
+          type: "uint256",
+        },
       ],
       stateMutability: "nonpayable",
       type: "constructor",
@@ -1975,6 +1980,33 @@ const abi = {
         },
       ],
       name: "Create2InsufficientBalance",
+      type: "error",
+    },
+    {
+      inputs: [],
+      name: "ECDSAInvalidSignature",
+      type: "error",
+    },
+    {
+      inputs: [
+        {
+          internalType: "uint256",
+          name: "length",
+          type: "uint256",
+        },
+      ],
+      name: "ECDSAInvalidSignatureLength",
+      type: "error",
+    },
+    {
+      inputs: [
+        {
+          internalType: "bytes32",
+          name: "s",
+          type: "bytes32",
+        },
+      ],
+      name: "ECDSAInvalidSignatureS",
       type: "error",
     },
     {
@@ -2019,11 +2051,6 @@ const abi = {
       inputs: [
         {
           internalType: "address",
-          name: "breedingAccount",
-          type: "address",
-        },
-        {
-          internalType: "address",
           name: "otherAccount",
           type: "address",
         },
@@ -2045,6 +2072,50 @@ const abi = {
       type: "function",
     },
     {
+      inputs: [],
+      name: "devWallet",
+      outputs: [
+        {
+          internalType: "address",
+          name: "",
+          type: "address",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "inCraft",
+      outputs: [
+        {
+          internalType: "address",
+          name: "",
+          type: "address",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "address",
+          name: "_inCraft",
+          type: "address",
+        },
+        {
+          internalType: "address",
+          name: "_craftToken",
+          type: "address",
+        },
+      ],
+      name: "initialize",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
       inputs: [
         {
           internalType: "address",
@@ -2058,6 +2129,19 @@ const abi = {
           internalType: "bool",
           name: "",
           type: "bool",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "mintFee",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
         },
       ],
       stateMutability: "view",
