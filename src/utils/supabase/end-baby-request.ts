@@ -14,6 +14,7 @@ export default async function endBabyRequest(req: {
       .from("baby_requests")
       .select("*")
       .eq("relationship", relationship)
+      .eq("chain_id", chainId)
       .eq("is_incomplete", true);
     if (fetchError || fetchedRequest == null || fetchedRequest.length === 0) {
       return {

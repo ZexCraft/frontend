@@ -5,14 +5,16 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
 export default async function getRelationship(req: {
   address: string;
+  chainId: string;
 }): Promise<{ message: string; response?: any }> {
-  const { address } = req;
+  const { address, chainId } = req;
 
   try {
     console.log(address);
     const { data: fetchedRelationship, error: fetchError } = await supabase
       .from("relationship")
       .select("*")
+      .eq("chain_id", chainId)
       .eq("address", address);
     console.log(fetchedRelationship);
 

@@ -14,7 +14,8 @@ export default async function createRelationship(req: {
   try {
     const { data: fetchedRelationship, error: fetchError } = await supabase
       .from("relationship")
-      .select("*");
+      .select("*")
+      .eq("address", address);
     console.log(fetchedRelationship);
 
     if (

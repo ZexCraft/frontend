@@ -5,26 +5,28 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
 export default async function getRelationshipsByCreator(req: {
   actual_parent: string;
+  chainId: string;
 }): Promise<{ message: string; response?: any }> {
-  const { actual_parent } = req;
+  const { actual_parent, chainId } = req;
 
   try {
     console.log(actual_parent);
     console.log(
-      "actual_parent_1.eq." +
+      "relationship.actual_parent_1.eq." +
         actual_parent +
-        ",actual_parent_2.eq." +
+        ",relationship.actual_parent_2.eq." +
         actual_parent
     );
     const { data: fetchedRelationships, error: fetchError } = await supabase
-      .from("relationship")
-      .select("*")
+      .from("nft")
+      .select("*, relationship(*)")
       .or(
-        "actual_parent_1.eq." +
+        "relationship.actual_parent_1.eq." +
           actual_parent +
-          ",actual_parent_2.eq." +
+          ",relationship.actual_parent_2.eq." +
           actual_parent
-      );
+      )
+      .eq("chain_id", chainId);
     console.log(fetchedRelationships);
 
     if (

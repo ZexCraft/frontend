@@ -7,15 +7,17 @@ export default async function createBreedRequest(req: {
   requester: string;
   receiver: string;
   signature: string;
+  chainId: string;
 }): Promise<{ message: string; response: any }> {
-  const { requester, receiver, signature } = req;
+  const { requester, receiver, chainId, signature } = req;
 
   try {
     const { data: fetchedRequest, error: fetchError } = await supabase
       .from("breeding_requests")
       .select("*")
       .eq("requester", requester)
-      .eq("receiver", receiver);
+      .eq("receiver", receiver)
+      .eq("chain_id", chainId);
     if (fetchError || fetchedRequest == null || fetchedRequest.length === 0) {
       const { data, error } = supabase
         ? await supabase
@@ -25,6 +27,7 @@ export default async function createBreedRequest(req: {
                 requester,
                 receiver,
                 requester_sig: signature,
+                chain_id: chainId,
               },
             ])
             .select()

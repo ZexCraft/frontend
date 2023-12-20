@@ -15,7 +15,8 @@ export default async function creatProfile(req: {
   try {
     const { data: fetchedProfile, error: fetchError } = await supabase
       .from("profile")
-      .select("*");
+      .select("*")
+      .eq("wallet", wallet);
     console.log(fetchedProfile);
 
     if (fetchError || fetchedProfile == null || fetchedProfile.length === 0) {

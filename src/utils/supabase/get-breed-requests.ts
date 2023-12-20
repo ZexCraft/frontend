@@ -5,13 +5,15 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
 export default async function getBreedRequests(req: {
   receiver: string;
+  chainId: string;
 }): Promise<{ message: string; response: any }> {
-  const { receiver } = req;
+  const { receiver, chainId } = req;
 
   try {
     const { data: fetchedRequests, error: fetchError } = await supabase
       .from("breeding_requests")
       .select("*")
+      .eq("chain_id", chainId)
       .eq("receiver", receiver);
     if (fetchError || fetchedRequests == null || fetchedRequests.length === 0) {
       return {

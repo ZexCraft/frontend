@@ -3,14 +3,18 @@ const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "";
 const SUPABASE_KEY = process.env.NEXT_PUBLIC_SUPABASE_KEY ?? "";
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-export default async function getRelationships(): Promise<{
+export default async function getRelationships(args: {
+  chainId: string;
+}): Promise<{
   message: string;
   response: any;
 }> {
+  const { chainId } = args;
   try {
     const { data: fetchedRelationships, error: fetchError } = await supabase
       .from("relationship")
-      .select("*");
+      .select("*")
+      .eq("chain_id", chainId);
 
     console.log(fetchedRelationships);
 

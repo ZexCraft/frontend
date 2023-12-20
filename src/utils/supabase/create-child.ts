@@ -5,17 +5,39 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
 export default async function createChild(req: {
   address: string;
-  metadata: string;
+  image: string;
+  imageAlt: string;
   parent: string;
   contractAddress: string;
+  rarity: string;
   tokenId: number;
+  chainId: string;
 }) {
-  const { address, metadata, parent, contractAddress, tokenId } = req;
+  const {
+    rarity,
+    address,
+    image,
+    imageAlt,
+    parent,
+    chainId,
+    contractAddress,
+    tokenId,
+  } = req;
 
   try {
     const { data: fetchedNft, error: fetchError } = await supabase
       .from("nft")
-      .select("*");
+      .select("*, child(*)")
+      .eq("address", address)
+      .eq("parent", parent)
+      .eq("contract_address", contractAddress)
+      .eq("rarity", rarity)
+      .eq("token_id", tokenId)
+      .eq("chainId", chainId)
+      .eq("type", 1)
+      .eq("image", image)
+      .eq("image_alt", imageAlt);
+
     console.log(fetchedNft);
 
     if (fetchError || fetchedNft == null || fetchedNft.length === 0) {
@@ -25,10 +47,14 @@ export default async function createChild(req: {
             .insert([
               {
                 address,
-                metadata,
                 parent,
                 contract_address: contractAddress,
+                rarity,
                 token_id: tokenId,
+                chain_id: chainId,
+                type: 1,
+                image,
+                image_alt: imageAlt,
               },
             ])
             .select()
@@ -36,14 +62,36 @@ export default async function createChild(req: {
             data: null,
             error: new Error("Supabase client is not initialized"),
           };
+
       if (error) {
         console.log(error);
 
-        return { message: "Error creating nft" };
+        return { message: "Error creating nft", response: null };
+      }
+      const { data: childData, error: childError } = supabase
+        ? await supabase
+            .from("child")
+            .insert([
+              {
+                parent,
+                chain_id: chainId,
+                nft: data != null ? data[0].id : null,
+              },
+            ])
+            .select()
+        : {
+            data: null,
+            error: new Error("Supabase client is not initialized"),
+          };
+
+      if (childError) {
+        console.log(childError);
+
+        return { message: "Error creating child", response: null };
       }
       return {
-        message: "NFT created",
-        data: data != null ? data[0] : "",
+        message: "Child created",
+        response: childData != null ? childData[0] : "",
       };
     } else {
       return {
@@ -53,6 +101,6 @@ export default async function createChild(req: {
     }
   } catch (error) {
     console.error("Error creating nft:", error);
-    return { message: "Internal Server Error" };
+    return { message: "Internal Server Error", response: null };
   }
 }

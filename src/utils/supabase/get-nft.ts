@@ -5,14 +5,16 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
 export default async function getNft(req: {
   address: string;
+  chainId: string;
 }): Promise<{ message: string; response: any }> {
-  const { address } = req;
+  const { address, chainId } = req;
 
   try {
     const { data: fetchedNft, error: fetchError } = await supabase
       .from("nft")
       .select("*")
-      .eq("address", address);
+      .eq("address", address)
+      .eq("chain_id", chainId);
     console.log(fetchedNft);
 
     if (fetchError || fetchedNft == null || fetchedNft.length === 0) {

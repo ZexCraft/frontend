@@ -5,14 +5,16 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
 export default async function getNftsByOwner(req: {
   address: string;
+  chainId: string;
 }): Promise<{ message: string; response: any }> {
-  const { address } = req;
+  const { address, chainId } = req;
 
   try {
     const { data: fetchedNfts, error: fetchError } = await supabase
       .from("nft")
       .select("*")
-      .eq("parent", address);
+      .eq("parent", address)
+      .eq("chain_id", chainId);
     console.log(fetchedNfts);
 
     if (fetchError || fetchedNfts == null || fetchedNfts.length === 0) {
