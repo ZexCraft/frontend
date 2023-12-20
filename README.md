@@ -9,18 +9,19 @@
 
 2. Relationship page UI
 
-   - Disable and enable buttons to sign and create babies
-   - UI to deposit CFT tokens to the relationship
    - Display NFT and your children etc. - PENDING
-   - Make Supabase work - PENDING
+   - Create baby call integration - PENDING
 
 3. Profile page - Fetch all your relationships and trees
 
 4. Tree??? - NO
 
 5. Regarding queries
+
    - Sort out get relationships by creator (LOW)
    - Everything in relationship page (HIGH)
+
+6. Make all queries to fetch by ChainId => GetNFT, Get Relationship
 
 ### Integrations
 
@@ -31,8 +32,6 @@ DONE
 1. Redeploy and test create relationship and create baby
 
 ### Backend
-
-DONE
 
 ## Pitch
 
