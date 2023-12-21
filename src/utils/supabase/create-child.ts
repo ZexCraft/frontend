@@ -68,30 +68,10 @@ export default async function createChild(req: {
 
         return { message: "Error creating nft", response: null };
       }
-      const { data: childData, error: childError } = supabase
-        ? await supabase
-            .from("child")
-            .insert([
-              {
-                parent,
-                chain_id: chainId,
-                nft: data != null ? data[0].id : null,
-              },
-            ])
-            .select()
-        : {
-            data: null,
-            error: new Error("Supabase client is not initialized"),
-          };
 
-      if (childError) {
-        console.log(childError);
-
-        return { message: "Error creating child", response: null };
-      }
       return {
         message: "Child created",
-        response: childData != null ? childData[0] : "",
+        response: data != null ? data[0] : "",
       };
     } else {
       return {

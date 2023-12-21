@@ -8,6 +8,7 @@ export default async function createNft(req: {
   image: string;
   imageAlt: string;
   parent: string;
+  chainId: string;
   contractAddress: string;
   rarity: number;
   tokenId: number;
@@ -20,6 +21,7 @@ export default async function createNft(req: {
     parent,
     contractAddress,
     tokenId,
+    chainId,
     rarity,
     type,
   } = req;
@@ -42,6 +44,7 @@ export default async function createNft(req: {
                 image_alt: imageAlt,
                 parent,
                 rarity,
+                chain_id: chainId,
                 contract_address: contractAddress,
                 token_id: tokenId,
                 type,

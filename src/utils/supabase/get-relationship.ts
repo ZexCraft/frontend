@@ -10,12 +10,12 @@ export default async function getRelationship(req: {
   const { address, chainId } = req;
 
   try {
-    console.log(address);
+    console.log(address, " ", chainId);
     const { data: fetchedRelationship, error: fetchError } = await supabase
       .from("relationship")
       .select("*")
       .eq("chain_id", chainId)
-      .eq("address", address);
+      .eq("address", address.toLowerCase());
     console.log(fetchedRelationship);
 
     if (

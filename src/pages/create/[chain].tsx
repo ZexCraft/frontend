@@ -98,6 +98,7 @@ export default function Generate() {
           tokenId: Number(args.tokenId),
           image: image,
           imageAlt: imageAlt,
+          chainId: (chain?.id as number).toString(),
           contractAddress:
             chain?.id == 80001
               ? mumbaiDeployments.inCraft

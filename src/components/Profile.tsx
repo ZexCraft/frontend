@@ -10,9 +10,13 @@ import getNftsByOwner from "@/utils/supabase/get-nfts-by-owner";
 import resolveRarity from "@/utils/resolveRarity";
 import getRelationshipsByCreator from "@/utils/supabase/get-relationships-by-creator";
 import RelationshipCard from "./RelationshipCard";
+import { useNetwork } from "wagmi";
+import getNft from "@/utils/supabase/get-nft";
+import TreeCard from "./TreeCard";
 
 export default function Profile(props: { address: string }) {
   const { address } = props;
+  const { chain } = useNetwork();
   const [selected, setSelected] = useState(0);
   const [ownedNfts, setOwnedNfts] = useState([]);
   const [relationships, setRelationships] = useState([]);
@@ -31,7 +35,10 @@ export default function Profile(props: { address: string }) {
 
   useEffect(() => {
     (async function () {
-      const nfts = await getNftsByOwner({ address: address });
+      const nfts = await getNftsByOwner({
+        address: address,
+        chainId: (chain?.id as number).toString(),
+      });
       console.log(nfts.response);
       setOwnedNfts(nfts.response as any);
     })();
@@ -39,10 +46,23 @@ export default function Profile(props: { address: string }) {
     console.log(ownedNfts);
 
     (async function () {
-      const rels = await getRelationshipsByCreator({
+      let rels = await getRelationshipsByCreator({
+        chainId: (chain?.id as number).toString(),
         actual_parent: address,
       });
       if (rels.response != null) {
+        for (let i = 0; i < rels.response.length; i++) {
+          const parent1 = await getNft({
+            address: rels.response[i].parent1,
+            chainId: (chain?.id as number).toString(),
+          });
+          const parent2 = await getNft({
+            address: rels.response[i].parent2,
+            chainId: (chain?.id as number).toString(),
+          });
+          rels.response[i].parent1 = parent1.response;
+          rels.response[i].parent2 = parent2.response;
+        }
         setRelationships(rels.response as any);
       }
     })();
@@ -156,10 +176,40 @@ export default function Profile(props: { address: string }) {
                 );
               })}
             {selected == 1 &&
+              relationships &&
               relationships.length > 0 &&
               relationships.map((rel: any) => {
-                return <></>;
-                // return <RelationshipCard image={rel.image} name={rel.name} description={rel.description} address={rel.child} size={300} />
+                return (
+                  <RelationshipCard
+                    nft1={{
+                      image: rel.parent1.image,
+                      rarity: rel.parent1.rarity,
+                      mode: rel.parent1.type == 0 ? "create ✨" : "breed ❤️",
+                      tokenId: rel.parent1.token_id,
+                    }}
+                    nft2={{
+                      image: rel.parent2.image,
+                      rarity: rel.parent2.rarity,
+                      mode: rel.parent2.type == 0 ? "create ✨" : "breed ❤️",
+                      tokenId: rel.parent2.token_id,
+                    }}
+                    relationship={rel.relationship}
+                  />
+                );
+              })}
+            {selected == 2 &&
+              relationships &&
+              relationships.length > 0 &&
+              relationships.map((rel: any) => {
+                return (
+                  <TreeCard
+                    nft1={rel.parent1.image}
+                    family="Bored Ape"
+                    race="BAYC/PUNK"
+                    count="1"
+                    nft2={rel.parent2.image}
+                  />
+                );
               })}
           </div>
         </div>
@@ -167,3 +217,7 @@ export default function Profile(props: { address: string }) {
     </div>
   );
 }
+
+// nft1,
+// nft2,
+// relationship,

@@ -7,20 +7,30 @@ import getRelationships from "@/utils/supabase/get-relationships";
 import { faFilter } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
+import { useNetwork } from "wagmi";
 
 export default function Relations() {
   const [search, setSearch] = useState("");
   const [filters, setFilters] = useState(true);
   const [relationships, setRelationships] = useState<any>([]);
+  const { chain } = useNetwork();
 
   useEffect(() => {
     (async function () {
-      const rels = await getRelationships();
+      const rels = await getRelationships({
+        chainId: (chain?.id as number).toString(),
+      });
       console.log(rels.response);
       let tempRelationships = [];
       for (let i = 0; i < rels.response.length; i++) {
-        const nft1 = await getNft({ address: rels.response[i].parent1 });
-        const nft2 = await getNft({ address: rels.response[i].parent2 });
+        const nft1 = await getNft({
+          address: rels.response[i].parent1,
+          chainId: (chain?.id as number).toString(),
+        });
+        const nft2 = await getNft({
+          address: rels.response[i].parent2,
+          chainId: (chain?.id as number).toString(),
+        });
         tempRelationships.push({
           nft1: nft1.response,
           nft2: nft2.response,

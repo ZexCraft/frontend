@@ -12,16 +12,9 @@
    - Display NFT and your children etc. - PENDING
    - Create baby call integration - PENDING
 
-3. Profile page - Fetch all your relationships and trees
+3. Regarding queries
 
-4. Tree??? - NO
-
-5. Regarding queries
-
-   - Sort out get relationships by creator (LOW)
    - Everything in relationship page (HIGH)
-
-6. Make all queries to fetch by ChainId => GetNFT, Get Relationship
 
 ### Integrations
 

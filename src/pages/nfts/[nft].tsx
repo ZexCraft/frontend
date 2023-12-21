@@ -41,7 +41,7 @@ export default function Relation() {
   const [state, setState] = useState(0);
 
   const { writeAsync: createRelationshipFunction } = useContractWrite({
-    address: nftData.address,
+    address: nftData != null ? nftData.address : "",
     abi: abi.account,
     functionName: "createRelationship",
     onSuccess(data) {
@@ -53,17 +53,26 @@ export default function Relation() {
     if (nftData == null) return;
     if (nftData.parent == address) {
       (async function () {
-        const res = await getBreedRequests({ receiver: nftData.address });
+        const res = await getBreedRequests({
+          receiver: nftData.address,
+          chainId: (chain?.id as number).toString(),
+        });
         console.log(res.response);
-        let reqs = [];
-        for (let i = 0; i < res.response.length; i++) {
-          const nft = await getNft({ address: res.response[i].requester });
-          reqs.push({
-            ...nft.response,
-            signature: res.response[i].requester_sig,
-          });
+        if (res.response != null) {
+          let reqs = [];
+
+          for (let i = 0; i < res.response.length; i++) {
+            const nft = await getNft({
+              address: res.response[i].requester,
+              chainId: (chain?.id as number).toString(),
+            });
+            reqs.push({
+              ...nft.response,
+              signature: res.response[i].requester_sig,
+            });
+          }
+          setBreedingRequests(reqs);
         }
-        setBreedingRequests(reqs);
       })();
     }
   }, [nftData]);
@@ -79,6 +88,7 @@ export default function Relation() {
     (async function () {
       const result = await getBreedRequest({
         requester,
+        chainId: (chain?.id as number).toString(),
         receiver,
       });
       console.log(result);
@@ -95,14 +105,21 @@ export default function Relation() {
     // Fetch relationship
     (async function () {
       if (nft == undefined) return;
-      const fetchedNft = await getNft({ address: nft as string });
+      const fetchedNft = await getNft({
+        address: nft as string,
+        chainId: (chain?.id as number).toString(),
+      });
+
       console.log(fetchedNft.response);
       setNftData(fetchedNft.response);
       if (fetchedNft.response) {
         if (fetchedNft.response.parent == address) {
           setBreedingRequests([]);
         } else {
-          const data = await getNftsByOwner({ address: address as string });
+          const data = await getNftsByOwner({
+            address: address as string,
+            chainId: (chain?.id as number).toString(),
+          });
           console.log("Owned NFTs");
           console.log(data);
           setOwnedNfts(data.response);
@@ -180,6 +197,7 @@ export default function Relation() {
                     receiver: nftData.address,
                     requester: ownedNfts[selectedIndex].address,
                     signature: sig,
+                    chainId: (chain?.id as number).toString(),
                   });
                   // Send it to the backend
                 } catch (e) {
@@ -200,6 +218,7 @@ export default function Relation() {
                 return (
                   <div className="my-8 mx-4">
                     <NFTCard
+                      key={index}
                       image={nft.image}
                       imageAlt={nft.image_alt}
                       owner={nft.parent}
@@ -248,6 +267,7 @@ export default function Relation() {
                 return (
                   <div className="my-8 mx-4">
                     <NFTCard
+                      key={index}
                       image={req.image}
                       imageAlt={req.image_alt}
                       owner={req.parent}
@@ -262,7 +282,9 @@ export default function Relation() {
                         onClick={async () => {
                           const tx = await createRelationshipFunction({
                             args: [
-                              mumbaiDeployments.relRegistry,
+                              chain?.id == 80001
+                                ? mumbaiDeployments.relRegistry
+                                : injectiveDeployments.relRegistry,
                               req.address,
                               req.signature,
                             ],

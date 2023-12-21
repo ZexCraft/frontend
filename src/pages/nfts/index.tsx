@@ -4,46 +4,26 @@ import NFTCard from "@/components/NFTCard";
 import PageNavigation from "@/components/PageNavigation";
 import resolveRarity from "@/utils/resolveRarity";
 import getNfts from "@/utils/supabase/get-nfts";
-import { faArrowRight, faFilter } from "@fortawesome/free-solid-svg-icons";
+import { faFilter } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Image from "next/image";
-import Link from "next/link";
 import { useEffect, useState } from "react";
-import { useAccount, useNetwork, useSignMessage, useWalletClient } from "wagmi";
-
-import { WalletClient, encodePacked, keccak256, toBytes } from "viem";
-import signMessage from "@/utils/sign/signMessage";
-import getPermitSignature from "@/utils/getPermitSignature";
+import { useAccount, useNetwork, useWalletClient } from "wagmi";
 
 export default function Nfts() {
   const [search, setSearch] = useState("");
   const [filters, setFilters] = useState(true);
-  const { address } = useAccount();
   const [nfts, setNfts] = useState([]);
-  const [tokenURI, setTokenURI] = useState("jeex");
-  const [signData, setSignData] = useState("");
-  const { data: walletClient } = useWalletClient();
-  const [sig, setSig] = useState("");
+  const { chain } = useNetwork();
 
   useEffect(() => {
     (async function () {
-      const nfts = await getNfts();
+      const nfts = await getNfts({
+        chainId: (chain?.id as number).toString(),
+      });
       console.log(nfts.response);
       setNfts(nfts.response as any);
     })();
   }, []);
-
-  useEffect(() => {
-    const encodedData = keccak256(
-      encodePacked(
-        ["string", "string", "address"],
-        ["INCRAFT_MINT", tokenURI, address as `0x${string}`]
-      )
-    );
-    setSignData(encodedData);
-    console.log("encodedData");
-    console.log(encodedData);
-  }, [tokenURI, address]);
 
   return (
     <Layout>
@@ -58,27 +38,7 @@ export default function Nfts() {
                   : "bg-[#25272b] text-[#d0d1d1] hover:bg-[#303238]"
               } flex p-3 rounded-lg  `}
               onClick={async () => {
-                console.log("Token URI: ", tokenURI);
-                console.log("Addresss: ", address);
-                try {
-                  const { v, r, s } = await getPermitSignature({
-                    walletClient: walletClient as WalletClient,
-                    nonce: 0,
-                    name: "CraftToken",
-                    chainId: 80001,
-                    tokenAddress: "0x5193326E0fFD65C4433C2589466071dd831cd838",
-                    spender: "0x0429A2Da7884CA14E53142988D5845952fE4DF6a",
-                    value: "1000000000000000000",
-                    deadline:
-                      "115792089237316195423570985008687907853269984665640564039457584007913129639935",
-                  });
-                  console.log("v: ", v);
-                  console.log("r: ", r);
-                  console.log("s: ", s);
-                } catch (e) {
-                  console.log(e);
-                }
-                //  setFilters(!filters);
+                setFilters(!filters);
               }}
             >
               <FontAwesomeIcon

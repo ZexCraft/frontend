@@ -12,18 +12,18 @@ export default async function getRelationshipsByCreator(req: {
   try {
     console.log(actual_parent);
     console.log(
-      "relationship.actual_parent_1.eq." +
+      "actual_parent_1.eq." +
         actual_parent +
-        ",relationship.actual_parent_2.eq." +
+        ",actual_parent_2.eq." +
         actual_parent
     );
     const { data: fetchedRelationships, error: fetchError } = await supabase
-      .from("nft")
-      .select("*, relationship(*)")
+      .from("relationship")
+      .select("*")
       .or(
-        "relationship.actual_parent_1.eq." +
+        "actual_parent_1.eq." +
           actual_parent +
-          ",relationship.actual_parent_2.eq." +
+          ",actual_parent_2.eq." +
           actual_parent
       )
       .eq("chain_id", chainId);

@@ -5,13 +5,15 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import getNfts from "@/utils/supabase/get-nfts";
 import resolveRarity from "@/utils/resolveRarity";
+import { useNetwork } from "wagmi";
 
 export default function Body() {
   const [nfts, setNfts] = useState<any>([]);
+  const { chain } = useNetwork();
 
   useEffect(() => {
     (async function () {
-      const res = await getNfts();
+      const res = await getNfts({ chainId: (chain?.id as number).toString() });
 
       setNfts(res.response);
     })();
