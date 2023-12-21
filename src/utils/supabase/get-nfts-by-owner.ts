@@ -13,8 +13,8 @@ export default async function getNftsByOwner(req: {
     const { data: fetchedNfts, error: fetchError } = await supabase
       .from("nft")
       .select("*")
-      .eq("parent", address)
-      .eq("chain_id", chainId);
+      .eq("parent", address);
+    // // .eq("chain_id", chainId);
     console.log(fetchedNfts);
 
     if (fetchError || fetchedNfts == null || fetchedNfts.length === 0) {

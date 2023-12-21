@@ -26,6 +26,7 @@ const ConnectButton = () => {
     address: injectiveDeployments.craftToken as `0x${string}`,
     abi: abi.craftToken,
     functionName: "mint",
+    gasPrice: BigInt(4000000000),
     onSuccess(data) {
       console.log("Hash: ", data.hash);
     },

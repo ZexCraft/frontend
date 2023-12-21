@@ -11,8 +11,8 @@ export default async function getNfts(args: { chainId: string }): Promise<{
   try {
     const { data: fetchedNfts, error: fetchError } = await supabase
       .from("nft")
-      .select("*")
-      .eq("chain_id", chainId);
+      .select("*");
+    // // .eq("chain_id", chainId);
 
     console.log(fetchedNfts);
 

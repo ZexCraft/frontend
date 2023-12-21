@@ -14,7 +14,7 @@ export default async function getRelationship(req: {
     const { data: fetchedRelationship, error: fetchError } = await supabase
       .from("relationship")
       .select("*")
-      .eq("chain_id", chainId)
+      // .eq("chain_id", chainId)
       .eq("address", address.toLowerCase());
     console.log(fetchedRelationship);
 

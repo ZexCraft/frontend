@@ -15,8 +15,8 @@ export default async function getBreedRequest(req: {
       .from("breeding_requests")
       .select("*")
       .eq("requester", requester)
-      .eq("receiver", receiver)
-      .eq("chain_id", chainId);
+      .eq("receiver", receiver);
+    // .eq("chain_id", chainId);
     if (fetchError || fetchedRequest == null || fetchedRequest.length === 0) {
       return {
         message: "Breed Request does not exist",
