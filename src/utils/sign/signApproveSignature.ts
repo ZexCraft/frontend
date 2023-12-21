@@ -1,7 +1,4 @@
 import { WalletClient, encodePacked, keccak256, toBytes } from "viem";
-import { useContractRead } from "wagmi";
-import { abi, mumbaiDeployments } from "../constants";
-
 export default async function signApproveSignature(args: {
   walletClient: WalletClient;
   nonce: string;

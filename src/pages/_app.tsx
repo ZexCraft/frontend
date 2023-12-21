@@ -8,35 +8,10 @@ import type { AppProps } from "next/app";
 import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { Chain, configureChains, createConfig, WagmiConfig } from "wagmi";
 import { publicProvider } from "wagmi/providers/public";
-import { polygonMumbai } from "viem/chains";
+import { injective } from "@/utils/constants";
 
-const injectiveDevnet: Chain = {
-  name: "Injective EVM",
-  id: 1738,
-  network: "injective",
-  nativeCurrency: { name: "INJECTIVE", symbol: "INJ", decimals: 18 },
-  rpcUrls: {
-    default: {
-      http: ["https://inevm-rpc.caldera.dev"],
-    },
-    public: {
-      http: ["https://inevm-rpc.caldera.dev"],
-    },
-  },
-  blockExplorers: {
-    etherscan: {
-      name: "Injective Caldera Explorer",
-      url: "https://inevm.calderaexplorer.xyz/",
-    },
-    default: {
-      name: "Injective Caldera Explorer",
-      url: "https://inevm.calderaexplorer.xyz/",
-    },
-  },
-  testnet: true,
-};
 const { chains, publicClient } = configureChains(
-  [injectiveDevnet, polygonMumbai],
+  [injective],
   [publicProvider()]
 );
 

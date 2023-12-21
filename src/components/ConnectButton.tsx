@@ -1,9 +1,5 @@
 import { shortenEthereumAddress } from "@/utils";
-import {
-  faDroplet,
-  faHammer,
-  faWallet,
-} from "@fortawesome/free-solid-svg-icons";
+import { faDroplet, faWallet } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useConnectModal, useAccountModal } from "@rainbow-me/rainbowkit";
 import { useState } from "react";
@@ -13,12 +9,7 @@ import {
   useContractWrite,
   useNetwork,
 } from "wagmi";
-import NavItem from "./NavItem";
-import {
-  abi,
-  mumbaiDeployments,
-  injectiveDeployments,
-} from "@/utils/constants";
+import { abi, injectiveDeployments } from "@/utils/constants";
 const ConnectButton = () => {
   const { openConnectModal } = useConnectModal();
   const { openAccountModal } = useAccountModal();
@@ -32,10 +23,7 @@ const ConnectButton = () => {
     isSuccess,
     write: mint,
   } = useContractWrite({
-    address:
-      chain?.id == 80001
-        ? (mumbaiDeployments.craftToken as `0x${string}`)
-        : (injectiveDeployments.craftToken as `0x${string}`),
+    address: injectiveDeployments.craftToken as `0x${string}`,
     abi: abi.craftToken,
     functionName: "mint",
     onSuccess(data) {
@@ -44,10 +32,7 @@ const ConnectButton = () => {
   });
 
   useContractEvent({
-    address:
-      chain?.id == 80001
-        ? (mumbaiDeployments.craftToken as `0x${string}`)
-        : (injectiveDeployments.craftToken as `0x${string}`),
+    address: injectiveDeployments.craftToken as `0x${string}`,
     abi: abi.inCraft,
     eventName: "Transfer",
     listener(log) {

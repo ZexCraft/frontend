@@ -1,12 +1,7 @@
 import Layout from "@/components/Layout";
 import NFTCard from "@/components/NFTCard";
 import LoadingSpinner from "@/components/Spinner";
-import { shortenEthereumAddress } from "@/utils";
-import {
-  abi,
-  mumbaiDeployments,
-  injectiveDeployments,
-} from "@/utils/constants";
+import { abi, injectiveDeployments } from "@/utils/constants";
 import resolveRarity from "@/utils/resolveRarity";
 import signCreateRelationship from "@/utils/sign/signCreateRelationship";
 import createBreedRequest from "@/utils/supabase/create-breed-request";
@@ -129,10 +124,7 @@ export default function Relation() {
   }, []);
 
   useContractEvent({
-    address:
-      chain?.id == 80001
-        ? (mumbaiDeployments.relRegistry as `0x${string}`)
-        : (injectiveDeployments.relRegistry as `0x${string}`),
+    address: injectiveDeployments.relRegistry as `0x${string}`,
     abi: abi.relRegistry,
     eventName: "RelationshipCreated",
     listener(log) {
@@ -282,9 +274,7 @@ export default function Relation() {
                         onClick={async () => {
                           const tx = await createRelationshipFunction({
                             args: [
-                              chain?.id == 80001
-                                ? mumbaiDeployments.relRegistry
-                                : injectiveDeployments.relRegistry,
+                              injectiveDeployments.relRegistry,
                               req.address,
                               req.signature,
                             ],

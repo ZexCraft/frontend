@@ -1,11 +1,7 @@
 import Layout from "@/components/Layout";
 import LoadingSpinner from "@/components/Spinner";
 import { capitalizeString, shortenEthereumAddress } from "@/utils";
-import {
-  abi,
-  mumbaiDeployments,
-  injectiveDeployments,
-} from "@/utils/constants";
+import { abi, injectiveDeployments } from "@/utils/constants";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -47,29 +43,20 @@ export default function Generate() {
   const [confetttiAnimation, setConfettiAnimation] = useState(false);
 
   const { data: nonce } = useContractRead({
-    address:
-      chain?.id == 80001
-        ? (mumbaiDeployments.craftToken as `0x${string}`)
-        : (injectiveDeployments.craftToken as `0x${string}`),
+    address: injectiveDeployments.craftToken as `0x${string}`,
     abi: abi.craftToken,
     functionName: "nonces",
     args: [address],
   });
   const { data: balance, refetch: fetchBalance } = useContractRead({
-    address:
-      chain?.id == 80001
-        ? (mumbaiDeployments.craftToken as `0x${string}`)
-        : (injectiveDeployments.craftToken as `0x${string}`),
+    address: injectiveDeployments.craftToken as `0x${string}`,
     abi: abi.craftToken,
     functionName: "balanceOf",
     args: [address],
   });
 
   useContractEvent({
-    address:
-      chain?.id == 80001
-        ? (mumbaiDeployments.inCraft as `0x${string}`)
-        : (injectiveDeployments.inCraft as `0x${string}`),
+    address: injectiveDeployments.inCraft as `0x${string}`,
     abi: abi.inCraft,
     eventName: "InCraftNFTCreated",
     listener(log) {
@@ -99,10 +86,7 @@ export default function Generate() {
           image: image,
           imageAlt: imageAlt,
           chainId: (chain?.id as number).toString(),
-          contractAddress:
-            chain?.id == 80001
-              ? mumbaiDeployments.inCraft
-              : injectiveDeployments.inCraft,
+          contractAddress: injectiveDeployments.inCraft,
           parent: args.owner,
           rarity: Number(args.rarity),
           type: 0,
@@ -145,8 +129,6 @@ export default function Generate() {
                   src={
                     chain?.name == "Injective EVM"
                       ? "/tech/injective.png"
-                      : chain?.name == "Polygon Mumbai"
-                      ? "/tech/polygon.png"
                       : "/tech/blue-ethereum.png"
                   }
                   width={50}
@@ -205,10 +187,7 @@ export default function Generate() {
                       walletClient: walletClient as WalletClient,
                       owner: address as `0x${string}`,
                       nonce: (nonce as bigint).toString(),
-                      spender:
-                        chain?.id == 80001
-                          ? (mumbaiDeployments.inCraft as `0x${string}`)
-                          : (injectiveDeployments.inCraft as `0x${string}`),
+                      spender: injectiveDeployments.inCraft as `0x${string}`,
                       amount: "100000000000000000",
                     });
                     setApproveSignature(approveSig);
@@ -347,7 +326,7 @@ export default function Generate() {
                 <p>Tx Hash</p>
                 <a
                   className="text-sm text-[#9c9e9e] font0"
-                  href={"https://mumbai.polygonscan.com/tx/" + txHash}
+                  href={"https://inevm.calderaexplorer.xyz/tx/" + txHash}
                   target={"_blank"}
                 >
                   {txHash.substring(0, 10) +

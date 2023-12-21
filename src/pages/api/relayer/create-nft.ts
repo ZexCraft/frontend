@@ -1,8 +1,8 @@
-import { abi, mumbaiDeployments } from "@/utils/constants";
+import { abi, injectiveDeployments } from "@/utils/constants";
 import { NextApiRequest, NextApiResponse } from "next";
-import { createPublicClient, createWalletClient, http } from "viem";
+import { Chain, createPublicClient, createWalletClient, http } from "viem";
 import { privateKeyToAccount } from "viem/accounts";
-import { polygonMumbai } from "viem/chains";
+import { injective } from "@/utils/constants";
 
 export default async function handler(
   req: NextApiRequest,
@@ -10,8 +10,8 @@ export default async function handler(
 ) {
   const NEXT_PUBLIC_MIDJOURNEY_API_KEY =
     process.env.NEXT_PUBLIC_MIDJOURNEY_API_KEY;
-  const NEXT_PUBLIC_MUMBAI_RPC_ENDPOINT =
-    process.env.NEXT_PUBLIC_MUMBAI_RPC_ENDPOINT;
+  const NEXT_PUBLIC_INJECTIVE_RPC_ENDPOINT =
+    process.env.NEXT_PUBLIC_INJECTIVE_RPC_ENDPOINT;
 
   const API_KEY =
     req.headers.authorization != null
@@ -32,18 +32,18 @@ export default async function handler(
 
     const client = createWalletClient({
       account,
-      chain: polygonMumbai,
-      transport: http(NEXT_PUBLIC_MUMBAI_RPC_ENDPOINT),
+      chain: injective as Chain,
+      transport: http(NEXT_PUBLIC_INJECTIVE_RPC_ENDPOINT),
     });
 
     const publicClient = createPublicClient({
-      chain: polygonMumbai,
+      chain: injective as Chain,
       transport: http(),
     });
 
     const { request } = await publicClient.simulateContract({
       account,
-      address: mumbaiDeployments.inCraft as `0x${string}`,
+      address: injectiveDeployments.inCraft as `0x${string}`,
       abi: abi.inCraft,
       functionName: "createNft",
       args: [tokenUri, creator, permitTokensSignature, createNftSignature],

@@ -3,11 +3,7 @@ import NFTCard from "@/components/NFTCard";
 import LoadingSpinner from "@/components/Spinner";
 import useWindowSize from "@/hooks/useWindowSize";
 import { shortenEthereumAddress } from "@/utils";
-import {
-  abi,
-  mumbaiDeployments,
-  injectiveDeployments,
-} from "@/utils/constants";
+import { abi, injectiveDeployments } from "@/utils/constants";
 import resolveRarity from "@/utils/resolveRarity";
 import signCreateBaby from "@/utils/sign/signCreateBaby";
 import createBabyRequest from "@/utils/supabase/create-baby-request";
@@ -82,7 +78,7 @@ export default function Relation() {
       });
       setBabes(kids.response);
     })();
-  });
+  }, []);
 
   useEffect(() => {
     // Fetch relationship
@@ -103,8 +99,9 @@ export default function Relation() {
         if (
           relationship.response.actual_parent_1 == address ||
           relationship.response.actual_parent_2 == address
-        )
-          setIsParent(true);
+        ) {
+          console.log("Parent");
+        }
         const nft1 = await getNft({
           address: relationship.response.parent1,
           chainId: (chain?.id as number).toString(),
@@ -153,37 +150,25 @@ export default function Relation() {
   }, [refreshBabyRequest]);
 
   const { data: balance, refetch: fetchBalance } = useContractRead({
-    address:
-      chain?.id == 80001
-        ? (mumbaiDeployments.inCraft as `0x${string}`)
-        : (injectiveDeployments.inCraft as `0x${string}`),
+    address: injectiveDeployments.inCraft as `0x${string}`,
     abi: abi.craftToken,
     functionName: "balanceOf",
     args: [relation],
   });
 
   const { writeAsync: createNftFunction } = useContractWrite({
-    address:
-      chain?.id == 80001
-        ? (mumbaiDeployments.inCraft as `0x${string}`)
-        : (injectiveDeployments.inCraft as `0x${string}`),
+    address: injectiveDeployments.inCraft as `0x${string}`,
     abi: abi.inCraft,
     functionName: "createNft",
   });
   const { writeAsync: approve } = useContractWrite({
-    address:
-      chain?.id == 80001
-        ? (mumbaiDeployments.craftToken as `0x${string}`)
-        : (injectiveDeployments.craftToken as `0x${string}`),
+    address: injectiveDeployments.craftToken as `0x${string}`,
     abi: abi.craftToken,
     functionName: "approve",
   });
 
   useContractEvent({
-    address:
-      chain?.id == 80001
-        ? (mumbaiDeployments.inCraft as `0x${string}`)
-        : (injectiveDeployments.inCraft as `0x${string}`),
+    address: injectiveDeployments.inCraft as `0x${string}`,
     abi: abi.inCraft,
     eventName: "Transfer",
     listener(log) {
@@ -211,10 +196,7 @@ export default function Relation() {
         image: image,
         imageAlt: imageAlt,
         chainId: (chain?.id as number).toString(),
-        contractAddress:
-          chain?.id == 80001
-            ? mumbaiDeployments.inCraft
-            : injectiveDeployments.inCraft,
+        contractAddress: injectiveDeployments.inCraft,
         parent: args.to,
         rarity: Number(88),
         type: 0,
@@ -259,80 +241,80 @@ export default function Relation() {
               />
               {relationship &&
                 ((relationship as any).actual_parent_1 == address ||
-                  ((relationship as any).actual_parent_2 == address && (
-                    <div
-                      className={`ml-2 border ${
+                  (relationship as any).actual_parent_2 == address) && (
+                  <div
+                    className={`ml-2 border ${
+                      (relationship &&
+                        (relationship as any).actual_parent_1 != address) ||
+                      babyRequest?.parent1_sig != null
+                        ? "border-[#25272b]"
+                        : "border-white"
+                    } py-3  rounded-xl flex flex-col space-y-5 justify-between my-8`}
+                  >
+                    <p
+                      className={`font-semibold my-auto  text-center ${
                         (relationship &&
                           (relationship as any).actual_parent_1 != address) ||
                         babyRequest?.parent1_sig != null
-                          ? "border-[#25272b]"
-                          : "border-white"
-                      } py-3  rounded-xl flex flex-col space-y-5 justify-between my-8`}
+                          ? "text-[#5b5e5b]"
+                          : "text-white"
+                      }`}
                     >
-                      <p
-                        className={`font-semibold my-auto  text-center ${
-                          (relationship &&
-                            (relationship as any).actual_parent_1 != address) ||
-                          babyRequest?.parent1_sig != null
-                            ? "text-[#5b5e5b]"
-                            : "text-white"
-                        }`}
-                      >
-                        Create Baby
-                      </p>
-                      <button
-                        onClick={async () => {
-                          try {
-                            const signature = await signCreateBaby({
-                              walletClient: walletClient as WalletClient,
+                      Create Baby
+                    </p>
+                    <button
+                      onClick={async () => {
+                        try {
+                          const signature = await signCreateBaby({
+                            walletClient: walletClient as WalletClient,
+                            relationship: relation as `0x${string}`,
+                            nonce: BigInt(1) as bigint,
+                          });
+                          if (babyRequest) {
+                            const update = await updateBabyRequest({
                               relationship: relation as `0x${string}`,
-                              nonce: BigInt(1) as bigint,
+                              parentNumber: "1",
+                              signature: signature,
+                              chainId: (chain?.id as number).toString(),
                             });
-                            if (babyRequest) {
-                              const update = await updateBabyRequest({
-                                relationship: relation as `0x${string}`,
-                                parentNumber: "1",
-                                signature: signature,
-                                chainId: (chain?.id as number).toString(),
-                              });
-                            } else {
-                              const create = await createBabyRequest({
-                                relationship: relation as string,
-                                parentNumber: "1",
-                                signature: signature,
-                                chainId: (chain?.id as number).toString(),
-                              });
-                            }
-                            setRefreshBabyRequest(!refreshBabyRequest);
-                          } catch (e) {
-                            console.log(e);
+                          } else {
+                            const create = await createBabyRequest({
+                              relationship: relation as string,
+                              parentNumber: "1",
+                              signature: signature,
+                              chainId: (chain?.id as number).toString(),
+                            });
                           }
-                        }}
-                        disabled={
-                          (relationship &&
-                            (relationship as any).actual_parent_1 != address) ||
-                          babyRequest?.parent1_sig != null
+                          setRefreshBabyRequest(!refreshBabyRequest);
+                        } catch (e) {
+                          console.log(e);
                         }
-                        className={`${
-                          (relationship &&
-                            (relationship as any).actual_parent_1 != address) ||
-                          babyRequest?.parent1_sig != null
-                            ? "bg-[#25272b] text-[#5b5e5b]"
-                            : "bg-white text-black"
-                        } px-4 py-2 mx-6 rounded-xl font-semibold `}
-                      >
-                        {babyRequest == null ||
-                        (babyRequest as any).parent1_sig == null
-                          ? relationship &&
-                            (relationship as any).actual_parent_1 == address
-                            ? "Sign 📝"
-                            : (relationship as any).actual_parent_2 == address
-                            ? "Waiting ⌛"
-                            : ""
-                          : "Done ✅"}
-                      </button>
-                    </div>
-                  )))}
+                      }}
+                      disabled={
+                        (relationship &&
+                          (relationship as any).actual_parent_1 != address) ||
+                        babyRequest?.parent1_sig != null
+                      }
+                      className={`${
+                        (relationship &&
+                          (relationship as any).actual_parent_1 != address) ||
+                        babyRequest?.parent1_sig != null
+                          ? "bg-[#25272b] text-[#5b5e5b]"
+                          : "bg-white text-black"
+                      } px-4 py-2 mx-6 rounded-xl font-semibold `}
+                    >
+                      {babyRequest == null ||
+                      (babyRequest as any).parent1_sig == null
+                        ? relationship &&
+                          (relationship as any).actual_parent_1 == address
+                          ? "Sign 📝"
+                          : (relationship as any).actual_parent_2 == address
+                          ? "Waiting ⌛"
+                          : ""
+                        : "Done ✅"}
+                    </button>
+                  </div>
+                )}
             </>
           )}
         </div>
@@ -366,20 +348,20 @@ export default function Relation() {
             <div className="flex justify-center mt-10">
               {relationship &&
                 ((relationship as any).actual_parent_1 == address ||
-                  ((relationship as any).actual_parent_2 == address && (
-                    <button
-                      onClick={() => {
-                        setSelected(0);
-                      }}
-                      className={`mx-2  ${
-                        selected == 0
-                          ? "bg-[#d0d1d1] text-black"
-                          : "hover:bg-[#25272b] text-white "
-                      } p-2 rounded-md font-semibold `}
-                    >
-                      Breed
-                    </button>
-                  )))}
+                  (relationship as any).actual_parent_2 == address) && (
+                  <button
+                    onClick={() => {
+                      setSelected(0);
+                    }}
+                    className={`mx-2  ${
+                      selected == 0
+                        ? "bg-[#d0d1d1] text-black"
+                        : "hover:bg-[#25272b] text-white "
+                    } p-2 rounded-md font-semibold `}
+                  >
+                    Breed
+                  </button>
+                )}
               <button
                 onClick={() => {
                   setSelected(1);
@@ -591,77 +573,77 @@ export default function Relation() {
               />
               {relationship &&
                 ((relationship as any).actual_parent_1 == address ||
-                  ((relationship as any).actual_parent_2 == address && (
-                    <div
-                      className={`ml-2 border ${
+                  (relationship as any).actual_parent_2 == address) && (
+                  <div
+                    className={`ml-2 border ${
+                      (relationship &&
+                        (relationship as any).actual_parent_2 != address) ||
+                      babyRequest?.parent2_sig != null
+                        ? "border-[#25272b]"
+                        : "border-white"
+                    } py-3  rounded-xl flex flex-col space-y-5 justify-between my-8`}
+                  >
+                    <p
+                      className={`font-semibold my-auto  text-center ${
                         (relationship &&
                           (relationship as any).actual_parent_2 != address) ||
                         babyRequest?.parent2_sig != null
-                          ? "border-[#25272b]"
-                          : "border-white"
-                      } py-3  rounded-xl flex flex-col space-y-5 justify-between my-8`}
+                          ? "text-[#5b5e5b]"
+                          : "text-white"
+                      }`}
                     >
-                      <p
-                        className={`font-semibold my-auto  text-center ${
-                          (relationship &&
-                            (relationship as any).actual_parent_2 != address) ||
-                          babyRequest?.parent2_sig != null
-                            ? "text-[#5b5e5b]"
-                            : "text-white"
-                        }`}
-                      >
-                        Create Baby
-                      </p>
-                      <button
-                        onClick={async () => {
-                          const signature = await signCreateBaby({
-                            walletClient: walletClient as WalletClient,
+                      Create Baby
+                    </p>
+                    <button
+                      onClick={async () => {
+                        const signature = await signCreateBaby({
+                          walletClient: walletClient as WalletClient,
+                          relationship: relation as `0x${string}`,
+                          nonce: BigInt(1) as bigint,
+                        });
+                        if (babyRequest) {
+                          const update = await updateBabyRequest({
                             relationship: relation as `0x${string}`,
-                            nonce: BigInt(1) as bigint,
+                            parentNumber: "2",
+                            signature: signature,
+                            chainId: (chain?.id as number).toString(),
                           });
-                          if (babyRequest) {
-                            const update = await updateBabyRequest({
-                              relationship: relation as `0x${string}`,
-                              parentNumber: "2",
-                              signature: signature,
-                              chainId: (chain?.id as number).toString(),
-                            });
-                            console.log(update);
-                          } else {
-                            const create = await createBabyRequest({
-                              relationship: relation as string,
-                              parentNumber: "2",
-                              signature: signature,
-                              chainId: (chain?.id as number).toString(),
-                            });
-                          }
-                          setRefreshBabyRequest(!refreshBabyRequest);
-                        }}
-                        disabled={
-                          (relationship &&
-                            (relationship as any).actual_parent_2 != address) ||
-                          babyRequest?.parent2_sig != null
+                          console.log(update);
+                        } else {
+                          const create = await createBabyRequest({
+                            relationship: relation as string,
+                            parentNumber: "2",
+                            signature: signature,
+                            chainId: (chain?.id as number).toString(),
+                          });
                         }
-                        className={`${
-                          (relationship &&
-                            (relationship as any).actual_parent_2 != address) ||
-                          babyRequest?.parent2_sig != null
-                            ? "bg-[#25272b] text-[#5b5e5b]"
-                            : "bg-white text-black"
-                        } px-4 py-2 mx-6 rounded-xl font-semibold `}
-                      >
-                        {babyRequest == null ||
-                        (babyRequest as any).parent2_sig == null
-                          ? relationship &&
-                            (relationship as any).actual_parent_2 == address
-                            ? "Sign 📝"
-                            : (relationship as any).actual_parent_1 == address
-                            ? "Waiting ⌛"
-                            : ""
-                          : "Done ✅"}
-                      </button>
-                    </div>
-                  )))}
+                        setRefreshBabyRequest(!refreshBabyRequest);
+                      }}
+                      disabled={
+                        (relationship &&
+                          (relationship as any).actual_parent_2 != address) ||
+                        babyRequest?.parent2_sig != null
+                      }
+                      className={`${
+                        (relationship &&
+                          (relationship as any).actual_parent_2 != address) ||
+                        babyRequest?.parent2_sig != null
+                          ? "bg-[#25272b] text-[#5b5e5b]"
+                          : "bg-white text-black"
+                      } px-4 py-2 mx-6 rounded-xl font-semibold `}
+                    >
+                      {babyRequest == null ||
+                      (babyRequest as any).parent2_sig == null
+                        ? relationship &&
+                          (relationship as any).actual_parent_2 == address
+                          ? "Sign 📝"
+                          : (relationship as any).actual_parent_1 == address
+                          ? "Waiting ⌛"
+                          : ""
+                        : "Done ✅"}
+                    </button>
+                  </div>
+                )}
             </>
           )}
         </div>
