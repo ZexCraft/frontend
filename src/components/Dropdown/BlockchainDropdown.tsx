@@ -45,15 +45,20 @@ export default function BlockchainDropdown() {
           </button>
           <button
             className={
-              blockchain == "pego"
+              blockchain == "injective"
                 ? `bg-[#d0d1d1] w-full h-full p-3 flex justify-center rounded-xl`
                 : `w-full h-full p-3 flex justify-center rounded-xl`
             }
             onClick={() => {
-              setBlockchain("pego");
+              setBlockchain("injective");
             }}
           >
-            <Image src={"/tech/pego.png"} height={30} width={30} alt="pego" />
+            <Image
+              src={"/tech/injective.png"}
+              height={30}
+              width={30}
+              alt="injective"
+            />
           </button>
         </div>
       )}

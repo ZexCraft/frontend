@@ -67,11 +67,9 @@ export default function NFTCard({
           <div
             className="flex justify-center cursor-pointer"
             onClick={() => {
-              if (chain?.name == "PEGO Mainnet")
-                window.open(`https://scan.pego.network/address/${address}`);
-              if (chain?.name == "PEGO Testnet") {
-                window.open(`https://scan.pegotest.net/address/${address}`);
-              }
+              window.open(
+                `https://inevm.calderaexplorer.xyz/address/${address}`
+              );
             }}
           >
             <p className="text-sm font-semibold text-[#9c9e9e] my-2 mr-2">
@@ -85,11 +83,7 @@ export default function NFTCard({
           <div
             className="flex justify-center  cursor-pointer"
             onClick={() => {
-              if (chain?.name == "PEGO Mainnet")
-                window.open(`https://scan.pego.network/address/${owner}`);
-              if (chain?.name == "PEGO Testnet") {
-                window.open(`https://scan.pegotest.net/address/${owner}`);
-              }
+              window.open(`https://inevm.calderaexplorer.xyz/address/${owner}`);
             }}
           >
             <p className="text-sm font-semibold text-[#9c9e9e] my-2 mr-2">

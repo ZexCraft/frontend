@@ -111,15 +111,9 @@ export default function TreeNodeElement({
           <div
             className="flex justify-center  cursor-pointer"
             onClick={() => {
-              if (chain?.name == "PEGO Mainnet")
-                window.open(
-                  `https://scan.pego.network/address/${nodeDatum.attributes.relationship}`
-                );
-              if (chain?.name == "PEGO Testnet") {
-                window.open(
-                  `https://scan.pegotest.net/address/${nodeDatum.attributes.relationship}`
-                );
-              }
+              window.open(
+                `https://inevm.calderaexplorer.xyz/address/${nodeDatum.attributes.relationship}`
+              );
             }}
           >
             <p className="text-xs font-semibold text-[#9c9e9e] my-2 mr-2">

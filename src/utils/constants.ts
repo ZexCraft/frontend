@@ -1,11 +1,11 @@
 const injectiveDeployments = {
-  implementation: "0x29f42484e15709b60cDC89A1f102fa9a563Cf608",
-  registry: "0x170d6BC5cb1FF0f44dA7D59fC0DEEa6c42a5f412",
-  relImplementation: "0xBE3D118760d9be86688D88929c2122cEc9Ec4635",
-  relRegistry: "0x4393eD225A2F48C27eA6CeBec139190cb8EA8A5F",
-  inCraft: "0x9FafD4cB45410a931b538F1D97EFCC28b147E449",
+  implementation: "0x16CBC6Cb38D19B73A3b545109c70b2031d20EA37",
+  registry: "0xd37ca03a13bD2725306Fec4071855EE556037e2e",
+  relImplementation: "0x4ab8f50796b059aE5C8b8534afC6bb4c84912ff6",
+  relRegistry: "0x7125e097a72cCf547ED6e9e98bCc09BE3AC61997",
+  inCraft: "0x50751BD8d7b0a84c422DE96A56426a370F31a42D",
   mintFee: "100000000000000000",
-  craftToken: "0xD1dfbEd2a946a81324ed59D4C1396BB65aBa99B0",
+  craftToken: "0x08AC2b69feB202b34aD7c65E5Ac876E901CA6216",
 };
 const abi = {
   relationship: [
@@ -1527,6 +1527,11 @@ const abi = {
         {
           internalType: "address",
           name: "nft2Address",
+          type: "address",
+        },
+        {
+          internalType: "address",
+          name: "relationship",
           type: "address",
         },
         {

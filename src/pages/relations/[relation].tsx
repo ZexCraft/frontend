@@ -324,11 +324,7 @@ export default function Relation() {
             <p className=" text-5xl font-semibold ">Relationship</p>
             <Link
               target="_blank"
-              href={
-                chain?.name == "PEGO Mainnet"
-                  ? `https://scan.pego.network/address/${relation}`
-                  : `https://scan.pegotest.net/address/${relation}`
-              }
+              href={`https://inevm.calderaexplorer.xyz/address/${relation}`}
               className="text-lg my-2 tracking-wider text-[#9c9e9e] font-semibold"
             >
               {shortenEthereumAddress(relation as string)}&nbsp;
