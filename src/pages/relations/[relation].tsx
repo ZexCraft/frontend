@@ -487,9 +487,37 @@ export default function Relation() {
                         setProgress(100);
 
                         try {
-                          await createNftFunction({
-                            args: [fetchedImage.image],
-                          });
+                          console.log(fetchedImage.image);
+                          console.log((relationship as any).address);
+                          console.log((relationship as any).parent1);
+                          console.log((relationship as any).parent2);
+                          const relay = await fetch(
+                            "/api/relayer/create-baby",
+                            {
+                              method: "POST",
+                              headers: {
+                                "Content-Type": "application/json",
+                                Authorization: `Bearer ${process.env.NEXT_PUBLIC_MIDJOURNEY_API_KEY}`,
+                              },
+                              body: JSON.stringify({
+                                tokenUri: fetchedImage.image,
+                                relationship:
+                                  relationship && (relationship as any).address,
+                                nft1Address:
+                                  relationship && (relationship as any).parent1,
+                                nft2Address:
+                                  relationship && (relationship as any).parent2,
+                              }),
+                            }
+                          );
+                          const relayedTransaction = await relay.json();
+                          console.log(relayedTransaction);
+                          if (relayedTransaction.success == true) {
+                            // setTxHash(relayedTransaction.data as `0x${string}`);
+                            setImage(fetchedImage.image);
+                            setImageAlt(fetchedImage.imageAlt);
+                          } else {
+                          }
                           setImage(fetchedImage.image);
                           setImageAlt(fetchedImage.imageAlt);
                           setDisplayImage(true);

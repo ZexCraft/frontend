@@ -284,6 +284,11 @@ export default function Generate() {
                       setTxHash(relayedTransaction.data as `0x${string}`);
                       setImage(fetchedImage.image);
                       setImageAlt(fetchedImage.imageAlt);
+                      setDisplayImage(true);
+                      setMintDone(true);
+                      setIsMinting(false);
+                      setCount(2);
+                      setConfettiAnimation(true);
                     } else {
                     }
                   } catch (e) {
