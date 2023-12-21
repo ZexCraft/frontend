@@ -309,7 +309,7 @@ export default function Generate() {
           <div>
             <div className=" border border-white border-dashed h-[500px] w-[500px] rounded-xl ml-16">
               {mintDone && displayImage ? (
-                <img src={image} alt="gen-image" className="rounded-xl" />
+                <img src={imageAlt} alt="gen-image" className="rounded-xl" />
               ) : (
                 messageId != "" && (
                   <div className="flex flex-col justify-center items-center h-full">
