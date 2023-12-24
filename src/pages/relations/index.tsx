@@ -2,13 +2,44 @@ import Dropdown from "@/components/Dropdown";
 import Layout from "@/components/Layout";
 import PageNavigation from "@/components/PageNavigation";
 import RelationshipCard from "@/components/RelationshipCard";
+import getNft from "@/utils/supabase/get-nft";
+import getRelationships from "@/utils/supabase/get-relationships";
 import { faFilter } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNetwork } from "wagmi";
 
 export default function Relations() {
   const [search, setSearch] = useState("");
   const [filters, setFilters] = useState(true);
+  const [relationships, setRelationships] = useState<any>([]);
+  const { chain } = useNetwork();
+
+  useEffect(() => {
+    (async function () {
+      const rels = await getRelationships({
+        chainId: (chain?.id as number).toString(),
+      });
+      console.log(rels.response);
+      let tempRelationships = [];
+      for (let i = 0; i < rels.response.length; i++) {
+        const nft1 = await getNft({
+          address: rels.response[i].parent1,
+          chainId: (chain?.id as number).toString(),
+        });
+        const nft2 = await getNft({
+          address: rels.response[i].parent2,
+          chainId: (chain?.id as number).toString(),
+        });
+        tempRelationships.push({
+          nft1: nft1.response,
+          nft2: nft2.response,
+          relationship: rels.response[i].address,
+        });
+      }
+      setRelationships(tempRelationships);
+    })();
+  }, []);
   return (
     <Layout>
       <div className="min-h-[90vh] mt-20 ">
@@ -56,146 +87,26 @@ export default function Relations() {
                 filters ? "grid-cols-5" : "grid-cols-6"
               } gap-3 mx-8`}
             >
-              <RelationshipCard
-                nft1={{
-                  image: "/sample-generated/1.png",
-                  rarity: "Rare",
-                  mode: "create ✨",
-                  tokenId: "69",
-                }}
-                nft2={{
-                  image: "/sample-generated/2.png",
-                  rarity: "Legend",
-                  mode: "import ⬇️",
-                  tokenId: "234",
-                }}
-                relationship="Siblings"
-                family="ZexStar"
-              />
-              <RelationshipCard
-                nft1={{
-                  image: "/sample-generated/1.png",
-                  rarity: "Rare",
-                  mode: "create ✨",
-                  tokenId: "69",
-                }}
-                nft2={{
-                  image: "/sample-generated/2.png",
-                  rarity: "Legend",
-                  mode: "import ⬇️",
-                  tokenId: "234",
-                }}
-                relationship="Siblings"
-                family="ZexStar"
-              />
-              <RelationshipCard
-                nft1={{
-                  image: "/sample-generated/1.png",
-                  rarity: "Rare",
-                  mode: "create ✨",
-                  tokenId: "69",
-                }}
-                nft2={{
-                  image: "/sample-generated/2.png",
-                  rarity: "Legend",
-                  mode: "import ⬇️",
-                  tokenId: "234",
-                }}
-                relationship="Siblings"
-                family="ZexStar"
-              />
-              <RelationshipCard
-                nft1={{
-                  image: "/sample-generated/1.png",
-                  rarity: "Rare",
-                  mode: "create ✨",
-                  tokenId: "69",
-                }}
-                nft2={{
-                  image: "/sample-generated/2.png",
-                  rarity: "Legend",
-                  mode: "import ⬇️",
-                  tokenId: "234",
-                }}
-                relationship="Siblings"
-                family="ZexStar"
-              />
-              <RelationshipCard
-                nft1={{
-                  image: "/sample-generated/1.png",
-                  rarity: "Rare",
-                  mode: "create ✨",
-                  tokenId: "69",
-                }}
-                nft2={{
-                  image: "/sample-generated/2.png",
-                  rarity: "Legend",
-                  mode: "import ⬇️",
-                  tokenId: "234",
-                }}
-                relationship="Siblings"
-                family="ZexStar"
-              />
-              <RelationshipCard
-                nft1={{
-                  image: "/sample-generated/1.png",
-                  rarity: "Rare",
-                  mode: "create ✨",
-                  tokenId: "69",
-                }}
-                nft2={{
-                  image: "/sample-generated/2.png",
-                  rarity: "Legend",
-                  mode: "import ⬇️",
-                  tokenId: "234",
-                }}
-                relationship="Siblings"
-                family="ZexStar"
-              />
-              <RelationshipCard
-                nft1={{
-                  image: "/sample-generated/1.png",
-                  rarity: "Rare",
-                  mode: "create ✨",
-                  tokenId: "69",
-                }}
-                nft2={{
-                  image: "/sample-generated/2.png",
-                  rarity: "Legend",
-                  mode: "import ⬇️",
-                  tokenId: "234",
-                }}
-                relationship="Siblings"
-                family="ZexStar"
-              />
-              <RelationshipCard
-                nft1={{
-                  image: "/sample-generated/1.png",
-                  rarity: "Rare",
-                  mode: "create ✨",
-                  tokenId: "69",
-                }}
-                nft2={{
-                  image: "/sample-generated/2.png",
-                  rarity: "Legend",
-                  mode: "import ⬇️",
-                  tokenId: "234",
-                }}
-                relationship="Siblings"
-                family="ZexStar"
-              />
+              {relationships &&
+                relationships.map((rel: any) => (
+                  <RelationshipCard
+                    nft1={{
+                      image: rel.nft1.image,
+                      rarity: rel.nft1.rarity,
+                      mode: rel.nft1.type == 0 ? "create ✨" : "breed ❤️",
+                      tokenId: rel.nft1.token_id,
+                    }}
+                    nft2={{
+                      image: rel.nft2.image,
+                      rarity: rel.nft2.rarity,
+                      mode: rel.nft2.type == 0 ? "create ✨" : "breed ❤️",
+                      tokenId: rel.nft2.token_id,
+                    }}
+                    relationship={rel.relationship}
+                  />
+                ))}
             </div>
           </div>
-
-          {/* <Link
-          href={"/nfts"}
-          className="bg-[#25272b] m-8 py-4 flex justify-center rounded-xl"
-        >
-          <p className="mr-2 font-semibold text-lg font-theme">
-            View all ZexNFTs
-          </p>
-          <FontAwesomeIcon icon={faArrowRight} className="text-lg my-auto" />
-        </Link> */}
         </div>
       </div>
     </Layout>

@@ -2,6 +2,7 @@ import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
+import { useNetwork } from "wagmi";
 type NFT = {
   image: string;
   rarity: string;
@@ -12,13 +13,12 @@ export default function RelationshipCard({
   nft1,
   nft2,
   relationship,
-  family,
 }: {
   nft1: NFT;
   nft2: NFT;
   relationship: string;
-  family: string;
 }) {
+  const { chain } = useNetwork();
   return (
     <div className="border-[1px] border-[#3c3f41] p-2 rounded-lg font-theme">
       <div className="flex">
@@ -58,7 +58,7 @@ export default function RelationshipCard({
               className="flex justify-center  cursor-pointer"
               onClick={() => {
                 window.open(
-                  `https://sepolia.etherscan.io/address/${relationship}`
+                  `https://inevm.calderaexplorer.xyz/address/${relationship}`
                 );
               }}
             >
@@ -116,7 +116,9 @@ export default function RelationshipCard({
             <div
               className="flex justify-center cursor-pointer"
               onClick={() => {
-                window.open(`https://sepolia.etherscan.io/address/${family}`);
+                window.open(
+                  `https://inevm.calderaexplorer.xyz/address/${relationship}`
+                );
               }}
             >
               <p className="text-xs font-semibold text-[#9c9e9e] my-2 mr-2">

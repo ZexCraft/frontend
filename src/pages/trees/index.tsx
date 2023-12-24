@@ -2,13 +2,44 @@ import Dropdown from "@/components/Dropdown";
 import Layout from "@/components/Layout";
 import PageNavigation from "@/components/PageNavigation";
 import TreeCard from "@/components/TreeCard";
+import getNft from "@/utils/supabase/get-nft";
+import getRelationships from "@/utils/supabase/get-relationships";
 import { faFilter } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNetwork } from "wagmi";
 
 export default function Trees() {
   const [search, setSearch] = useState("");
   const [filters, setFilters] = useState(true);
+  const { chain } = useNetwork();
+  const [trees, setTrees] = useState<any>([]);
+
+  useEffect(() => {
+    (async function () {
+      const rels = await getRelationships({
+        chainId: (chain?.id as number).toString(),
+      });
+      console.log(rels.response);
+      let tempRelationships = [];
+      for (let i = 0; i < rels.response.length; i++) {
+        const nft1 = await getNft({
+          address: rels.response[i].parent1,
+          chainId: (chain?.id as number).toString(),
+        });
+        const nft2 = await getNft({
+          address: rels.response[i].parent2,
+          chainId: (chain?.id as number).toString(),
+        });
+        tempRelationships.push({
+          nft1: nft1.response,
+          nft2: nft2.response,
+          relationship: rels.response[i].address,
+        });
+      }
+      setTrees(tempRelationships);
+    })();
+  }, []);
   return (
     <Layout>
       <div className="min-h-[90vh] mt-20 ">
@@ -57,50 +88,18 @@ export default function Trees() {
                 filters ? "grid-cols-5" : "grid-cols-6"
               } gap-3 mx-8`}
             >
-              <TreeCard
-                nft1={"/sample-generated/1.png"}
-                nft2={"/sample-generated/2.png"}
-                count="10"
-                family="0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"
-                race="BAYC / ZEX"
-                relationship="Brother"
-              />
-              <TreeCard
-                nft1={"/sample-generated/1.png"}
-                nft2={"/sample-generated/2.png"}
-                count="10"
-                family="0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"
-                race="BAYC / ZEX"
-                relationship="Brother"
-              />
-              <TreeCard
-                nft1={"/sample-generated/1.png"}
-                nft2={"/sample-generated/2.png"}
-                count="10"
-                family="0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"
-                race="BAYC / ZEX"
-                relationship="Brother"
-              />
-              <TreeCard
-                nft1={"/sample-generated/1.png"}
-                nft2={"/sample-generated/2.png"}
-                count="10"
-                family="0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"
-                race="BAYC / ZEX"
-                relationship="Brother"
-              />
+              {trees &&
+                trees.map((tree: any) => (
+                  <TreeCard
+                    nft1={tree.nft1.image}
+                    nft2={tree.nft2.image}
+                    count="10"
+                    family={tree.relationship}
+                    race="BAYC / ZEX"
+                  />
+                ))}
             </div>
           </div>
-
-          {/* <Link
-          href={"/nfts"}
-          className="bg-[#25272b] m-8 py-4 flex justify-center rounded-xl"
-        >
-          <p className="mr-2 font-semibold text-lg font-theme">
-            View all ZexNFTs
-          </p>
-          <FontAwesomeIcon icon={faArrowRight} className="text-lg my-auto" />
-        </Link> */}
         </div>
       </div>
     </Layout>

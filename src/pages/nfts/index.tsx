@@ -2,15 +2,29 @@ import Dropdown from "@/components/Dropdown";
 import Layout from "@/components/Layout";
 import NFTCard from "@/components/NFTCard";
 import PageNavigation from "@/components/PageNavigation";
-import { faArrowRight, faFilter } from "@fortawesome/free-solid-svg-icons";
+import resolveRarity from "@/utils/resolveRarity";
+import getNfts from "@/utils/supabase/get-nfts";
+import { faFilter } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Image from "next/image";
-import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useAccount, useNetwork, useWalletClient } from "wagmi";
 
 export default function Nfts() {
   const [search, setSearch] = useState("");
   const [filters, setFilters] = useState(true);
+  const [nfts, setNfts] = useState([]);
+  const { chain } = useNetwork();
+
+  useEffect(() => {
+    (async function () {
+      const nfts = await getNfts({
+        chainId: (chain?.id as number).toString(),
+      });
+      console.log(nfts.response);
+      setNfts(nfts.response as any);
+    })();
+  }, []);
+
   return (
     <Layout>
       <div className="min-h-[90vh] mt-20">
@@ -23,9 +37,8 @@ export default function Nfts() {
                   ? "bg-[#d0d1d1] text-black"
                   : "bg-[#25272b] text-[#d0d1d1] hover:bg-[#303238]"
               } flex p-3 rounded-lg  `}
-              onClick={() => {
-                if (filters) setFilters(false);
-                else setFilters(true);
+              onClick={async () => {
+                setFilters(!filters);
               }}
             >
               <FontAwesomeIcon
@@ -58,126 +71,23 @@ export default function Nfts() {
                 filters ? "grid-cols-5" : "grid-cols-6"
               } gap-3 mx-8`}
             >
-              <NFTCard
-                size={400}
-                image={"/sample-generated/1.png"}
-                owner={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-                address={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-                rarity={"ZexStar"}
-                tokenId={"69"}
-                mode={"create ✨"}
-              />
-              <NFTCard
-                size={400}
-                image={"/sample-generated/2.png"}
-                owner={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-                address={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-                rarity={"ZexStar"}
-                tokenId={"69"}
-                mode={"breed ❤️"}
-              />
-              <NFTCard
-                size={400}
-                image={"/sample-generated/3.png"}
-                owner={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-                address={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-                rarity={"ZexStar"}
-                tokenId={"69"}
-                mode={"create ✨"}
-              />
-              <NFTCard
-                size={400}
-                image={"/sample-generated/4.png"}
-                owner={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-                address={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-                rarity={"ZexStar"}
-                tokenId={"69"}
-                mode={"create ✨"}
-              />
-              <NFTCard
-                size={400}
-                image={"/sample-generated/5.png"}
-                owner={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-                address={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-                rarity={"ZexStar"}
-                tokenId={"69"}
-                mode={"create ✨"}
-              />
-              <NFTCard
-                size={400}
-                image={"/sample-generated/1.png"}
-                owner={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-                address={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-                rarity={"ZexStar"}
-                tokenId={"69"}
-                mode={"create ✨"}
-              />
-              <NFTCard
-                size={400}
-                image={"/sample-generated/2.png"}
-                owner={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-                address={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-                rarity={"ZexStar"}
-                tokenId={"69"}
-                mode={"create ✨"}
-              />
-              <NFTCard
-                size={400}
-                image={"/sample-generated/3.png"}
-                owner={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-                address={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-                rarity={"ZexStar"}
-                tokenId={"69"}
-                mode={"create ✨"}
-              />
-              <NFTCard
-                size={400}
-                image={"/sample-generated/4.png"}
-                owner={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-                address={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-                rarity={"ZexStar"}
-                tokenId={"69"}
-                mode={"create ✨"}
-              />
-              <NFTCard
-                size={400}
-                image={"/sample-generated/5.png"}
-                owner={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-                address={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-                rarity={"ZexStar"}
-                tokenId={"69"}
-                mode={"create ✨"}
-              />
-              <NFTCard
-                size={400}
-                image={"/sample-generated/4.png"}
-                owner={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-                address={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-                rarity={"ZexStar"}
-                tokenId={"69"}
-                mode={"create ✨"}
-              />
-              <NFTCard
-                size={400}
-                image={"/sample-generated/5.png"}
-                owner={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-                address={"0x24fEADf4Dd65393Ff3323eDF9312798E35A2b110"}
-                rarity={"ZexStar"}
-                tokenId={"69"}
-                mode={"create ✨"}
-              />
+              {nfts.length > 0 &&
+                nfts.map((nft: any) => {
+                  return (
+                    <NFTCard
+                      image={nft.image}
+                      imageAlt={nft.image_alt}
+                      owner={nft.parent}
+                      address={nft.address}
+                      rarity={resolveRarity(nft.rarity)}
+                      tokenId={nft.token_id}
+                      mode={nft.type == 0 ? "create ✨" : "breed ❤️"}
+                      size={300}
+                    />
+                  );
+                })}
             </div>
           </div>
-
-          {/* <Link
-          href={"/nfts"}
-          className="bg-[#25272b] m-8 py-4 flex justify-center rounded-xl"
-        >
-          <p className="mr-2 font-semibold text-lg font-theme">
-            View all ZexNFTs
-          </p>
-          <FontAwesomeIcon icon={faArrowRight} className="text-lg my-auto" />
-        </Link> */}
         </div>
       </div>
     </Layout>

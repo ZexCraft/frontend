@@ -20,14 +20,14 @@ export default function Powerups() {
           <div className="w-full">
             <p className="text-5xl font-bold mb-5">Powerups</p>
             <p className="font-semibold text-xl text-[#9c9e9e] ml-2 mb-6">
-              Purchase these orbs to breed better ZexNFTs 🚀
+              Purchase these orbs to breed better CraftNFTs 🚀
             </p>
           </div>
 
           <div className="grid grid-cols-3  my-4 gap-4">
             <Powerup
               title="+1 Boost"
-              description="On equipping this powerup to your NFT, the next ZexCraft bred
+              description="On equipping this powerup to your NFT, the next InCraft bred
                 will have a +1 rarity increase."
               changeTotal={changeTotal}
               price={0.2}
@@ -35,7 +35,7 @@ export default function Powerups() {
             />
             <Powerup
               title="+2 Boost"
-              description="On equipping this powerup to your NFT, the next ZexCraft bred
+              description="On equipping this powerup to your NFT, the next InCraft bred
                 will have a +2 rarity increase."
               changeTotal={changeTotal}
               price={0.6}
@@ -43,7 +43,7 @@ export default function Powerups() {
             />
             <Powerup
               title="+5 Boost"
-              description="On equipping this powerup to your NFT, the next ZexCraft bred
+              description="On equipping this powerup to your NFT, the next InCraft bred
                 will have a +5 rarity increase."
               changeTotal={changeTotal}
               price={2}
@@ -51,7 +51,7 @@ export default function Powerups() {
             />
             <Powerup
               title="+10 Boost"
-              description="On equipping this powerup to your NFT, the next ZexCraft bred
+              description="On equipping this powerup to your NFT, the next InCraft bred
                 will have a +10 rarity increase."
               changeTotal={changeTotal}
               price={10}
@@ -59,21 +59,21 @@ export default function Powerups() {
             />
             <Powerup
               title="Twins"
-              description="On equipping this powerup to your NFT, two ZexCraft NFTs will be bred at once. This increases the breeding threshold by 1."
+              description="On equipping this powerup to your NFT, two InCraft NFTs will be bred at once. This increases the breeding threshold by 1."
               changeTotal={changeTotal}
               price={50}
               ownCount={1}
             />
             <Powerup
               title="Triplets"
-              description="On equipping this powerup to your NFT, three ZexCraft NFTs will be bred at once. This increases the breeding threshold by 2."
+              description="On equipping this powerup to your NFT, three InCraft NFTs will be bred at once. This increases the breeding threshold by 2."
               changeTotal={changeTotal}
               price={80}
               ownCount={1}
             />
           </div>
           <div className="flex justify-end">
-            <p className="my-auto font-semibold text-lg">Total: {total} AVAX</p>
+            <p className="my-auto font-semibold text-lg">Total: {total} PG</p>
             <button className="m-4 py-3 px-6 bg-[#25272b] hover:bg-[#d0d1d1] hover:text-black font-semibold text-lg rounded-lg">
               Purchase
             </button>

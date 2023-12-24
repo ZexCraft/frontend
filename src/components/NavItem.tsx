@@ -5,22 +5,36 @@ const NavItem = ({
   icon,
   content,
   link,
+  isDropdown,
 }: {
   icon: IconDefinition;
   content: string;
   link: string;
+  isDropdown: boolean;
 }) => {
   return (
-    <Link
-      href={link}
-      className="flex items-center justify-center rounded-lg  px-3 mx-2 my-1 py-1"
+    <div
+      className={` my-auto ${
+        isDropdown
+          ? "flex"
+          : content == "Create"
+          ? "hidden tablet:flex"
+          : content == "NFTs"
+          ? "hidden laptop:flex"
+          : "hidden desktop:flex"
+      }`}
     >
-      <FontAwesomeIcon
-        icon={icon}
-        className=" text-[#9c9e9e] text-md font-bold mr-2"
-      />
-      <p className="font-theme text-[#9c9e9e] text-md font-bold">{content}</p>
-    </Link>
+      <Link
+        href={link}
+        className={`flex items-center justify-center rounded-lg  px-3 mx-2 my-1 py-1   `}
+      >
+        <FontAwesomeIcon
+          icon={icon}
+          className=" text-[#9c9e9e] text-md font-bold mr-2"
+        />
+        <p className="font-theme text-[#9c9e9e] text-md font-bold">{content}</p>
+      </Link>
+    </div>
   );
 };
 

@@ -45,53 +45,19 @@ export default function BlockchainDropdown() {
           </button>
           <button
             className={
-              blockchain == "avalanche"
+              blockchain == "injective"
                 ? `bg-[#d0d1d1] w-full h-full p-3 flex justify-center rounded-xl`
                 : `w-full h-full p-3 flex justify-center rounded-xl`
             }
             onClick={() => {
-              setBlockchain("avalanche");
+              setBlockchain("injective");
             }}
           >
             <Image
-              src={"/tech/avalanche.png"}
-              height={20}
-              width={20}
-              alt="avalanche"
-            />
-          </button>
-          <button
-            className={
-              blockchain == "sepolia"
-                ? `bg-[#d0d1d1] w-full h-full p-3 flex justify-center rounded-xl`
-                : `w-full h-full p-3 flex justify-center rounded-xl`
-            }
-            onClick={() => {
-              setBlockchain("sepolia");
-            }}
-          >
-            <Image
-              src={"/tech/blue-ethereum.png"}
-              height={20}
-              width={20}
-              alt="sepolia"
-            />
-          </button>
-          <button
-            className={
-              blockchain == "polygon"
-                ? `bg-[#d0d1d1] w-full h-full p-3 flex justify-center rounded-xl`
-                : `w-full h-full p-3 flex justify-center rounded-xl`
-            }
-            onClick={() => {
-              setBlockchain("polygon");
-            }}
-          >
-            <Image
-              src={"/tech/polygon.png"}
-              height={20}
-              width={20}
-              alt="polygon"
+              src={"/tech/injective.png"}
+              height={30}
+              width={30}
+              alt="injective"
             />
           </button>
         </div>

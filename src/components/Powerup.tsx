@@ -23,7 +23,7 @@ export default function Powerup({
       <div className="flex justify-around">
         <div className="text-center font-semibold mt-4 mb-2">
           <p>Price</p>
-          <p>{price} AVAX</p>
+          <p>{price} PG</p>
         </div>
         <div className="text-center font-semibold mt-4 mb-2">
           <p>You own</p>

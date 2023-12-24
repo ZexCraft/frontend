@@ -1,9 +1,13 @@
 import Layout from "@/components/Layout";
+import createNft from "@/utils/supabase/create-nft";
+import createRelationship from "@/utils/supabase/create-relationship";
+import getRelationship from "@/utils/supabase/get-relationship";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 export default function Create() {
   const [prompt, setPrompt] = useState("");
+
   return (
     <Layout>
       <div>
@@ -14,47 +18,34 @@ export default function Create() {
               Choose the most suitable blockchain for your needs.
             </p>
             <p className="text-2xl font-bold text-[#9c9e9e]">
-              Log in your wallet to craft ZexNFTs. 🪄
+              Log in your wallet to craft CraftNFTs. 🪄
             </p>
-            <div className="grid grid-cols-3 gap-3 mt-10">
+            <div className="grid grid-cols-2 gap-3 mt-10">
               <Link
-                href={`/create/fuji`}
+                href={`/create/injective`}
                 className="border-[2px] border-[#3c3f41] flex flex-col justify-center items-center h-[300px] rounded-2xl"
               >
                 <Image
-                  src="/tech/avalanche.png"
+                  src="/tech/injective.png"
                   width={100}
                   height={100}
-                  alt="mumbai"
+                  alt="injective"
                 />
-                <p className="text-white font-bold text-2xl mt-4">
-                  Avalanche Fuji
-                </p>
+                <p className="text-white font-bold text-2xl mt-4">Injective</p>
               </Link>
-              <Link
-                href={`/create/sepolia`}
-                className="border-[2px] border-[#3c3f41] flex flex-col justify-center items-center h-[300px] rounded-2xl"
-              >
-                <Image
-                  src="/tech/blue-ethereum.png"
-                  width={100}
-                  height={100}
-                  alt="sepolia"
-                />
-                <p className="text-white font-bold text-2xl mt-4">Sepolia</p>
-              </Link>
-              <Link
-                href={`/create/mumbai`}
-                className="border-[2px] border-[#3c3f41] flex flex-col justify-center items-center h-[300px] rounded-2xl"
-              >
+
+              <div className="border-[2px] border-[#3c3f41] flex flex-col justify-center items-center h-[300px] rounded-2xl cursor-default">
                 <Image
                   src="/tech/polygon.png"
                   width={100}
                   height={100}
                   alt="mumbai"
                 />
-                <p className="text-white font-bold text-2xl mt-4">Mumbai</p>
-              </Link>
+                <p className="text-[#9c9e9e] font-bold text-2xl mt-4">
+                  Other Blockchains
+                </p>
+                <p className="text-[#3c3f41] font-semibold">Coming soon...</p>
+              </div>
             </div>
           </div>
         </div>

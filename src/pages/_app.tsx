@@ -4,25 +4,20 @@ import "@rainbow-me/rainbowkit/styles.css";
 import * as React from "react";
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
-import { useEffect, useState } from "react";
-import Navbar from "@/components/Navbar";
-import Head from "next/head";
 
 import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
-import { configureChains, createConfig, WagmiConfig } from "wagmi";
-import { goerli, sepolia, avalancheFuji, polygonMumbai } from "wagmi/chains";
-import { alchemyProvider } from "wagmi/providers/alchemy";
+import { Chain, configureChains, createConfig, WagmiConfig } from "wagmi";
 import { publicProvider } from "wagmi/providers/public";
-import Footer from "@/components/Footer";
+import { injective } from "@/utils/constants";
 
 const { chains, publicClient } = configureChains(
-  [goerli, sepolia, avalancheFuji, polygonMumbai],
+  [injective],
   [publicProvider()]
 );
 
 const { connectors } = getDefaultWallets({
-  appName: "ZexCraft",
-  projectId: process.env.NEXT_PROJECT_ID ?? "0354c8dc98c64f51775522050a4a0cfa",
+  appName: "InCraft",
+  projectId: process.env.NEXT_PUBLIC_PROJECT_ID ?? "",
   chains,
 });
 

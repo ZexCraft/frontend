@@ -2,6 +2,7 @@ import { faChain } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useChainModal } from "@rainbow-me/rainbowkit";
 import Image from "next/image";
+import { useEffect } from "react";
 import { useAccount, useNetwork, useBalance } from "wagmi";
 
 const CurrentChain = () => {
@@ -11,9 +12,13 @@ const CurrentChain = () => {
   const { data: balance } = useBalance({
     address,
   });
+
+  useEffect(() => {
+    console.log(balance);
+  }, []);
   return isConnected ? (
     <div
-      className="flex items-center justify-center rounded-lg bg-[#d0d1d1] px-3 mx-2 my-1 cursor-pointer"
+      className="flex items-center justify-center rounded-lg bg-[#d0d1d1] px-3 mx-2 my-1 cursor-pointer "
       onClick={() => {
         if (openChainModal) {
           openChainModal();
@@ -26,18 +31,14 @@ const CurrentChain = () => {
         src={
           chain == undefined
             ? ""
-            : chain.name == "Sepolia" || chain.name == "Goerli"
-            ? "/tech/ethereum.png"
-            : chain.name == "Polygon Mumbai"
-            ? "/tech/polygon.png"
-            : chain.name == "Avalanche Fuji"
-            ? "/tech/avalanche.png"
+            : chain.name == "Injective EVM"
+            ? "/tech/injective.png"
             : "/wrong.png"
         }
         width={25}
         height={25}
         alt="chain"
-        className="mr-2"
+        className="mr-2 "
       />
       <p className="font-theme text-[#201c1c] text-md font-bold">
         {chain == undefined
@@ -55,15 +56,7 @@ const CurrentChain = () => {
         </p>
       )}
       <p className="font-theme text-[#201c1c] text-md font-bold">
-        {chain == undefined
-          ? ""
-          : chain.name == "Sepolia" || chain.name == "Goerli"
-          ? "ETH"
-          : chain.name == "Polygon Mumbai"
-          ? "MATIC"
-          : chain.name == "Avalanche Fuji"
-          ? "AVAX"
-          : ""}
+        {chain == undefined ? "" : chain.name == "Injective EVM" ? "INJ" : ""}
       </p>
     </div>
   ) : (

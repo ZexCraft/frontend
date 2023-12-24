@@ -1,5 +1,6 @@
 import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useNetwork } from "wagmi";
 
 export default function TreeNodeElement({
   nodeDatum,
@@ -8,6 +9,7 @@ export default function TreeNodeElement({
   nodeDatum: any;
   toggleNode: any;
 }) {
+  const { chain } = useNetwork();
   return (
     <>
       <div className="border-[1px] border-black p-2 rounded-t-lg font-theme">
@@ -110,7 +112,7 @@ export default function TreeNodeElement({
             className="flex justify-center  cursor-pointer"
             onClick={() => {
               window.open(
-                `https://sepolia.etherscan.io/address/${nodeDatum.attributes.relationship}`
+                `https://inevm.calderaexplorer.xyz/address/${nodeDatum.attributes.relationship}`
               );
             }}
           >
