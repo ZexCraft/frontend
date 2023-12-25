@@ -3,7 +3,7 @@ const mumbaiDeployments = {
   registry: "0x3633e5F44b62fBF534aADD53675045973e3dfE43",
   relImplementation: "0xf09405de084E358717458AEC32b64A9114AB7bB2",
   relRegistry: "0x39917E6C7E06D46Ff4B86A817B2bE0a004572994",
-  inCraft: "0x936889518ab0F1665E042679869a17013E981322",
+  zexCraft: "0x936889518ab0F1665E042679869a17013E981322",
   mintFee: "100000000000000000",
   craftToken: "0x9284eeb76a806Ee4bdc2F7Ca697a44682a533081",
 };
@@ -173,7 +173,7 @@ const abi = {
     },
     {
       inputs: [],
-      name: "inCraft",
+      name: "zexCraft",
       outputs: [
         {
           internalType: "address",
@@ -208,7 +208,7 @@ const abi = {
         },
         {
           internalType: "address",
-          name: "_inCraft",
+          name: "_zexCraft",
           type: "address",
         },
       ],
@@ -561,7 +561,7 @@ const abi = {
       inputs: [
         {
           internalType: "address",
-          name: "inCraftNFT",
+          name: "zexCraftNFT",
           type: "address",
         },
       ],
@@ -854,7 +854,7 @@ const abi = {
     },
     {
       inputs: [],
-      name: "i_inCraftNftAddress",
+      name: "i_zexCraftNftAddress",
       outputs: [
         {
           internalType: "address",
@@ -1085,7 +1085,7 @@ const abi = {
       type: "function",
     },
   ],
-  inCraft: [
+  zexCraft: [
     {
       inputs: [
         {
@@ -2159,7 +2159,7 @@ const abi = {
     },
     {
       inputs: [],
-      name: "inCraft",
+      name: "zexCraft",
       outputs: [
         {
           internalType: "address",
@@ -2174,7 +2174,7 @@ const abi = {
       inputs: [
         {
           internalType: "address",
-          name: "_inCraft",
+          name: "_zexCraft",
           type: "address",
         },
         {

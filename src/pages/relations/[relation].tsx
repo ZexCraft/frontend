@@ -150,15 +150,15 @@ export default function Relation() {
   }, [refreshBabyRequest]);
 
   const { data: balance, refetch: fetchBalance } = useContractRead({
-    address: mumbaiDeployments.inCraft as `0x${string}`,
+    address: mumbaiDeployments.zexCraft as `0x${string}`,
     abi: abi.craftToken,
     functionName: "balanceOf",
     args: [relation],
   });
 
   const { writeAsync: createNftFunction } = useContractWrite({
-    address: mumbaiDeployments.inCraft as `0x${string}`,
-    abi: abi.inCraft,
+    address: mumbaiDeployments.zexCraft as `0x${string}`,
+    abi: abi.zexCraft,
     functionName: "createNft",
   });
   const { writeAsync: approve } = useContractWrite({
@@ -168,8 +168,8 @@ export default function Relation() {
   });
 
   useContractEvent({
-    address: mumbaiDeployments.inCraft as `0x${string}`,
-    abi: abi.inCraft,
+    address: mumbaiDeployments.zexCraft as `0x${string}`,
+    abi: abi.zexCraft,
     eventName: "Transfer",
     listener(log) {
       console.log(log);
@@ -196,7 +196,7 @@ export default function Relation() {
         image: image,
         imageAlt: imageAlt,
         chainId: (chain?.id as number).toString(),
-        contractAddress: mumbaiDeployments.inCraft,
+        contractAddress: mumbaiDeployments.zexCraft,
         parent: args.to,
         rarity: Number(88),
         type: 0,

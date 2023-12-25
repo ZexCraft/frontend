@@ -34,7 +34,7 @@ const ConnectButton = () => {
 
   useContractEvent({
     address: mumbaiDeployments.craftToken as `0x${string}`,
-    abi: abi.inCraft,
+    abi: abi.zexCraft,
     eventName: "Transfer",
     listener(log) {
       console.log(log[0]);

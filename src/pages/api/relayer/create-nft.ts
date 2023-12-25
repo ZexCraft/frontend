@@ -2,7 +2,7 @@ import { abi, mumbaiDeployments } from "@/utils/constants";
 import { NextApiRequest, NextApiResponse } from "next";
 import { Chain, createPublicClient, createWalletClient, http } from "viem";
 import { privateKeyToAccount } from "viem/accounts";
-import { polygon } from "@/utils/constants";
+import { polygonMumbai } from "viem/chains";
 
 export default async function handler(
   req: NextApiRequest,
@@ -32,19 +32,19 @@ export default async function handler(
 
     const client = createWalletClient({
       account,
-      chain: polygon as Chain,
+      chain: polygonMumbai,
       transport: http(NEXT_PUBLIC_POLYGON_RPC_ENDPOINT),
     });
 
     const publicClient = createPublicClient({
-      chain: polygon as Chain,
+      chain: polygonMumbai,
       transport: http(),
     });
 
     const { request } = await publicClient.simulateContract({
       account,
-      address: mumbaiDeployments.inCraft as `0x${string}`,
-      abi: abi.inCraft,
+      address: mumbaiDeployments.zexCraft as `0x${string}`,
+      abi: abi.zexCraft,
       functionName: "createNft",
       args: [tokenUri, creator, permitTokensSignature, createNftSignature],
     });

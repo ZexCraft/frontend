@@ -56,13 +56,13 @@ export default function Generate() {
   });
 
   useContractEvent({
-    address: mumbaiDeployments.inCraft as `0x${string}`,
-    abi: abi.inCraft,
+    address: mumbaiDeployments.zexCraft as `0x${string}`,
+    abi: abi.zexCraft,
     eventName: "InCraftNFTCreated",
     listener(log) {
       fetchBalance();
       const event = decodeEventLog({
-        abi: abi.inCraft,
+        abi: abi.zexCraft,
         data: log[0].data,
         topics: log[0].topics,
       });
@@ -86,7 +86,7 @@ export default function Generate() {
           image: image,
           imageAlt: imageAlt,
           chainId: (chain?.id as number).toString(),
-          contractAddress: mumbaiDeployments.inCraft,
+          contractAddress: mumbaiDeployments.zexCraft,
           parent: args.owner,
           rarity: Number(args.rarity),
           type: 0,
@@ -187,7 +187,7 @@ export default function Generate() {
                       walletClient: walletClient as WalletClient,
                       owner: address as `0x${string}`,
                       nonce: (nonce as bigint).toString(),
-                      spender: mumbaiDeployments.inCraft as `0x${string}`,
+                      spender: mumbaiDeployments.zexCraft as `0x${string}`,
                       amount: "100000000000000000",
                     });
                     setApproveSignature(approveSig);
