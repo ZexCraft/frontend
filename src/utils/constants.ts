@@ -40,12 +40,25 @@ const abi = {
     },
     {
       inputs: [],
-      name: "MINT_ACTION",
+      name: "INCRAFT_BREED",
       outputs: [
         {
           internalType: "string",
           name: "",
           type: "string",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "craftToken",
+      outputs: [
+        {
+          internalType: "contract ICraftToken",
+          name: "",
+          type: "address",
         },
       ],
       stateMutability: "view",
@@ -184,6 +197,11 @@ const abi = {
           type: "address",
         },
         {
+          internalType: "address",
+          name: "_craftToken",
+          type: "address",
+        },
+        {
           internalType: "uint256",
           name: "_mintFee",
           type: "uint256",
@@ -274,7 +292,7 @@ const abi = {
       inputs: [
         {
           internalType: "address",
-          name: "creator",
+          name: "nftAccount",
           type: "address",
         },
         {
@@ -296,7 +314,7 @@ const abi = {
           type: "bool",
         },
       ],
-      stateMutability: "pure",
+      stateMutability: "view",
       type: "function",
     },
   ],
@@ -1333,12 +1351,6 @@ const abi = {
           name: "rarity",
           type: "uint256",
         },
-        {
-          indexed: false,
-          internalType: "bool",
-          name: "nftType",
-          type: "bool",
-        },
       ],
       name: "InCraftNFTBred",
       type: "event",
@@ -1375,12 +1387,6 @@ const abi = {
           internalType: "uint256",
           name: "rarity",
           type: "uint256",
-        },
-        {
-          indexed: false,
-          internalType: "bool",
-          name: "nftType",
-          type: "bool",
         },
       ],
       name: "InCraftNFTCreated",
@@ -1721,6 +1727,30 @@ const abi = {
       type: "function",
     },
     {
+      inputs: [
+        {
+          internalType: "bytes32",
+          name: "dataHash",
+          type: "bytes32",
+        },
+        {
+          internalType: "bytes",
+          name: "signature",
+          type: "bytes",
+        },
+      ],
+      name: "recoverSigner",
+      outputs: [
+        {
+          internalType: "address",
+          name: "",
+          type: "address",
+        },
+      ],
+      stateMutability: "pure",
+      type: "function",
+    },
+    {
       inputs: [],
       name: "relRegistry",
       outputs: [
@@ -2034,10 +2064,55 @@ const abi = {
     },
     {
       inputs: [],
+      name: "INCRAFT_CREATE_RELATIONSHIP",
+      outputs: [
+        {
+          internalType: "string",
+          name: "",
+          type: "string",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "uint256",
+          name: "salt",
+          type: "uint256",
+        },
+      ],
+      name: "account",
+      outputs: [
+        {
+          internalType: "address",
+          name: "",
+          type: "address",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
       name: "accountRegistry",
       outputs: [
         {
           internalType: "contract IERC6551Registry",
+          name: "",
+          type: "address",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "craftToken",
+      outputs: [
+        {
+          internalType: "address",
           name: "",
           type: "address",
         },
@@ -2135,6 +2210,19 @@ const abi = {
     {
       inputs: [],
       name: "mintFee",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "nonce",
       outputs: [
         {
           internalType: "uint256",
