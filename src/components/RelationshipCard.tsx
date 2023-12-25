@@ -58,7 +58,7 @@ export default function RelationshipCard({
               className="flex justify-center  cursor-pointer"
               onClick={() => {
                 window.open(
-                  `https://inevm.calderaexplorer.xyz/address/${relationship}`
+                  `https://mumbai.polygonscan.com/address/${relationship}`
                 );
               }}
             >
@@ -117,7 +117,7 @@ export default function RelationshipCard({
               className="flex justify-center cursor-pointer"
               onClick={() => {
                 window.open(
-                  `https://inevm.calderaexplorer.xyz/address/${relationship}`
+                  `https://mumbai.polygonscan.com/address/${relationship}`
                 );
               }}
             >

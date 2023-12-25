@@ -67,9 +67,7 @@ export default function NFTCard({
           <div
             className="flex justify-center cursor-pointer"
             onClick={() => {
-              window.open(
-                `https://inevm.calderaexplorer.xyz/address/${address}`
-              );
+              window.open(`https://mumbai.polygonscan.com/address/${address}`);
             }}
           >
             <p className="text-sm font-semibold text-[#9c9e9e] my-2 mr-2">
@@ -83,7 +81,7 @@ export default function NFTCard({
           <div
             className="flex justify-center  cursor-pointer"
             onClick={() => {
-              window.open(`https://inevm.calderaexplorer.xyz/address/${owner}`);
+              window.open(`https://mumbai.polygonscan.com/address/${owner}`);
             }}
           >
             <p className="text-sm font-semibold text-[#9c9e9e] my-2 mr-2">

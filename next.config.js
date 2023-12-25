@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["ipfs.io", "cdn.midjourney.com"],
+    domains: ["cloudflare-ipfs.com", "cdn.midjourney.com"],
   },
 };
 

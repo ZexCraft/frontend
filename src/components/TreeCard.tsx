@@ -46,7 +46,7 @@ export default function TreeCard({
             <div
               className="flex justify-center  cursor-pointer"
               onClick={() => {
-                window.open(`https://inevm.calderaexplorer.xyz/${family}`);
+                window.open(`https://mumbai.polygonscan.com/${family}`);
               }}
             >
               <p className="text-xs font-semibold text-[#9c9e9e] my-2 mr-2">
@@ -92,7 +92,7 @@ export default function TreeCard({
             <div
               className="flex justify-center cursor-pointer"
               onClick={() => {
-                window.open(`https://inevm.calderaexplorer.xyz/${family}`);
+                window.open(`https://mumbai.polygonscan.com/${family}`);
               }}
             >
               <p className="text-xs font-semibold text-[#9c9e9e] my-2 mr-2">

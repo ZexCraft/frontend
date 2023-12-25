@@ -25,8 +25,8 @@ export default async function getRelationshipsByCreator(req: {
           actual_parent +
           ",actual_parent_2.eq." +
           actual_parent
-      );
-    // .eq("chain_id", chainId);
+      )
+      .eq("chain_id", chainId);
     console.log(fetchedRelationships);
 
     if (

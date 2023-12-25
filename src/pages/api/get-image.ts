@@ -3,8 +3,6 @@ import { createClient } from "@supabase/supabase-js";
 const BASE_URL = "https://api.thenextleg.io/v2";
 const dnow = Date.now();
 
-const NEXT_PUBLIC_SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "";
-const NEXT_PUBLIC_SUPABASE_KEY = process.env.NEXT_PUBLIC_SUPABASE_KEY ?? "";
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -55,7 +53,9 @@ export default async function handler(
       progress: 100,
       imageAlt: imageUrl,
       image:
-        "https://ipfs.io/ipfs/" + ipfsResponseData.value.cid + "/image.jpg",
+        "https://" +
+        ipfsResponseData.value.cid +
+        "ipfs.nftstorage.link/image.jpg",
     });
   } else {
     res

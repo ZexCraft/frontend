@@ -331,7 +331,7 @@ export default function Generate() {
                 <p>Tx Hash</p>
                 <a
                   className="text-sm text-[#9c9e9e] font0"
-                  href={"https://inevm.calderaexplorer.xyz/tx/" + txHash}
+                  href={"https://mumbai.polygonscan.com/tx/" + txHash}
                   target={"_blank"}
                 >
                   {txHash.substring(0, 10) +

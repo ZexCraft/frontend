@@ -324,7 +324,7 @@ export default function Relation() {
             <p className=" text-5xl font-semibold ">Relationship</p>
             <Link
               target="_blank"
-              href={`https://inevm.calderaexplorer.xyz/address/${relation}`}
+              href={`https://mumbai.polygonscan.com/address/${relation}`}
               className="text-lg my-2 tracking-wider text-[#9c9e9e] font-semibold"
             >
               {shortenEthereumAddress(relation as string)}&nbsp;

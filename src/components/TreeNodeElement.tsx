@@ -112,7 +112,7 @@ export default function TreeNodeElement({
             className="flex justify-center  cursor-pointer"
             onClick={() => {
               window.open(
-                `https://inevm.calderaexplorer.xyz/address/${nodeDatum.attributes.relationship}`
+                `https://mumbai.polygonscan.com/address/${nodeDatum.attributes.relationship}`
               );
             }}
           >

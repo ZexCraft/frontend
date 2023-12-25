@@ -35,6 +35,7 @@ export default function Profile(props: { address: string }) {
 
   useEffect(() => {
     (async function () {
+      console.log(chain?.id);
       const nfts = await getNftsByOwner({
         address: address,
         chainId: (chain?.id as number).toString(),
