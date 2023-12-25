@@ -316,12 +316,17 @@ export default function Generate() {
                     <p className="font-bold text-xl text-[#9c9e9e]">Seed</p>
                     <p className="font-semibold text-lg">{messageId}</p>
                     <p className="font-bold text-xl text-[#9c9e9e] mt-8">
-                      Progress
+                      Minting
                     </p>
                     <p className="font-semibold mb-8 text-lg">
                       {progress} / 100
                     </p>
-                    <LoadingSpinner loading={true} />
+                    <Image
+                      src={"/mint.gif"}
+                      width={200}
+                      height={200}
+                      alt="minting"
+                    />
                   </div>
                 )
               )}
