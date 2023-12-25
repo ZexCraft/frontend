@@ -3,7 +3,7 @@ import NFTCard from "@/components/NFTCard";
 import LoadingSpinner from "@/components/Spinner";
 import useWindowSize from "@/hooks/useWindowSize";
 import { shortenEthereumAddress } from "@/utils";
-import { abi, injectiveDeployments } from "@/utils/constants";
+import { abi, mumbaiDeployments } from "@/utils/constants";
 import resolveRarity from "@/utils/resolveRarity";
 import signCreateBaby from "@/utils/sign/signCreateBaby";
 import createBabyRequest from "@/utils/supabase/create-baby-request";
@@ -150,25 +150,25 @@ export default function Relation() {
   }, [refreshBabyRequest]);
 
   const { data: balance, refetch: fetchBalance } = useContractRead({
-    address: injectiveDeployments.inCraft as `0x${string}`,
+    address: mumbaiDeployments.inCraft as `0x${string}`,
     abi: abi.craftToken,
     functionName: "balanceOf",
     args: [relation],
   });
 
   const { writeAsync: createNftFunction } = useContractWrite({
-    address: injectiveDeployments.inCraft as `0x${string}`,
+    address: mumbaiDeployments.inCraft as `0x${string}`,
     abi: abi.inCraft,
     functionName: "createNft",
   });
   const { writeAsync: approve } = useContractWrite({
-    address: injectiveDeployments.craftToken as `0x${string}`,
+    address: mumbaiDeployments.craftToken as `0x${string}`,
     abi: abi.craftToken,
     functionName: "approve",
   });
 
   useContractEvent({
-    address: injectiveDeployments.inCraft as `0x${string}`,
+    address: mumbaiDeployments.inCraft as `0x${string}`,
     abi: abi.inCraft,
     eventName: "Transfer",
     listener(log) {
@@ -196,7 +196,7 @@ export default function Relation() {
         image: image,
         imageAlt: imageAlt,
         chainId: (chain?.id as number).toString(),
-        contractAddress: injectiveDeployments.inCraft,
+        contractAddress: mumbaiDeployments.inCraft,
         parent: args.to,
         rarity: Number(88),
         type: 0,

@@ -1,7 +1,7 @@
 import Layout from "@/components/Layout";
 import LoadingSpinner from "@/components/Spinner";
 import { capitalizeString, shortenEthereumAddress } from "@/utils";
-import { abi, injectiveDeployments } from "@/utils/constants";
+import { abi, mumbaiDeployments } from "@/utils/constants";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -43,20 +43,20 @@ export default function Generate() {
   const [confetttiAnimation, setConfettiAnimation] = useState(false);
 
   const { data: nonce } = useContractRead({
-    address: injectiveDeployments.craftToken as `0x${string}`,
+    address: mumbaiDeployments.craftToken as `0x${string}`,
     abi: abi.craftToken,
     functionName: "nonces",
     args: [address],
   });
   const { data: balance, refetch: fetchBalance } = useContractRead({
-    address: injectiveDeployments.craftToken as `0x${string}`,
+    address: mumbaiDeployments.craftToken as `0x${string}`,
     abi: abi.craftToken,
     functionName: "balanceOf",
     args: [address],
   });
 
   useContractEvent({
-    address: injectiveDeployments.inCraft as `0x${string}`,
+    address: mumbaiDeployments.inCraft as `0x${string}`,
     abi: abi.inCraft,
     eventName: "InCraftNFTCreated",
     listener(log) {
@@ -86,7 +86,7 @@ export default function Generate() {
           image: image,
           imageAlt: imageAlt,
           chainId: (chain?.id as number).toString(),
-          contractAddress: injectiveDeployments.inCraft,
+          contractAddress: mumbaiDeployments.inCraft,
           parent: args.owner,
           rarity: Number(args.rarity),
           type: 0,
@@ -127,8 +127,8 @@ export default function Generate() {
               <div className="flex">
                 <Image
                   src={
-                    chain?.name == "Injective EVM"
-                      ? "/tech/injective.png"
+                    chain?.name == "Polygon Mumbai"
+                      ? "/tech/polygon.png"
                       : "/tech/blue-ethereum.png"
                   }
                   width={50}
@@ -187,7 +187,7 @@ export default function Generate() {
                       walletClient: walletClient as WalletClient,
                       owner: address as `0x${string}`,
                       nonce: (nonce as bigint).toString(),
-                      spender: injectiveDeployments.inCraft as `0x${string}`,
+                      spender: mumbaiDeployments.inCraft as `0x${string}`,
                       amount: "100000000000000000",
                     });
                     setApproveSignature(approveSig);

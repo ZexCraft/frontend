@@ -9,7 +9,7 @@ import {
   useContractWrite,
   useNetwork,
 } from "wagmi";
-import { abi, injectiveDeployments } from "@/utils/constants";
+import { abi, mumbaiDeployments } from "@/utils/constants";
 const ConnectButton = () => {
   const { openConnectModal } = useConnectModal();
   const { openAccountModal } = useAccountModal();
@@ -23,7 +23,7 @@ const ConnectButton = () => {
     isSuccess,
     write: mint,
   } = useContractWrite({
-    address: injectiveDeployments.craftToken as `0x${string}`,
+    address: mumbaiDeployments.craftToken as `0x${string}`,
     abi: abi.craftToken,
     functionName: "mint",
     gasPrice: BigInt(4000000000),
@@ -33,7 +33,7 @@ const ConnectButton = () => {
   });
 
   useContractEvent({
-    address: injectiveDeployments.craftToken as `0x${string}`,
+    address: mumbaiDeployments.craftToken as `0x${string}`,
     abi: abi.inCraft,
     eventName: "Transfer",
     listener(log) {

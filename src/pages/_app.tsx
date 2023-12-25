@@ -6,12 +6,12 @@ import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 
 import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
-import { Chain, configureChains, createConfig, WagmiConfig } from "wagmi";
+import { configureChains, createConfig, WagmiConfig } from "wagmi";
 import { publicProvider } from "wagmi/providers/public";
-import { injective } from "@/utils/constants";
+import { polygonMumbai } from "viem/chains";
 
 const { chains, publicClient } = configureChains(
-  [injective],
+  [polygonMumbai],
   [publicProvider()]
 );
 

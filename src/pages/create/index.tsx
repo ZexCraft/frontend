@@ -22,16 +22,16 @@ export default function Create() {
             </p>
             <div className="grid grid-cols-2 gap-3 mt-10">
               <Link
-                href={`/create/injective`}
+                href={`/create/polygon`}
                 className="border-[2px] border-[#3c3f41] flex flex-col justify-center items-center h-[300px] rounded-2xl"
               >
                 <Image
-                  src="/tech/injective.png"
+                  src="/tech/polygon.png"
                   width={100}
                   height={100}
-                  alt="injective"
+                  alt="polygon"
                 />
-                <p className="text-white font-bold text-2xl mt-4">Injective</p>
+                <p className="text-white font-bold text-2xl mt-4">polygon</p>
               </Link>
 
               <div className="border-[2px] border-[#3c3f41] flex flex-col justify-center items-center h-[300px] rounded-2xl cursor-default">

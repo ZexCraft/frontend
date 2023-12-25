@@ -26,13 +26,13 @@ export default function OriginDropdown() {
         <div className="flex flex-col">
           <button
             className={`flex mx-2 mb-2 text-left py-2 px-2 rounded-lg ${
-              origin == "injective" ? "bg-[#d0d1d1] text-black" : "text-white"
+              origin == "polygon" ? "bg-[#d0d1d1] text-black" : "text-white"
             }`}
             onClick={() => {
-              if (origin == "injective") {
+              if (origin == "polygon") {
                 setOrigin("");
               } else {
-                setOrigin("injective");
+                setOrigin("polygon");
               }
             }}
           >

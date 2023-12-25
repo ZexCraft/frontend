@@ -26,15 +26,13 @@ export default function CollectionDropdown() {
         <div className="flex flex-col">
           <button
             className={`flex mx-2 mb-2 text-left py-2 px-2 rounded-lg ${
-              collection == "injective"
-                ? "bg-[#d0d1d1] text-black"
-                : "text-white"
+              collection == "polygon" ? "bg-[#d0d1d1] text-black" : "text-white"
             }`}
             onClick={() => {
-              if (collection == "injective") {
+              if (collection == "polygon") {
                 setCollection("");
               } else {
-                setCollection("injective");
+                setCollection("polygon");
               }
             }}
           >

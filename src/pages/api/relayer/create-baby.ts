@@ -1,4 +1,4 @@
-import { abi, injectiveDeployments, injective } from "@/utils/constants";
+import { abi, mumbaiDeployments, polygon } from "@/utils/constants";
 import { NextApiRequest, NextApiResponse } from "next";
 import { Chain, createPublicClient, createWalletClient, http } from "viem";
 import { privateKeyToAccount } from "viem/accounts";
@@ -9,8 +9,8 @@ export default async function handler(
 ) {
   const NEXT_PUBLIC_MIDJOURNEY_API_KEY =
     process.env.NEXT_PUBLIC_MIDJOURNEY_API_KEY;
-  const NEXT_PUBLIC_INJECTIVE_RPC_ENDPOINT =
-    process.env.NEXT_PUBLIC_INJECTIVE_RPC_ENDPOINT;
+  const NEXT_PUBLIC_POLYGON_RPC_ENDPOINT =
+    process.env.NEXT_PUBLIC_POLYGON_RPC_ENDPOINT;
 
   const API_KEY =
     req.headers.authorization != null
@@ -30,18 +30,18 @@ export default async function handler(
 
     const client = createWalletClient({
       account,
-      chain: injective as Chain,
-      transport: http(NEXT_PUBLIC_INJECTIVE_RPC_ENDPOINT),
+      chain: polygon as Chain,
+      transport: http(NEXT_PUBLIC_POLYGON_RPC_ENDPOINT),
     });
 
     const publicClient = createPublicClient({
-      chain: injective as Chain,
+      chain: polygon as Chain,
       transport: http(),
     });
 
     const { request } = await publicClient.simulateContract({
       account,
-      address: injectiveDeployments.inCraft as `0x${string}`,
+      address: mumbaiDeployments.inCraft as `0x${string}`,
       abi: abi.inCraft,
       functionName: "createBaby",
       args: [nft1Address, nft2Address, relationship, tokenUri],
