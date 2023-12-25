@@ -36,9 +36,10 @@ export default async function handler(
   });
   const imagesResponseData = await imageRes.json();
   console.log(imagesResponseData);
+  console.log("Getting image");
   if (imagesResponseData.progress === 100) {
     const imageUrl = imagesResponseData.response.imageUrls[0];
-
+    console.log("sending image to ipfs");
     const ipfsUrl = await fetch(`https://zixins-be1.adaptable.app/auth/image`, {
       method: "POST",
       headers: {
@@ -48,7 +49,7 @@ export default async function handler(
     });
 
     const ipfsResponseData = await ipfsUrl.json();
-
+    console.log(ipfsResponseData);
     res.status(200).send({
       progress: 100,
       imageAlt: imageUrl,

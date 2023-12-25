@@ -37,7 +37,6 @@ export default function Generate() {
   const [displayImage, setDisplayImage] = useState(false);
   const [mintDone, setMintDone] = useState(false);
   const [approveSignature, setApproveSignature] = useState<`0x${string}`>();
-  const [createNftSignature, setCreateNftSignature] = useState<`0x${string}`>();
   const [txHash, setTxHash] = useState<`0x${string}`>();
   const [isMinting, setIsMinting] = useState(false);
   const [confetttiAnimation, setConfettiAnimation] = useState(false);
@@ -80,6 +79,8 @@ export default function Generate() {
         setIsMinting(false);
         setCount(2);
         setConfettiAnimation(true);
+        console.log("IMAGE ", image);
+        console.log("IMAGEALT ", imageAlt);
         createNft({
           address: args.account,
           tokenId: Number(args.tokenId),
@@ -250,8 +251,8 @@ export default function Generate() {
                   };
                   while (fetchedImage.progress != 100) {
                     fetchedImage = await fetchImage(generatedImage.messageId);
+                    await new Promise((resolve) => setTimeout(resolve, 5000));
                     setProgress(fetchedImage.progress);
-                    setTimeout(() => {}, 5000);
                   }
                   console.log(fetchedImage.image);
                   setProgress(100);
@@ -263,8 +264,10 @@ export default function Generate() {
                       creator: address as `0x${string}`,
                     });
                     console.log(createNftSig);
-                    setCreateNftSignature(createNftSig);
-
+                    console.log(fetchedImage.image);
+                    console.log(fetchedImage.imageAlt);
+                    setImage(fetchedImage.image);
+                    setImageAlt(fetchedImage.imageAlt);
                     const relay = await fetch("/api/relayer/create-nft", {
                       method: "POST",
                       headers: {
@@ -282,8 +285,7 @@ export default function Generate() {
                     console.log(relayedTransaction);
                     if (relayedTransaction.success == true) {
                       setTxHash(relayedTransaction.data as `0x${string}`);
-                      setImage(fetchedImage.image);
-                      setImageAlt(fetchedImage.imageAlt);
+
                       setDisplayImage(true);
                       setMintDone(true);
                       setIsMinting(false);

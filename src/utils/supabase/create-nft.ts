@@ -34,7 +34,8 @@ export default async function createNft(req: {
       .eq("chain_id", chainId);
 
     console.log(fetchedNft);
-
+    console.log("IMAGE: ", image);
+    console.log("IMAGE ALT: ", imageAlt);
     if (fetchError || fetchedNft == null || fetchedNft.length === 0) {
       const { data, error } = supabase
         ? await supabase

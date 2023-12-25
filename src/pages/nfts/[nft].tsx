@@ -30,7 +30,7 @@ export default function Relation() {
   const [nftData, setNftData] = useState<any>(null);
   const [ownedNfts, setOwnedNfts] = useState<any>(null);
   const [breedingRequests, setBreedingRequests] = useState<any>(null); // [nft1, nft2, relationship
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [selectedIndex, setSelectedIndex] = useState(-1);
   const { chain } = useNetwork();
   const { data: walletClient } = useWalletClient();
   const [state, setState] = useState(0);
@@ -45,39 +45,10 @@ export default function Relation() {
   });
 
   useEffect(() => {
-    console.log(nftData);
-    if (nftData == null) return;
-    if (nftData.parent == address) {
-      setOwnedNfts([]);
-      (async function () {
-        const res = await getBreedRequests({
-          receiver: nftData.address,
-          chainId: (chain?.id as number).toString(),
-        });
-        console.log(res.response);
-        if (res.response != null) {
-          let reqs = [];
-
-          for (let i = 0; i < res.response.length; i++) {
-            const nft = await getNft({
-              address: res.response[i].requester,
-              chainId: (chain?.id as number).toString(),
-            });
-            reqs.push({
-              ...nft.response,
-              signature: res.response[i].requester_sig,
-            });
-          }
-          setBreedingRequests(reqs);
-        }
-      })();
-    } else {
-      setBreedingRequests([]);
+    if (ownedNfts == null || ownedNfts.length == 0) {
+      setSelectedIndex(-1);
+      return;
     }
-  }, [nftData]);
-
-  useEffect(() => {
-    if (ownedNfts == null || ownedNfts.length == 0) return;
     if (nftData == null) return;
     const requester = ownedNfts[selectedIndex].address;
     const receiver = nftData.address;
@@ -101,7 +72,6 @@ export default function Relation() {
   }, [selectedIndex, nftData, ownedNfts]);
 
   useEffect(() => {
-    // Fetch relationship
     (async function () {
       if (nft == undefined) return;
       const fetchedNft = await getNft({
@@ -120,6 +90,33 @@ export default function Relation() {
           console.log("Owned NFTs");
           console.log(data);
           setOwnedNfts(data.response);
+          setBreedingRequests(null);
+        } else {
+          setOwnedNfts([]);
+          (async function () {
+            const res = await getBreedRequests({
+              receiver: fetchedNft.response.address,
+              chainId: (chain?.id as number).toString(),
+            });
+            console.log(res.response);
+            if (res.response != null) {
+              let reqs = [];
+
+              for (let i = 0; i < res.response.length; i++) {
+                const nft = await getNft({
+                  address: res.response[i].requester,
+                  chainId: (chain?.id as number).toString(),
+                });
+                reqs.push({
+                  ...nft.response,
+                  signature: res.response[i].requester_sig,
+                });
+              }
+              setBreedingRequests(reqs);
+            } else {
+              setBreedingRequests([]);
+            }
+          })();
         }
       }
     })();
@@ -173,11 +170,11 @@ export default function Relation() {
           {nftData && nftData.parent != address && (
             <button
               className={`${
-                state != 0
+                state != 0 || selectedIndex == -1
                   ? "bg-[#25272b] text-[#5b5e5b]"
                   : "bg-white text-black"
               } px-4 py-2 rounded-xl font-semibold max-w-fit mx-auto mt-10`}
-              disabled={state != 0}
+              disabled={state != 0 || selectedIndex == -1}
               onClick={async () => {
                 try {
                   const sig = await signCreateRelationship({
@@ -204,9 +201,7 @@ export default function Relation() {
           )}
         </div>
         <div className="min-w-[60%] text-center">
-          {ownedNfts && ownedNfts.length > 0 && (
-            <p className="text-4xl font-bold mb-8">Your NFTs</p>
-          )}
+          {ownedNfts && <p className="text-4xl font-bold mb-8">Your NFTs</p>}
           <div className="grid grid-cols-4 space-x-8 space-y-8">
             {ownedNfts &&
               ownedNfts.length > 0 &&
@@ -298,9 +293,25 @@ export default function Relation() {
                 );
               })}
             </div>
+          ) : breedingRequests && breedingRequests.length == 0 ? (
+            <div className="flex flex-col text-[#9c9c9e] justify-center items-center h-full">
+              <Image
+                src="/animations/sad.gif"
+                width={350}
+                height={350}
+                alt="sad cat"
+                className="mb-16 rounded-xl"
+              />
+              <p className="font-semibold text-lg">
+                Your NFT does not have any breeding requests yet 🥲
+              </p>
+              <p className="font-semibold text-lg">
+                Purchase boosts and keep hustling 🚀
+              </p>
+            </div>
           ) : (
-            breedingRequests &&
-            breedingRequests.length == 0 && (
+            ownedNfts &&
+            ownedNfts.length == 0 && (
               <div className="flex flex-col text-[#9c9c9e] justify-center items-center h-full">
                 <Image
                   src="/animations/sad.gif"
@@ -310,10 +321,10 @@ export default function Relation() {
                   className="mb-16 rounded-xl"
                 />
                 <p className="font-semibold text-lg">
-                  Your NFT does not have any breeding requests yet 🥲
+                  You don't own any NFTs 🫠
                 </p>
                 <p className="font-semibold text-lg">
-                  Purchase boosts and keep hustling 🚀
+                  Go to create and mint something NOWW 😡
                 </p>
               </div>
             )

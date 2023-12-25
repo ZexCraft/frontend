@@ -2,6 +2,7 @@ import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect } from "react";
 import { useNetwork } from "wagmi";
 
 export default function NFTCard({
@@ -24,6 +25,10 @@ export default function NFTCard({
   size: number;
 }) {
   const { chain } = useNetwork();
+  useEffect(() => {
+    console.log("Image ", image);
+    console.log("ImageAlt ", imageAlt);
+  }, []);
   return (
     <div
       className={`border-[1px] border-[#3c3f41] p-2 rounded-lg font-theme ${
@@ -47,7 +52,7 @@ export default function NFTCard({
         }}
       >
         <Image
-          src={imageAlt}
+          src={image}
           width={size}
           height={size}
           alt="logo"
