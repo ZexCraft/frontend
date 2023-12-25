@@ -25,22 +25,36 @@ export default function NFTCard({
 }) {
   const { chain } = useNetwork();
   return (
-    <div className="border-[1px] border-[#3c3f41] p-2 rounded-lg font-theme ">
+    <div
+      className={`border-[1px] border-[#3c3f41] p-2 rounded-lg font-theme ${
+        rarity == "Common"
+          ? "bg-[#9C9C9C]"
+          : rarity == "Uncommon"
+          ? "bg-[#0CB520]"
+          : rarity == "Rare"
+          ? "bg-[#144FD6]"
+          : rarity == "Epic"
+          ? "bg-[#7214D6]"
+          : rarity == "Legendary"
+          ? "bg-[#C39700]"
+          : "bg-[#E11B00]"
+      }`}
+    >
       <button
         onClick={() => {
-          console.log(imageAlt);
-          window.open(imageAlt, "_blank");
+          console.log(image);
+          window.open(image, "_blank");
         }}
       >
         <Image
-          src={image}
+          src={imageAlt}
           width={size}
           height={size}
           alt="logo"
           className="bg-white rounded-lg"
         />
       </button>
-      <p className="text-[#9c9e9e] font-semibold text-sm mt-2 mx-2 text-center">
+      <p className="text-[#CCCCCC] font-semibold text-sm mt-2 mx-2 text-center">
         by {mode}
       </p>
       <Link href={"/nfts/" + address} className="my-2">

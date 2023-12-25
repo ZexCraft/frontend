@@ -43,7 +43,9 @@ export default function OriginDropdown() {
               alt="punk"
               className="rounded-lg "
             />
-            <p className="flex-1 ml-3 font-semibold text-lg my-auto">InCraft</p>
+            <p className="flex-1 ml-3 font-semibold text-lg my-auto">
+              ZexCraft
+            </p>
             <p className=" text-lg font-semibold my-auto">10</p>
           </button>
           <button

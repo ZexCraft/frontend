@@ -58,7 +58,7 @@ export default function Generate() {
   useContractEvent({
     address: mumbaiDeployments.zexCraft as `0x${string}`,
     abi: abi.zexCraft,
-    eventName: "InCraftNFTCreated",
+    eventName: "ZexCraftNFTCreated",
     listener(log) {
       fetchBalance();
       const event = decodeEventLog({
@@ -119,7 +119,7 @@ export default function Generate() {
         {confetttiAnimation && <Confetti width={width} height={height} />}
         <div className="flex">
           <div className=" flex flex-col justify-start">
-            <p className="text-5xl font-bold mb-5">Create New InCraft</p>
+            <p className="text-5xl font-bold mb-5">Create New ZexCraft</p>
             <p className="font-semibold text-xl text-[#9c9e9e] ml-2 mb-6">
               Let your imaginations go wild 👽
             </p>
@@ -128,7 +128,7 @@ export default function Generate() {
                 <Image
                   src={
                     chain?.name == "Polygon Mumbai"
-                      ? "/tech/polygon.png"
+                      ? "/tech/viction.png"
                       : "/tech/blue-ethereum.png"
                   }
                   width={50}

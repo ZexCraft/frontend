@@ -54,7 +54,7 @@ export default function BlockchainDropdown() {
             }}
           >
             <Image
-              src={"/tech/polygon.png"}
+              src={"/tech/viction.png"}
               height={30}
               width={30}
               alt="polygon"

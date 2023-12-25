@@ -53,9 +53,9 @@ export default async function handler(
       progress: 100,
       imageAlt: imageUrl,
       image:
-        "https://" +
+        "https://cloudflare-ipfs.com/ipfs/" +
         ipfsResponseData.value.cid +
-        "ipfs.nftstorage.link/image.jpg",
+        "/image.jpg",
     });
   } else {
     res

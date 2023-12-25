@@ -24,7 +24,7 @@ export default function RarityDropdown() {
       {rarityDropdown && (
         <div className="grid grid-cols-3 gap-2 mb-4">
           <button
-            className={` rounded-lg p-3  text-lg font-semibold ${
+            className={` rounded-lg p-3  text-md font-semibold ${
               rarity == "Common"
                 ? "bg-[#d0d1d1] text-black"
                 : "bg-[#25272b] text-white"
@@ -36,7 +36,7 @@ export default function RarityDropdown() {
             Common
           </button>
           <button
-            className={` rounded-lg p-3  text-lg font-semibold ${
+            className={` rounded-lg p-3  text-md font-semibold ${
               rarity == "Basic"
                 ? "bg-[#d0d1d1] text-black"
                 : "bg-[#25272b] text-white"
@@ -48,7 +48,7 @@ export default function RarityDropdown() {
             Basic
           </button>
           <button
-            className={` rounded-lg p-3  text-lg font-semibold ${
+            className={` rounded-lg p-3  text-md font-semibold ${
               rarity == "Rare"
                 ? "bg-[#d0d1d1] text-black"
                 : "bg-[#25272b] text-white"
@@ -60,7 +60,7 @@ export default function RarityDropdown() {
             Rare
           </button>
           <button
-            className={` rounded-lg p-3  text-lg font-semibold ${
+            className={` rounded-lg p-3  text-md font-semibold ${
               rarity == "Epic"
                 ? "bg-[#d0d1d1] text-black"
                 : "bg-[#25272b] text-white"
@@ -72,7 +72,7 @@ export default function RarityDropdown() {
             Epic
           </button>
           <button
-            className={` rounded-lg p-3  text-lg font-semibold ${
+            className={` rounded-lg p-3  text-md font-semibold ${
               rarity == "Legendary"
                 ? "bg-[#d0d1d1] text-black"
                 : "bg-[#25272b] text-white"
@@ -84,16 +84,16 @@ export default function RarityDropdown() {
             Legendary
           </button>
           <button
-            className={` rounded-lg p-3  text-lg font-semibold ${
-              rarity == "InStar"
+            className={` rounded-lg p-3  text-md font-semibold ${
+              rarity == "ZexStar"
                 ? "bg-[#d0d1d1] text-black"
                 : "bg-[#25272b] text-white"
             }`}
             onClick={() => {
-              setRarity("InStar");
+              setRarity("ZexStar");
             }}
           >
-            InStar
+            ZexStar
           </button>
         </div>
       )}

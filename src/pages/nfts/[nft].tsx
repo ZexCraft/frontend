@@ -45,8 +45,10 @@ export default function Relation() {
   });
 
   useEffect(() => {
+    console.log(nftData);
     if (nftData == null) return;
     if (nftData.parent == address) {
+      setOwnedNfts([]);
       (async function () {
         const res = await getBreedRequests({
           receiver: nftData.address,
@@ -69,11 +71,13 @@ export default function Relation() {
           setBreedingRequests(reqs);
         }
       })();
+    } else {
+      setBreedingRequests([]);
     }
   }, [nftData]);
 
   useEffect(() => {
-    if (ownedNfts == null) return;
+    if (ownedNfts == null || ownedNfts.length == 0) return;
     if (nftData == null) return;
     const requester = ownedNfts[selectedIndex].address;
     const receiver = nftData.address;
@@ -108,9 +112,7 @@ export default function Relation() {
       console.log(fetchedNft.response);
       setNftData(fetchedNft.response);
       if (fetchedNft.response) {
-        if (fetchedNft.response.parent == address) {
-          setBreedingRequests([]);
-        } else {
+        if (fetchedNft.response.parent != address) {
           const data = await getNftsByOwner({
             address: address as string,
             chainId: (chain?.id as number).toString(),
@@ -121,7 +123,7 @@ export default function Relation() {
         }
       }
     })();
-  }, []);
+  }, [address]);
 
   useContractEvent({
     address: mumbaiDeployments.relRegistry as `0x${string}`,
@@ -202,7 +204,9 @@ export default function Relation() {
           )}
         </div>
         <div className="min-w-[60%] text-center">
-          {ownedNfts && <p className="text-4xl font-bold mb-8">Your NFTs</p>}
+          {ownedNfts && ownedNfts.length > 0 && (
+            <p className="text-4xl font-bold mb-8">Your NFTs</p>
+          )}
           <div className="grid grid-cols-4 space-x-8 space-y-8">
             {ownedNfts &&
               ownedNfts.length > 0 &&

@@ -20,21 +20,38 @@ export default function Create() {
             <p className="text-2xl font-bold text-[#9c9e9e]">
               Log in your wallet to craft CraftNFTs. 🪄
             </p>
-            <div className="grid grid-cols-2 gap-3 mt-10">
+            <div className="grid grid-cols-3 gap-3 mt-10">
               <Link
-                href={`/create/polygon`}
+                href={`/create/testnet`}
                 className="border-[2px] border-[#3c3f41] flex flex-col justify-center items-center h-[300px] rounded-2xl"
               >
                 <Image
-                  src="/tech/polygon.png"
+                  src="/tech/viction.png"
                   width={100}
                   height={100}
-                  alt="polygon"
+                  alt="viction"
                 />
-                <p className="text-white font-bold text-2xl mt-4">polygon</p>
+                <p className="text-white font-bold text-2xl mt-4">
+                  Viction Mainnet
+                </p>
+              </Link>
+              <Link
+                href={`/create/testnet`}
+                className="border-[2px] border-[#3c3f41] flex flex-col justify-center items-center h-[300px] rounded-2xl opacity-50"
+              >
+                <Image
+                  src="/tech/viction.png"
+                  width={100}
+                  height={100}
+                  alt="viction"
+                  className="rounded-full "
+                />
+                <p className="text-white font-bold text-2xl mt-4">
+                  Viction Testnet
+                </p>
               </Link>
 
-              <div className="border-[2px] border-[#3c3f41] flex flex-col justify-center items-center h-[300px] rounded-2xl cursor-default">
+              <div className="border-[2px] border-[#3c3f41] flex flex-col justify-center items-center h-[300px] rounded-2xl cursor-default opacity-50">
                 <Image
                   src="/tech/polygon.png"
                   width={100}

@@ -40,7 +40,7 @@ const abi = {
     },
     {
       inputs: [],
-      name: "INCRAFT_BREED",
+      name: "ZEXCRAFT_BREED",
       outputs: [
         {
           internalType: "string",
@@ -1352,7 +1352,7 @@ const abi = {
           type: "uint256",
         },
       ],
-      name: "InCraftNFTBred",
+      name: "ZexCraftNFTBred",
       type: "event",
     },
     {
@@ -1389,7 +1389,7 @@ const abi = {
           type: "uint256",
         },
       ],
-      name: "InCraftNFTCreated",
+      name: "ZexCraftNFTCreated",
       type: "event",
     },
     {
@@ -2064,7 +2064,7 @@ const abi = {
     },
     {
       inputs: [],
-      name: "INCRAFT_CREATE_RELATIONSHIP",
+      name: "ZEXCRAFT_CREATE_RELATIONSHIP",
       outputs: [
         {
           internalType: "string",

@@ -16,7 +16,7 @@ const { chains, publicClient } = configureChains(
 );
 
 const { connectors } = getDefaultWallets({
-  appName: "InCraft",
+  appName: "ZexCraft",
   projectId: process.env.NEXT_PUBLIC_PROJECT_ID ?? "",
   chains,
 });

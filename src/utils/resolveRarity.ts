@@ -1,6 +1,6 @@
 export default function resolveRarity(rarity: number) {
   if (rarity < 30) {
-    return "common";
+    return "Common";
   } else if (rarity < 60) {
     return "Uncommon";
   } else if (rarity < 70) {
@@ -10,7 +10,7 @@ export default function resolveRarity(rarity: number) {
   } else if (rarity < 95) {
     return "Legendary";
   } else if (rarity < 100) {
-    return "InStar";
+    return "ZexStar";
   } else {
     return "Special Edition";
   }

@@ -91,7 +91,7 @@ const Footer = () => {
         </div>
         <div>
           <p className="mr-4 text-[#9c9e9e] text-[7px] md:text-base text-center font-semibold ">
-            © 2023 InCraft. All rights reserved.
+            © 2023 ZexCraft. All rights reserved.
           </p>
         </div>
       </div>

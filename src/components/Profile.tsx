@@ -28,7 +28,7 @@ export default function Profile(props: { address: string }) {
     name: "Bob",
     image: "https://picsum.photos/500/500",
     cover: "https://picsum.photos/800/300",
-    description: "Hey there! I'm new to InCraft!",
+    description: "Hey there! I'm new to ZexCraft!",
   };
 
   useEffect(() => {}, []);
@@ -84,7 +84,7 @@ export default function Profile(props: { address: string }) {
       <div className="relative">
         <div className="absolute bottom-24 left-10 w-full h-full">
           <Image
-            src={"/tech/polygon.png"}
+            src={"/tech/viction.png"}
             width={150}
             height={150}
             alt="pfp"

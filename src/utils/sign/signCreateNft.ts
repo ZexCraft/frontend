@@ -6,11 +6,11 @@ export default async function signCreateNft(args: {
   creator: `0x${string}`;
 }) {
   const { walletClient, tokenURI, creator } = args;
-  const MINT_ACTION = "INCRAFT_MINT";
+  const MINT_ACTION = "ZEXCRAFT_MINT";
   const [account] = await walletClient.getAddresses();
 
   console.log("Mint Action: ", MINT_ACTION);
-  console.log("Token URI: ");
+  console.log("Token URI: ", tokenURI);
   console.log("Creator: ", creator);
 
   let signature = await walletClient?.signMessage({

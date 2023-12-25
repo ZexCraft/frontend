@@ -43,7 +43,9 @@ export default function CollectionDropdown() {
               alt="punk"
               className="rounded-lg "
             />
-            <p className="flex-1 ml-3 font-semibold text-lg my-auto">InCraft</p>
+            <p className="flex-1 ml-3 font-semibold text-lg my-auto">
+              ZexCraft
+            </p>
             <p className=" text-lg font-semibold my-auto">10</p>
           </button>
           <button
@@ -68,7 +70,7 @@ export default function CollectionDropdown() {
             <p className="flex-1 ml-3 font-semibold  text-lg my-auto">
               Bored Ape Yacht Club
             </p>
-            <p className=" text-lg font-semibold my-auto">23</p>
+            <p className=" text-lg font-semibold my-auto">0</p>
           </button>
           <button
             className={`flex mx-2 mb-2 text-left py-2 px-2 rounded-lg ${

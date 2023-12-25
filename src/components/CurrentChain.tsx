@@ -32,7 +32,7 @@ const CurrentChain = () => {
           chain == undefined
             ? ""
             : chain.name == "Polygon Mumbai"
-            ? "/tech/polygon.png"
+            ? "/tech/viction.png"
             : "/wrong.png"
         }
         width={25}

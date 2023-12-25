@@ -68,7 +68,9 @@ export default function Nfts() {
           <div>
             <div
               className={`grid ${
-                filters ? "grid-cols-5" : "grid-cols-6"
+                filters
+                  ? "grid-cols-4 desktop:grid-cols-5"
+                  : "grid-cols-5 desktop:grid-cols-6"
               } gap-3 mx-8`}
             >
               {nfts.length > 0 &&
