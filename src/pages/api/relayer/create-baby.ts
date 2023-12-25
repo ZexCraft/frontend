@@ -37,7 +37,7 @@ export default async function handler(
 
     const publicClient = createPublicClient({
       chain: polygonMumbai,
-      transport: http(),
+      transport: http(NEXT_PUBLIC_POLYGON_RPC_ENDPOINT),
     });
 
     const { request } = await publicClient.simulateContract({

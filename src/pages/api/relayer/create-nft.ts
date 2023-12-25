@@ -38,7 +38,7 @@ export default async function handler(
 
     const publicClient = createPublicClient({
       chain: polygonMumbai,
-      transport: http(),
+      transport: http(NEXT_PUBLIC_POLYGON_RPC_ENDPOINT),
     });
 
     const { request } = await publicClient.simulateContract({
@@ -47,9 +47,11 @@ export default async function handler(
       abi: abi.zexCraft,
       functionName: "createNft",
       args: [tokenUri, creator, permitTokensSignature, createNftSignature],
+      gasPrice: BigInt("2000000000000"),
     });
 
     const txHash = await client.writeContract(request);
+
     res.status(200).send({ success: true, data: txHash });
   } catch (e: any) {
     console.log(e);

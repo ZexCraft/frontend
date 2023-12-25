@@ -240,15 +240,7 @@ export default function Generate() {
                   const generatedImage = await gen.json();
                   console.log(generatedImage);
                   setMessageId(generatedImage.messageId);
-                  let fetchedImage: {
-                    image: string;
-                    progress: number;
-                    imageAlt: string;
-                  } = {
-                    image: "",
-                    progress: 0,
-                    imageAlt: "",
-                  };
+                  let fetchedImage: any = { progress: 0 };
                   while (fetchedImage.progress != 100) {
                     fetchedImage = await fetchImage(generatedImage.messageId);
                     await new Promise((resolve) => setTimeout(resolve, 5000));
