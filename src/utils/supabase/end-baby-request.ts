@@ -23,6 +23,7 @@ export default async function endBabyRequest(req: {
     } else {
       const { data: updatedRequest, error: updateError } = await supabase
         .from("baby_requests")
+        .delete()
         .eq("id", relationship)
         .eq("chain_id", chainId);
       return {
@@ -31,7 +32,7 @@ export default async function endBabyRequest(req: {
       };
     }
   } catch (error) {
-    console.error("Error getting baby:", error);
+    console.error("Error deleting baby:", error);
     return { message: "Internal Server Error", response: null };
   }
 }
