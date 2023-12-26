@@ -243,8 +243,9 @@ export default function Relation() {
   }
   return (
     <Layout>
+      {count == 2 && <Confetti width={width} height={height} />}
+
       <div className="min-h-[90vh] mt-20 w-[80%]  mx-auto flex space-x-32 justify-between text-center">
-        {count == 2 && <Confetti width={width} height={height} />}
         <div className="flex flex-col justify-center">
           {nft1 != null && (
             <>
@@ -442,7 +443,12 @@ export default function Relation() {
                         <p className="font-semibold mb-8 text-lg">
                           {progress} / 100
                         </p>
-                        <LoadingSpinner loading={true} />
+                        <Image
+                          src={"/mint.gif"}
+                          width={200}
+                          height={200}
+                          alt="minting"
+                        />
                       </div>
                     )
                   )}
@@ -563,7 +569,6 @@ export default function Relation() {
                           if (relayedTransaction.success == true) {
                             setTxHash(relayedTransaction.data as `0x${string}`);
                           }
-                          setCount(2);
                         } catch (e) {
                           console.log(e);
                         }
