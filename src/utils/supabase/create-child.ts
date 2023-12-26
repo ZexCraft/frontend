@@ -27,17 +27,8 @@ export default async function createChild(req: {
   try {
     const { data: fetchedNft, error: fetchError } = await supabase
       .from("nft")
-      .select("*, child(*)")
-      .eq("address", address)
-      .eq("parent", parent)
-      .eq("contract_address", contractAddress)
-      .eq("rarity", rarity)
-      .eq("token_id", tokenId)
-      .eq("chainId", chainId)
-      .eq("type", 1)
-      .eq("image", image)
-      .eq("image_alt", imageAlt);
-
+      .select("*")
+      .eq("address", address);
     console.log(fetchedNft);
 
     if (fetchError || fetchedNft == null || fetchedNft.length === 0) {

@@ -553,6 +553,7 @@ export default function Relation() {
                           console.log(relayedTransaction);
                           if (relayedTransaction.success == true) {
                             setTxHash(relayedTransaction.data as `0x${string}`);
+                            setCount(1);
                           }
                         } catch (e) {
                           console.log(e);
@@ -562,7 +563,7 @@ export default function Relation() {
                         babyRequest == null ||
                         babyRequest.parent1_sig == null ||
                         babyRequest.parent2_sig == null ||
-                        isMinting
+                        count != 0
                           ? "bg-[#25272b] text-[#5b5e5b]"
                           : "bg-white text-black"
                       } px-4 py-2 rounded-xl font-semibold `}
@@ -570,7 +571,7 @@ export default function Relation() {
                         babyRequest == null ||
                         babyRequest.parent1_sig == null ||
                         babyRequest.parent2_sig == null ||
-                        isMinting
+                        count != 0
                       }
                     >
                       {isMinting
