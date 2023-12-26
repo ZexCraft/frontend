@@ -20,7 +20,8 @@ export default async function handler(
   if (API_KEY === "" || API_KEY != NEXT_PUBLIC_MIDJOURNEY_API_KEY) {
     res.status(401).send({ error: "Unauthorized" });
   }
-  const { tokenUri, relationship, nft1Address, nft2Address } = req.body;
+  const { tokenUri, altImage, relationship, nft1Address, nft2Address } =
+    req.body;
   console.log(req.body);
   console.log(process.env.NEXT_PUBLIC_PRIVATE_KEY);
   try {
@@ -45,7 +46,7 @@ export default async function handler(
       address: mumbaiDeployments.zexCraft as `0x${string}`,
       abi: abi.zexCraft,
       functionName: "createBaby",
-      args: [nft1Address, nft2Address, relationship, tokenUri],
+      args: [nft1Address, nft2Address, relationship, tokenUri, altImage],
     });
 
     const txHash = await client.writeContract(request);

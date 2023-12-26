@@ -4,13 +4,11 @@ import { capitalizeString, shortenEthereumAddress } from "@/utils";
 import { abi, mumbaiDeployments } from "@/utils/constants";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   useAccount,
-  useBalance,
   useContractEvent,
   useContractRead,
-  useContractWrite,
   useNetwork,
   useWalletClient,
 } from "wagmi";
@@ -34,12 +32,9 @@ export default function Generate() {
   const [progress, setProgress] = useState(0);
   const [image, setImage] = useState("");
   const [imageAlt, setImageAlt] = useState("");
-  const [displayImage, setDisplayImage] = useState(false);
-  const [mintDone, setMintDone] = useState(false);
   const [approveSignature, setApproveSignature] = useState<`0x${string}`>();
   const [txHash, setTxHash] = useState<`0x${string}`>();
   const [isMinting, setIsMinting] = useState(false);
-  const [confetttiAnimation, setConfettiAnimation] = useState(false);
 
   const { data: nonce } = useContractRead({
     address: mumbaiDeployments.craftToken as `0x${string}`,
@@ -60,6 +55,7 @@ export default function Generate() {
     eventName: "ZexCraftNFTCreated",
     listener(log) {
       fetchBalance();
+
       const event = decodeEventLog({
         abi: abi.zexCraft,
         data: log[0].data,
@@ -72,20 +68,18 @@ export default function Generate() {
         owner: string;
         account: string;
         rarity: string;
+        altImage: string;
       };
       if (args.owner == address) {
-        setDisplayImage(true);
-        setMintDone(true);
         setIsMinting(false);
         setCount(2);
-        setConfettiAnimation(true);
         console.log("IMAGE ", image);
         console.log("IMAGEALT ", imageAlt);
         createNft({
           address: args.account,
           tokenId: Number(args.tokenId),
-          image: image,
-          imageAlt: imageAlt,
+          image: args.tokenUri,
+          imageAlt: args.altImage,
           chainId: (chain?.id as number).toString(),
           contractAddress: mumbaiDeployments.zexCraft,
           parent: args.owner,
@@ -117,7 +111,7 @@ export default function Generate() {
   return (
     <Layout>
       <div className="flex justify-center h-[90vh] items-center ">
-        {confetttiAnimation && <Confetti width={width} height={height} />}
+        {count == 2 && <Confetti width={width} height={height} />}
         <div className="flex">
           <div className=" flex flex-col justify-start">
             <p className="text-5xl font-bold mb-5">Create New ZexCraft</p>
@@ -223,7 +217,6 @@ export default function Generate() {
               </p>
               <button
                 onClick={async () => {
-                  // trigeger
                   setProgress(0);
                   setIsMinting(true);
                   if (prompt == "") setPrompt("Random nature image");
@@ -238,26 +231,23 @@ export default function Generate() {
                     }),
                   });
                   const generatedImage = await gen.json();
-                  console.log(generatedImage);
+
                   setMessageId(generatedImage.messageId);
                   let fetchedImage: any = { progress: 0 };
                   while (fetchedImage.progress != 100) {
                     fetchedImage = await fetchImage(generatedImage.messageId);
-                    await new Promise((resolve) => setTimeout(resolve, 5000));
+                    await new Promise((resolve) => setTimeout(resolve, 2000));
                     setProgress(fetchedImage.progress);
                   }
-                  console.log(fetchedImage.image);
                   setProgress(100);
 
                   try {
                     const createNftSig = await signCreateNft({
                       walletClient: walletClient as WalletClient,
                       tokenURI: fetchedImage.image,
+                      altImage: fetchedImage.imageAlt,
                       creator: address as `0x${string}`,
                     });
-                    console.log(createNftSig);
-                    console.log(fetchedImage.image);
-                    console.log(fetchedImage.imageAlt);
                     setImage(fetchedImage.image);
                     setImageAlt(fetchedImage.imageAlt);
                     const relay = await fetch("/api/relayer/create-nft", {
@@ -268,23 +258,17 @@ export default function Generate() {
                       },
                       body: JSON.stringify({
                         tokenUri: fetchedImage.image,
+                        altImage: fetchedImage.imageAlt,
                         creator: address,
                         permitTokensSignature: approveSignature,
                         createNftSignature: createNftSig,
                       }),
                     });
                     const relayedTransaction = await relay.json();
+                    console.log("TRANSACTION RELAYED");
                     console.log(relayedTransaction);
-                    if (relayedTransaction.success == true) {
+                    if (relayedTransaction.success == true)
                       setTxHash(relayedTransaction.data as `0x${string}`);
-
-                      setDisplayImage(true);
-                      setMintDone(true);
-                      setIsMinting(false);
-                      setCount(2);
-                      setConfettiAnimation(true);
-                    } else {
-                    }
                   } catch (e) {
                     console.log(e);
                   }
@@ -302,7 +286,7 @@ export default function Generate() {
           </div>
           <div>
             <div className=" border border-white border-dashed h-[500px] w-[500px] rounded-xl ml-16">
-              {mintDone && displayImage ? (
+              {count == 2 ? (
                 <img src={imageAlt} alt="gen-image" className="rounded-xl" />
               ) : (
                 messageId != "" && (

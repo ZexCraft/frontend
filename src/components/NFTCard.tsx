@@ -47,12 +47,11 @@ export default function NFTCard({
     >
       <button
         onClick={() => {
-          console.log(image);
           window.open(image, "_blank");
         }}
       >
         <Image
-          src={image}
+          src={imageAlt}
           width={size}
           height={size}
           alt="logo"

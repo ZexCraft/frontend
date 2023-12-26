@@ -1,11 +1,11 @@
 const mumbaiDeployments = {
-  implementation: "0x8A0B22dB8790BbeFD03b1839E5a929baA82ABE4a",
-  registry: "0x2209217F03cAd66946C66Dc490828db9c8941b48",
-  relImplementation: "0x4ce1F07aa40780d43f3fEF65fedF2899E85320B1",
-  relRegistry: "0xb84563d2e11Ae3E2119AA50cEf7039B006FD685E",
-  zexCraft: "0x7B2C51d3b9e93480F28A330a0ee938C2182cD486",
+  implementation: "0x54284d3972e01931022fBbb8EAf6D167cB6e0Db8",
+  registry: "0x393B5c9b6Cc5c484C0Be085DC413A0fB95f1eFfA",
+  relImplementation: "0x874F9914c3e5cA477cD858496a7078FAAAF92a8d",
+  relRegistry: "0x23439a15001903bDAcE6d3a4319c1fF438421334",
+  zexCraft: "0x08F947784232C623Ea52cA9f9E39B58Be7d14605",
   mintFee: "100000000000000000",
-  craftToken: "0xe96C5844AF134f44153ee86295Fc964661074Bbd",
+  craftToken: "0x89d5da61548205E755874d7f67Ad00F90680440d",
 };
 const testnetDeployments = {};
 const mainnetDeployments = {};
@@ -69,6 +69,11 @@ const abi = {
         {
           internalType: "string",
           name: "tokenURI",
+          type: "string",
+        },
+        {
+          internalType: "string",
+          name: "altImage",
           type: "string",
         },
         {
@@ -166,19 +171,6 @@ const abi = {
           internalType: "bytes32",
           name: "",
           type: "bytes32",
-        },
-      ],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [],
-      name: "zexCraft",
-      outputs: [
-        {
-          internalType: "address",
-          name: "",
-          type: "address",
         },
       ],
       stateMutability: "view",
@@ -312,6 +304,19 @@ const abi = {
           internalType: "bool",
           name: "",
           type: "bool",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "zexCraft",
+      outputs: [
+        {
+          internalType: "address",
+          name: "",
+          type: "address",
         },
       ],
       stateMutability: "view",
@@ -1312,6 +1317,44 @@ const abi = {
         {
           indexed: false,
           internalType: "uint256",
+          name: "_tokenId",
+          type: "uint256",
+        },
+      ],
+      name: "MetadataUpdate",
+      type: "event",
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: true,
+          internalType: "address",
+          name: "from",
+          type: "address",
+        },
+        {
+          indexed: true,
+          internalType: "address",
+          name: "to",
+          type: "address",
+        },
+        {
+          indexed: true,
+          internalType: "uint256",
+          name: "tokenId",
+          type: "uint256",
+        },
+      ],
+      name: "Transfer",
+      type: "event",
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: false,
+          internalType: "uint256",
           name: "tokenId",
           type: "uint256",
         },
@@ -1319,6 +1362,12 @@ const abi = {
           indexed: false,
           internalType: "string",
           name: "tokenUri",
+          type: "string",
+        },
+        {
+          indexed: false,
+          internalType: "string",
+          name: "altImage",
           type: "string",
         },
         {
@@ -1372,6 +1421,12 @@ const abi = {
         },
         {
           indexed: false,
+          internalType: "string",
+          name: "altImage",
+          type: "string",
+        },
+        {
+          indexed: false,
           internalType: "address",
           name: "owner",
           type: "address",
@@ -1390,44 +1445,6 @@ const abi = {
         },
       ],
       name: "ZexCraftNFTCreated",
-      type: "event",
-    },
-    {
-      anonymous: false,
-      inputs: [
-        {
-          indexed: false,
-          internalType: "uint256",
-          name: "_tokenId",
-          type: "uint256",
-        },
-      ],
-      name: "MetadataUpdate",
-      type: "event",
-    },
-    {
-      anonymous: false,
-      inputs: [
-        {
-          indexed: true,
-          internalType: "address",
-          name: "from",
-          type: "address",
-        },
-        {
-          indexed: true,
-          internalType: "address",
-          name: "to",
-          type: "address",
-        },
-        {
-          indexed: true,
-          internalType: "uint256",
-          name: "tokenId",
-          type: "uint256",
-        },
-      ],
-      name: "Transfer",
       type: "event",
     },
     {
@@ -1547,6 +1564,11 @@ const abi = {
           name: "tokenURI",
           type: "string",
         },
+        {
+          internalType: "string",
+          name: "altImage",
+          type: "string",
+        },
       ],
       name: "createBaby",
       outputs: [
@@ -1564,6 +1586,11 @@ const abi = {
         {
           internalType: "string",
           name: "tokenURI",
+          type: "string",
+        },
+        {
+          internalType: "string",
+          name: "altImage",
           type: "string",
         },
         {

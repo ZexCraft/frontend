@@ -4,8 +4,9 @@ export default async function signCreateNft(args: {
   walletClient: WalletClient;
   tokenURI: string;
   creator: `0x${string}`;
+  altImage: string;
 }) {
-  const { walletClient, tokenURI, creator } = args;
+  const { walletClient, tokenURI, altImage, creator } = args;
   const MINT_ACTION = "ZEXCRAFT_MINT";
   const [account] = await walletClient.getAddresses();
 
@@ -19,8 +20,8 @@ export default async function signCreateNft(args: {
       raw: toBytes(
         keccak256(
           encodePacked(
-            ["string", "string", "address"],
-            [MINT_ACTION, tokenURI, creator]
+            ["string", "string", "string", "address"],
+            [MINT_ACTION, tokenURI, altImage, creator]
           )
         )
       ),

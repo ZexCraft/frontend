@@ -50,7 +50,9 @@ export default function Relation() {
       return;
     }
     if (nftData == null) return;
-    const requester = ownedNfts[selectedIndex].address;
+    console.log(ownedNfts);
+    const requester =
+      ownedNfts[selectedIndex == -1 ? 0 : selectedIndex].address;
     const receiver = nftData.address;
     console.log("GETTING BREED REQUEST");
     console.log(requester);
@@ -73,6 +75,7 @@ export default function Relation() {
 
   useEffect(() => {
     (async function () {
+      console.log(nft);
       if (nft == undefined) return;
       const fetchedNft = await getNft({
         address: nft as string,
@@ -201,7 +204,9 @@ export default function Relation() {
           )}
         </div>
         <div className="min-w-[60%] text-center">
-          {ownedNfts && <p className="text-4xl font-bold mb-8">Your NFTs</p>}
+          {ownedNfts && ownedNfts.length > 0 && (
+            <p className="text-4xl font-bold mb-8">Your NFTs</p>
+          )}
           <div className="grid grid-cols-4 space-x-8 space-y-8">
             {ownedNfts &&
               ownedNfts.length > 0 &&

@@ -10,7 +10,7 @@ const orgChart = {
     relationship: "0x71B43a66324C7b80468F1eE676E7FCDaF63eB6Ac",
     nft1: {
       image:
-        "https://cloudflare-ipfs.com/ipfs/bafybeigjqyt2kcfakmzhggxntsoh2rsz7ygowmcliuvso7o54unhrdpu6u/image.jpg",
+        "https://gateway.pinata.cloud/ipfs/bafybeigjqyt2kcfakmzhggxntsoh2rsz7ygowmcliuvso7o54unhrdpu6u/image.jpg",
       isChild: false,
       rarity: "Rare",
       tokenId: "45362345",
@@ -20,7 +20,7 @@ const orgChart = {
     },
     nft2: {
       image:
-        "https://cloudflare-ipfs.com/ipfs/bafybeidkssqe6hontgw6ujc5w5gug2kjzp5vxzbg7gnmug6fyppbeap7ve/image.jpg",
+        "https://gateway.pinata.cloud/ipfs/bafybeidkssqe6hontgw6ujc5w5gug2kjzp5vxzbg7gnmug6fyppbeap7ve/image.jpg",
       isChild: false,
       rarity: "Rare",
       tokenId: "45362345",

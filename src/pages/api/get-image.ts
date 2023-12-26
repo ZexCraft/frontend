@@ -1,8 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { createClient } from "@supabase/supabase-js";
-const BASE_URL = "https://api.thenextleg.io/v2";
-const dnow = Date.now();
 
+const BASE_URL = "https://api.thenextleg.io/v2";
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -40,7 +38,7 @@ export default async function handler(
   if (imagesResponseData.progress === 100) {
     const imageUrl = imagesResponseData.response.imageUrls[0];
     console.log("sending image to ipfs");
-    const ipfsUrl = await fetch(`https://zixins-be1.adaptable.app/auth/image`, {
+    const ipfsUrl = await fetch(`https://zexcraft.adaptable.app/auth/image`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -48,15 +46,17 @@ export default async function handler(
       body: JSON.stringify({ image: imageUrl }),
     });
 
-    const ipfsResponseData = await ipfsUrl.json();
-    console.log(ipfsResponseData);
+    const responseData = await ipfsUrl.json();
+
+    console.log({
+      progress: 100,
+      imageAlt: responseData.imageAlt,
+      image: responseData.image,
+    });
     res.status(200).send({
       progress: 100,
-      imageAlt: imageUrl,
-      image:
-        "https://cloudflare-ipfs.com/ipfs/" +
-        ipfsResponseData.value.cid +
-        "/image.jpg",
+      imageAlt: responseData.imageAlt,
+      image: responseData.image,
     });
   } else {
     res
