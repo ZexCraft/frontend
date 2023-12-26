@@ -9,6 +9,7 @@ import {
   useAccount,
   useContractEvent,
   useContractRead,
+  useContractWrite,
   useNetwork,
   useWalletClient,
 } from "wagmi";
@@ -49,6 +50,15 @@ export default function Generate() {
     args: [address],
   });
 
+  const { write: mint } = useContractWrite({
+    address: mumbaiDeployments.craftToken as `0x${string}`,
+    abi: abi.craftToken,
+    functionName: "mint",
+    onSuccess(data) {
+      console.log("Hash: ", data.hash);
+    },
+  });
+
   useContractEvent({
     address: mumbaiDeployments.zexCraft as `0x${string}`,
     abi: abi.zexCraft,
@@ -81,7 +91,7 @@ export default function Generate() {
           image: args.tokenUri,
           imageAlt: args.altImage,
           chainId: (chain?.id as number).toString(),
-          contractAddress: mumbaiDeployments.zexCraft,
+          contractAddress: args.account,
           parent: args.owner,
           rarity: Number(args.rarity),
           type: 0,
@@ -155,14 +165,32 @@ export default function Generate() {
               }}
               className="font-theme ml-2 font-semibold placeholder:text-[#6c6f70] text-xl placeholder:text-base bg-[#25272b] border border-[#25272b] focus:border-white my-1 pl-6 text-white p-2 rounded-xl focus:outline-none  w-full flex-shrink-0 mr-2"
             />
-            <p className="text-white text-xl font-semibold ml-4  mt-6">
-              Transactions ({count}/2)
-            </p>
-            <p className="ml-4 mb-2 text-[#9c9e9e] font-semibold text-sm">
-              Your balance:{" "}
-              {(balance ? formatUnits(balance as bigint, 18) : 0).toString()}{" "}
-              CFT
-            </p>
+            <div className="flex justify-between">
+              <div>
+                <p className="text-white text-xl font-semibold ml-4  mt-6">
+                  Transactions ({count}/2)
+                </p>
+                <p className="ml-4 mb-2 text-[#9c9e9e] font-semibold text-sm">
+                  Your balance:{" "}
+                  {(balance
+                    ? formatUnits(balance as bigint, 18)
+                    : 0
+                  ).toString()}{" "}
+                  CFT
+                </p>
+              </div>
+              <div className="flex flex-col my-auto justify-between items-center">
+                <button
+                  className="bg-white text-black p-2 rounded-lg font-semibold mt-2 text-sm"
+                  onClick={() => {
+                    mint({ args: [address] });
+                  }}
+                >
+                  Drip Tokens 💧
+                </button>
+              </div>
+            </div>
+
             <div
               className={`ml-2 border ${
                 count != 0 ? "border-[#25272b]" : "border-white"
@@ -313,7 +341,7 @@ export default function Generate() {
               <div className="text-center mt-2">
                 <p>Tx Hash</p>
                 <a
-                  className="text-sm text-[#9c9e9e] font0"
+                  className="text-sm text-[#9c9e9e] "
                   href={"https://mumbai.polygonscan.com/tx/" + txHash}
                   target={"_blank"}
                 >

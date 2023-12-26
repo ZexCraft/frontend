@@ -7,7 +7,7 @@ export default async function signCreateRelationship(args: {
 }) {
   const { walletClient, breedingAccount, otherAccount } = args;
   const [account] = await walletClient.getAddresses();
-
+  const ZEXCRAFT_CREATE_RELATIONSHIP = "ZEXCRAFT_CREATE_RELATIONSHIP";
   console.log("Breeding Account: ", breedingAccount);
   console.log("Other Account: ", otherAccount);
 
@@ -16,7 +16,10 @@ export default async function signCreateRelationship(args: {
     message: {
       raw: toBytes(
         keccak256(
-          encodePacked(["address", "address"], [breedingAccount, otherAccount])
+          encodePacked(
+            ["string", "address", "address"],
+            [ZEXCRAFT_CREATE_RELATIONSHIP, otherAccount, breedingAccount]
+          )
         )
       ),
     },

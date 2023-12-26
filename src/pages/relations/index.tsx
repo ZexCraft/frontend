@@ -84,7 +84,9 @@ export default function Relations() {
           <div>
             <div
               className={`grid ${
-                filters ? "grid-cols-5" : "grid-cols-6"
+                filters
+                  ? "grid-cols-3 desktop:grid-cols-5"
+                  : "grid-cols-4  desktop:grid-cols-6"
               } gap-3 mx-8`}
             >
               {relationships &&

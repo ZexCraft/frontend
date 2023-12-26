@@ -47,7 +47,7 @@ export default async function handler(
     });
 
     const responseData = await ipfsUrl.json();
-
+    console.log(responseData);
     console.log({
       progress: 100,
       imageAlt: responseData.imageAlt,

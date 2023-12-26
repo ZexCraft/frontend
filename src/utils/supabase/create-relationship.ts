@@ -8,8 +8,19 @@ export default async function createRelationship(req: {
   parent1: string;
   parent2: string;
   isRoot: boolean;
+  chainId: string;
+  actualParent1: string;
+  actualParent2: string;
 }) {
-  const { address, parent1, parent2, isRoot } = req;
+  const {
+    address,
+    parent1,
+    parent2,
+    isRoot,
+    chainId,
+    actualParent1,
+    actualParent2,
+  } = req;
 
   try {
     const { data: fetchedRelationship, error: fetchError } = await supabase
@@ -32,6 +43,9 @@ export default async function createRelationship(req: {
                 parent1,
                 parent2,
                 is_root: isRoot,
+                chain_id: chainId,
+                actual_parent_1: actualParent1,
+                actual_parent_2: actualParent2,
               },
             ])
             .select()

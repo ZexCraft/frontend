@@ -2085,6 +2085,18 @@ const abi = {
           name: "relationship",
           type: "address",
         },
+        {
+          indexed: false,
+          internalType: "address",
+          name: "signer1",
+          type: "address",
+        },
+        {
+          indexed: false,
+          internalType: "address",
+          name: "signer2",
+          type: "address",
+        },
       ],
       name: "RelationshipCreated",
       type: "event",
@@ -2174,19 +2186,6 @@ const abi = {
     {
       inputs: [],
       name: "devWallet",
-      outputs: [
-        {
-          internalType: "address",
-          name: "",
-          type: "address",
-        },
-      ],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [],
-      name: "zexCraft",
       outputs: [
         {
           internalType: "address",
@@ -2306,6 +2305,19 @@ const abi = {
     {
       inputs: [],
       name: "relationshipImplementation",
+      outputs: [
+        {
+          internalType: "address",
+          name: "",
+          type: "address",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "zexCraft",
       outputs: [
         {
           internalType: "address",

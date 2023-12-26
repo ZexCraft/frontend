@@ -2,14 +2,18 @@ import Layout from "@/components/Layout";
 import NFTCard from "@/components/NFTCard";
 import LoadingSpinner from "@/components/Spinner";
 import { abi, mumbaiDeployments } from "@/utils/constants";
+import Confetti from "react-confetti";
 import resolveRarity from "@/utils/resolveRarity";
 import signCreateRelationship from "@/utils/sign/signCreateRelationship";
 import createBreedRequest from "@/utils/supabase/create-breed-request";
 import createRelationship from "@/utils/supabase/create-relationship";
+import endBreedingRequest from "@/utils/supabase/end-breeding-request";
 import getBreedRequest from "@/utils/supabase/get-breed-request";
 import getBreedRequests from "@/utils/supabase/get-breed-requests";
 import getNft from "@/utils/supabase/get-nft";
 import getNftsByOwner from "@/utils/supabase/get-nfts-by-owner";
+import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 
 import { useRouter } from "next/router";
@@ -22,25 +26,35 @@ import {
   useNetwork,
   useWalletClient,
 } from "wagmi";
+import useWindowSize from "@/hooks/useWindowSize";
 
 export default function Relation() {
   const router = useRouter();
   const { address } = useAccount();
   const { nft } = router.query;
   const [nftData, setNftData] = useState<any>(null);
+  const { width, height } = useWindowSize();
   const [ownedNfts, setOwnedNfts] = useState<any>(null);
   const [breedingRequests, setBreedingRequests] = useState<any>(null); // [nft1, nft2, relationship
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const { chain } = useNetwork();
   const { data: walletClient } = useWalletClient();
   const [state, setState] = useState(0);
+  const [txHash, setTxHash] = useState(
+    "0x75d236b0c3933ed8b2b084b23b298fd16fe67739e0a403202e1872346aae6632"
+  );
+  const [pairBred, setPairBred] = useState(
+    "0x877ddc9b9751CB8A90de9A4f268D00246fb4172E"
+  );
 
   const { writeAsync: createRelationshipFunction } = useContractWrite({
     address: nftData != null ? nftData.address : "",
     abi: abi.account,
     functionName: "createRelationship",
     onSuccess(data) {
+      console.log("Transaction Sent");
       console.log("Hash: ", data.hash);
+      setTxHash(data.hash);
     },
   });
 
@@ -51,6 +65,7 @@ export default function Relation() {
     }
     if (nftData == null) return;
     console.log(ownedNfts);
+    setSelectedIndex(0);
     const requester =
       ownedNfts[selectedIndex == -1 ? 0 : selectedIndex].address;
     const receiver = nftData.address;
@@ -137,16 +152,26 @@ export default function Relation() {
       });
       console.log(event.args);
       const args = event.args as {
-        nft1: string;
-        nft2: string;
+        parent1: string;
+        parent2: string;
+        signer1: string;
+        signer2: string;
         relationship: string;
       };
       createRelationship({
         address: args.relationship,
-        parent1: args.nft1,
-        parent2: args.nft2,
+        parent1: args.parent1,
+        parent2: args.parent2,
         isRoot: true,
+        chainId: (chain?.id as number).toString(),
+        actualParent1: args.signer1,
+        actualParent2: args.signer2,
       });
+      endBreedingRequest({
+        id: args.parent1 + args.parent2,
+        chainId: (chain?.id as number).toString(),
+      });
+      setPairBred(args.parent2);
       setState(2);
       // router.push(`/relations/${args.relationship}`)
     },
@@ -154,9 +179,13 @@ export default function Relation() {
 
   return (
     <Layout>
+      {txHash != "" && pairBred != "" && (
+        <Confetti width={width} height={height} />
+      )}
+
       <div className="min-h-[90vh] mt-20 w-[80%]  mx-auto flex space-x-32 justify-between">
         <div className="flex-1 flex flex-col justify-center">
-          <div className="flex justify-center">
+          <div className="flex flex-col justify-center items-center space-y-4">
             {nftData != null && (
               <NFTCard
                 image={nftData.image}
@@ -168,6 +197,37 @@ export default function Relation() {
                 size={300}
                 mode={nftData.type == 0 ? "create ✨" : "breed ❤️"}
               />
+            )}
+            {txHash != "" && (
+              <div className="flex flex-col justify-center items-center text-sm text-[#9c9e9e]">
+                <p className="font-semibold text-white">Tx Hash</p>
+                <a
+                  href={"https://mumbai.polygonscan.com/tx/" + txHash}
+                  target={"_blank"}
+                >
+                  {" "}
+                  {txHash.substring(0, 10) +
+                    "...." +
+                    txHash.substring(txHash.length - 10)}
+                  <FontAwesomeIcon
+                    icon={faArrowUpRightFromSquare}
+                    className="ml-2"
+                  />
+                </a>
+                <p className="mt-2 font-semibold  text-white ">Created with</p>
+                <a
+                  href={"https://mumbai.polygonscan.com/address/" + pairBred}
+                  target={"_blank"}
+                >
+                  {pairBred.substring(0, 10) +
+                    "...." +
+                    pairBred.substring(pairBred.length - 10)}
+                  <FontAwesomeIcon
+                    icon={faArrowUpRightFromSquare}
+                    className="ml-2"
+                  />
+                </a>
+              </div>
             )}
           </div>
           {nftData && nftData.parent != address && (
@@ -187,13 +247,13 @@ export default function Relation() {
                     otherAccount: nftData.address as `0x${string}`,
                   });
                   setState(1);
-                  createBreedRequest({
+                  const repsonse = await createBreedRequest({
                     receiver: nftData.address,
                     requester: ownedNfts[selectedIndex].address,
                     signature: sig,
                     chainId: (chain?.id as number).toString(),
                   });
-                  // Send it to the backend
+                  console.log(repsonse);
                 } catch (e) {
                   console.log(e);
                 }
@@ -207,7 +267,7 @@ export default function Relation() {
           {ownedNfts && ownedNfts.length > 0 && (
             <p className="text-4xl font-bold mb-8">Your NFTs</p>
           )}
-          <div className="grid grid-cols-4 space-x-8 space-y-8">
+          <div className="grid grid-cols-3 space-x-8 space-y-8">
             {ownedNfts &&
               ownedNfts.length > 0 &&
               ownedNfts.map((nft: any, index: number) => {
@@ -284,8 +344,6 @@ export default function Relation() {
                             ],
                           });
                           console.log(tx);
-
-                          // TODO: Create relationship in the backend and remove it from the requests
                         }}
                         disabled={false}
                         className={`

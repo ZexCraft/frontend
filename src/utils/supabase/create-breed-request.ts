@@ -24,6 +24,7 @@ export default async function createBreedRequest(req: {
             .from("breeding_requests")
             .insert([
               {
+                id: receiver + requester,
                 requester,
                 receiver,
                 requester_sig: signature,

@@ -7,6 +7,7 @@ import { abi, mumbaiDeployments } from "@/utils/constants";
 import resolveRarity from "@/utils/resolveRarity";
 import signCreateBaby from "@/utils/sign/signCreateBaby";
 import createBabyRequest from "@/utils/supabase/create-baby-request";
+import createChild from "@/utils/supabase/create-child";
 import createNft from "@/utils/supabase/create-nft";
 import getBabyRequest from "@/utils/supabase/get-baby-request";
 import getNft from "@/utils/supabase/get-nft";
@@ -54,8 +55,8 @@ export default function Relation() {
   const [babes, setBabes] = useState<any>([]);
   const [babyRequest, setBabyRequest] = useState<any>(null);
   const [refreshBabyRequest, setRefreshBabyRequest] = useState(false);
+  const [txHash, setTxHash] = useState("");
 
-  const [confettiAnimation, setConfettiAnimation] = useState(false);
   const [imageAlt, setImageAlt] = useState("");
   const { chain } = useNetwork();
   const { address } = useAccount();
@@ -64,11 +65,20 @@ export default function Relation() {
   const [nft1, setNft1] = useState<any>(null);
   const [nft2, setNft2] = useState<any>(null);
 
-  // const { data: nonce } = useContractRead({
-  //   address: relation as `0x${string}`,
-  //   abi: abi.relationship,
-  //   functionName: "nonce",
-  // });
+  const { data: nonce } = useContractRead({
+    address: relation as `0x${string}`,
+    abi: abi.relationship,
+    functionName: "nonce",
+  });
+
+  const { write: mint } = useContractWrite({
+    address: mumbaiDeployments.craftToken as `0x${string}`,
+    abi: abi.craftToken,
+    functionName: "mint",
+    onSuccess(data) {
+      console.log("Hash: ", data.hash);
+    },
+  });
 
   useEffect(() => {
     (async function () {
@@ -93,6 +103,7 @@ export default function Relation() {
       if (relationship.response == null) {
         setDoesNotExist(true);
       } else {
+        setDoesNotExist(false);
         setRelationship(relationship.response);
         console.log("Relationship");
         console.log(relationship.response);
@@ -136,7 +147,7 @@ export default function Relation() {
       console.log(babyReq);
       setBabyRequest(babyReq.response);
     });
-  }, [router.query, address]);
+  }, [router.query, address, relation]);
 
   useEffect(() => {
     console.log("Relationship: ", relation);
@@ -170,7 +181,7 @@ export default function Relation() {
   useContractEvent({
     address: mumbaiDeployments.zexCraft as `0x${string}`,
     abi: abi.zexCraft,
-    eventName: "Transfer",
+    eventName: "ZexCraftNFTBred",
     listener(log) {
       console.log(log);
       const event = decodeEventLog({
@@ -180,26 +191,30 @@ export default function Relation() {
       });
       console.log(event);
       const args = event.args as {
-        from: string;
-        to: string;
         tokenId: string;
+        tokenUri: string;
+        altImage: string;
+        owner: string;
+        parent1: string;
+        parent2: string;
+        account: string;
+        rarity: string;
       };
       console.log(args);
       setDisplayImage(true);
       setMintDone(true);
       setIsMinting(false);
       setCount(2);
-      setConfettiAnimation(true);
-      createNft({
-        address: address as string,
-        tokenId: Number(args.tokenId),
-        image: image,
-        imageAlt: imageAlt,
+
+      createChild({
+        address: args.account,
+        image: args.tokenUri,
+        imageAlt: args.altImage,
+        parent: args.owner,
+        contractAddress: args.account,
         chainId: (chain?.id as number).toString(),
-        contractAddress: mumbaiDeployments.zexCraft,
-        parent: args.to,
-        rarity: Number(88),
-        type: 0,
+        tokenId: Number(args.tokenId),
+        rarity: args.rarity,
       }).then((res) => {
         console.log(res);
       });
@@ -225,7 +240,7 @@ export default function Relation() {
   return (
     <Layout>
       <div className="min-h-[90vh] mt-20 w-[80%]  mx-auto flex space-x-32 justify-between text-center">
-        {confettiAnimation && <Confetti width={width} height={height} />}
+        {count == 2 && <Confetti width={width} height={height} />}
         <div className="flex flex-col justify-center">
           {nft1 != null && (
             <>
@@ -338,10 +353,21 @@ export default function Relation() {
               {formatUnits(
                 balance != undefined ? (balance as bigint) : BigInt(0),
                 18
-              )}{" "}
-              CFT
+              )}
+              &nbsp;CFT
             </p>
-            <div className="flex justify-center mt-10">
+            <div className=" flex justify-center mt-2">
+              <button
+                className="bg-white text-black p-2 rounded-lg font-semibold"
+                onClick={() => {
+                  mint({ args: [relation] });
+                }}
+              >
+                Drip Tokens 💧
+              </button>
+            </div>
+
+            <div className="flex justify-center mt-8">
               {relationship &&
                 ((relationship as any).actual_parent_1 == address ||
                   (relationship as any).actual_parent_2 == address) && (
@@ -417,6 +443,23 @@ export default function Relation() {
                     )
                   )}
                 </div>
+                {txHash != "" && (
+                  <div className="flex flex-col justify-center items-center text-sm text-[#9c9e9e] mt-4">
+                    <p className="font-semibold text-white">Tx Hash</p>
+                    <a
+                      href={"https://mumbai.polygonscan.com/tx/" + txHash}
+                      target={"_blank"}
+                    >
+                      {txHash.substring(0, 10) +
+                        "...." +
+                        txHash.substring(txHash.length - 10)}
+                      <FontAwesomeIcon
+                        icon={faArrowUpRightFromSquare}
+                        className="ml-2"
+                      />
+                    </a>
+                  </div>
+                )}
                 <div className="flex flex-col justify-center items-center">
                   <p className=" text-white text-xl font-semibold mb-2 mt-6">
                     Sigantures (
@@ -513,7 +556,7 @@ export default function Relation() {
                           const relayedTransaction = await relay.json();
                           console.log(relayedTransaction);
                           if (relayedTransaction.success == true) {
-                            // setTxHash(relayedTransaction.data as `0x${string}`);
+                            setTxHash(relayedTransaction.data as `0x${string}`);
                             setImage(fetchedImage.image);
                             setImageAlt(fetchedImage.imageAlt);
                           } else {
@@ -524,7 +567,6 @@ export default function Relation() {
                           setMintDone(true);
                           setIsMinting(false);
                           setCount(2);
-                          setConfettiAnimation(true);
                         } catch (e) {
                           console.log(e);
                         }
