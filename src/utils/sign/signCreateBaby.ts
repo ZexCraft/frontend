@@ -8,7 +8,7 @@ export default async function signCreateBaby(args: {
   nonce: bigint;
 }) {
   const { walletClient, relationship, nonce } = args;
-  const MINT_ACTION = "ZEXCRAFT_MINT";
+  const MINT_ACTION = "ZEXCRAFT_BREED";
   const [account] = await walletClient.getAddresses();
 
   console.log("Mint Action: ", MINT_ACTION);

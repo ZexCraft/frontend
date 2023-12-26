@@ -669,7 +669,7 @@ export default function Relation() {
                         const signature = await signCreateBaby({
                           walletClient: walletClient as WalletClient,
                           relationship: relation as `0x${string}`,
-                          nonce: BigInt(1) as bigint,
+                          nonce: nonce as bigint,
                         });
                         if (babyRequest) {
                           const update = await updateBabyRequest({
