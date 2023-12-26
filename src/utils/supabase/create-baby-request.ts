@@ -16,8 +16,7 @@ export default async function createBabyRequest(req: {
       .from("baby_requests")
       .select("*")
       .eq("relationship", relationship)
-      .eq("chainId", chainId)
-      .eq("is_incomplete", true);
+      .eq("chainId", chainId);
 
     if (fetchError || fetchedRequest == null || fetchedRequest.length === 0) {
       const { data, error } = supabase
@@ -30,7 +29,6 @@ export default async function createBabyRequest(req: {
                 parent1_sig: parentNumber == "1" ? signature : null,
                 parent2_sig: parentNumber == "2" ? signature : null,
                 chain_id: chainId,
-                is_incomplete: true,
               },
             ])
             .select()

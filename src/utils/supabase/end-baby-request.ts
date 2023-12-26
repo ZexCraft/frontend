@@ -23,7 +23,6 @@ export default async function endBabyRequest(req: {
     } else {
       const { data: updatedRequest, error: updateError } = await supabase
         .from("baby_requests")
-        .update({ is_incomplete: false })
         .eq("id", relationship)
         .eq("chain_id", chainId);
       return {
