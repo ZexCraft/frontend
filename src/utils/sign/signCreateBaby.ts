@@ -13,7 +13,7 @@ export default async function signCreateBaby(args: {
 
   console.log("Mint Action: ", MINT_ACTION);
   console.log("Relationship: ", relationship);
-  console.log("Nonce: ", BigInt(nonce));
+  console.log("Nonce: ", nonce);
 
   let signature = await walletClient?.signMessage({
     account,
@@ -22,7 +22,7 @@ export default async function signCreateBaby(args: {
         keccak256(
           encodePacked(
             ["string", "address", "uint256"],
-            [MINT_ACTION, relationship, BigInt(nonce)]
+            [MINT_ACTION, relationship, nonce]
           )
         )
       ),

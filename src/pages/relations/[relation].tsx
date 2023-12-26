@@ -168,17 +168,6 @@ export default function Relation() {
     args: [relation],
   });
 
-  const { writeAsync: createNftFunction } = useContractWrite({
-    address: mumbaiDeployments.zexCraft as `0x${string}`,
-    abi: abi.zexCraft,
-    functionName: "createNft",
-  });
-  const { writeAsync: approve } = useContractWrite({
-    address: mumbaiDeployments.craftToken as `0x${string}`,
-    abi: abi.craftToken,
-    functionName: "approve",
-  });
-
   useContractEvent({
     address: mumbaiDeployments.zexCraft as `0x${string}`,
     abi: abi.zexCraft,
@@ -288,7 +277,7 @@ export default function Relation() {
                           const signature = await signCreateBaby({
                             walletClient: walletClient as WalletClient,
                             relationship: relation as `0x${string}`,
-                            nonce: BigInt(1) as bigint,
+                            nonce: nonce as bigint,
                           });
                           if (babyRequest) {
                             const update = await updateBabyRequest({
@@ -555,6 +544,7 @@ export default function Relation() {
                               },
                               body: JSON.stringify({
                                 tokenUri: fetchedImage.image,
+                                altImage: fetchedImage.imageAlt,
                                 relationship:
                                   relationship && (relationship as any).address,
                                 nft1Signature:
