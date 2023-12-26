@@ -13,7 +13,7 @@ export default async function getBreedRequests(req: {
     const { data: fetchedRequests, error: fetchError } = await supabase
       .from("breeding_requests")
       .select("*")
-      // .eq("chain_id", chainId)
+      .eq("chain_id", chainId)
       .eq("receiver", receiver);
     if (fetchError || fetchedRequests == null || fetchedRequests.length === 0) {
       return {

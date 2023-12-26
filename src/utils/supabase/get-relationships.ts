@@ -13,8 +13,8 @@ export default async function getRelationships(args: {
   try {
     const { data: fetchedRelationships, error: fetchError } = await supabase
       .from("relationship")
-      .select("*");
-    // .eq("chain_id", chainId);
+      .select("*")
+      .eq("chain_id", chainId);
 
     console.log(fetchedRelationships);
 

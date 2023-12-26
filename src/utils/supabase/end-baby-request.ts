@@ -13,9 +13,8 @@ export default async function endBabyRequest(req: {
     const { data: fetchedRequest, error: fetchError } = await supabase
       .from("baby_requests")
       .select("*")
-      .eq("relationship", relationship)
-      // .eq("chain_id", chainId)
-      .eq("is_incomplete", true);
+      .eq("id", relationship)
+      .eq("chain_id", chainId);
     if (fetchError || fetchedRequest == null || fetchedRequest.length === 0) {
       return {
         message: "Baby Request does not exist",
@@ -25,9 +24,8 @@ export default async function endBabyRequest(req: {
       const { data: updatedRequest, error: updateError } = await supabase
         .from("baby_requests")
         .update({ is_incomplete: false })
-        .eq("relationship", relationship)
-        .eq("is_incomplete", true);
-      // .eq("chain_id", chainId);
+        .eq("id", relationship)
+        .eq("chain_id", chainId);
       return {
         message: "Success",
         response: updatedRequest != null ? updatedRequest[0] : null,

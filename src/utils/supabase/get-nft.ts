@@ -13,8 +13,8 @@ export default async function getNft(req: {
     const { data: fetchedNft, error: fetchError } = await supabase
       .from("nft")
       .select("*")
-      .eq("address", address);
-    // // .eq("chain_id", chainId);
+      .eq("address", address)
+      .eq("chain_id", chainId);
     console.log(fetchedNft);
 
     if (fetchError || fetchedNft == null || fetchedNft.length === 0) {

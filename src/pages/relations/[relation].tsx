@@ -9,6 +9,7 @@ import signCreateBaby from "@/utils/sign/signCreateBaby";
 import createBabyRequest from "@/utils/supabase/create-baby-request";
 import createChild from "@/utils/supabase/create-child";
 import createNft from "@/utils/supabase/create-nft";
+import endBabyRequest from "@/utils/supabase/end-baby-request";
 import getBabyRequest from "@/utils/supabase/get-baby-request";
 import getNft from "@/utils/supabase/get-nft";
 import getNftsByOwner from "@/utils/supabase/get-nfts-by-owner";
@@ -215,8 +216,11 @@ export default function Relation() {
         chainId: (chain?.id as number).toString(),
         tokenId: Number(args.tokenId),
         rarity: args.rarity,
-      }).then((res) => {
-        console.log(res);
+      });
+
+      endBabyRequest({
+        relationship: relation as string,
+        chainId: (chain?.id as number).toString(),
       });
     },
   });
@@ -528,7 +532,8 @@ export default function Relation() {
                         }
                         console.log(fetchedImage.image);
                         setProgress(100);
-
+                        setImage(fetchedImage.image);
+                        setImageAlt(fetchedImage.imageAlt);
                         try {
                           console.log(fetchedImage.image);
                           console.log((relationship as any).address);
@@ -557,15 +562,7 @@ export default function Relation() {
                           console.log(relayedTransaction);
                           if (relayedTransaction.success == true) {
                             setTxHash(relayedTransaction.data as `0x${string}`);
-                            setImage(fetchedImage.image);
-                            setImageAlt(fetchedImage.imageAlt);
-                          } else {
                           }
-                          setImage(fetchedImage.image);
-                          setImageAlt(fetchedImage.imageAlt);
-                          setDisplayImage(true);
-                          setMintDone(true);
-                          setIsMinting(false);
                           setCount(2);
                         } catch (e) {
                           console.log(e);
@@ -682,6 +679,7 @@ export default function Relation() {
                             signature: signature,
                             chainId: (chain?.id as number).toString(),
                           });
+                          console.log(create);
                         }
                         setRefreshBabyRequest(!refreshBabyRequest);
                       }}

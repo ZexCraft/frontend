@@ -16,8 +16,8 @@ export default async function updateBabyRequest(req: {
       .from("baby_requests")
       .select("*")
       .eq("relationship", relationship)
-      .eq("is_incomplete", true);
-    // .eq("chain_id", chainId);
+      .eq("is_incomplete", true)
+      .eq("chain_id", chainId);
 
     if (fetchError || fetchedRequest == null || fetchedRequest.length === 0) {
       return {
@@ -32,8 +32,8 @@ export default async function updateBabyRequest(req: {
         .from("baby_requests")
         .update(updateData)
         .eq("relationship", relationship)
-        .eq("is_incomplete", true);
-      // .eq("chain_id", chainId);
+        .eq("is_incomplete", true)
+        .eq("chain_id", chainId);
       return {
         message: "Success",
         response: updatedRequest != null ? updatedRequest[0] : null,

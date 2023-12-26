@@ -25,6 +25,7 @@ export default async function createBabyRequest(req: {
             .from("baby_requests")
             .insert([
               {
+                id: relationship,
                 relationship,
                 parent1_sig: parentNumber == "1" ? signature : null,
                 parent2_sig: parentNumber == "2" ? signature : null,
