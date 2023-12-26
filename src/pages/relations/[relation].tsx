@@ -557,10 +557,10 @@ export default function Relation() {
                                 tokenUri: fetchedImage.image,
                                 relationship:
                                   relationship && (relationship as any).address,
-                                nft1Address:
-                                  relationship && (relationship as any).parent1,
-                                nft2Address:
-                                  relationship && (relationship as any).parent2,
+                                nft1Signature:
+                                  babyRequest.parent1_sig as string,
+                                nft2Signature:
+                                  babyRequest.parent2_sig as string,
                               }),
                             }
                           );
@@ -576,14 +576,16 @@ export default function Relation() {
                       className={`${
                         babyRequest == null ||
                         babyRequest.parent1_sig == null ||
-                        babyRequest.parent2_sig == null
+                        babyRequest.parent2_sig == null ||
+                        isMinting
                           ? "bg-[#25272b] text-[#5b5e5b]"
                           : "bg-white text-black"
                       } px-4 py-2 rounded-xl font-semibold `}
                       disabled={
                         babyRequest == null ||
                         babyRequest.parent1_sig == null ||
-                        babyRequest.parent2_sig == null
+                        babyRequest.parent2_sig == null ||
+                        isMinting
                       }
                     >
                       {isMinting
