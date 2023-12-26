@@ -22,12 +22,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Confetti from "react-confetti";
-import {
-  compactSignatureToHex,
-  concat,
-  decodeEventLog,
-  formatUnits,
-} from "viem";
+import { decodeEventLog, formatUnits } from "viem";
 import {
   WalletClient,
   useAccount,
@@ -162,7 +157,7 @@ export default function Relation() {
   }, [refreshBabyRequest]);
 
   const { data: balance, refetch: fetchBalance } = useContractRead({
-    address: mumbaiDeployments.zexCraft as `0x${string}`,
+    address: mumbaiDeployments.craftToken as `0x${string}`,
     abi: abi.craftToken,
     functionName: "balanceOf",
     args: [relation],
@@ -175,7 +170,7 @@ export default function Relation() {
     listener(log) {
       console.log(log);
       const event = decodeEventLog({
-        abi: abi.craftToken,
+        abi: abi.zexCraft,
         data: log[0].data,
         topics: log[0].topics,
       });
