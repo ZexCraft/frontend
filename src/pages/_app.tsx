@@ -8,10 +8,10 @@ import type { AppProps } from "next/app";
 import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { configureChains, createConfig, WagmiConfig } from "wagmi";
 import { publicProvider } from "wagmi/providers/public";
-import { polygonMumbai } from "viem/chains";
+import { victionMainnet, victionTestnet } from "@/utils/constants";
 
 const { chains, publicClient } = configureChains(
-  [polygonMumbai],
+  [victionMainnet, victionTestnet],
   [publicProvider()]
 );
 

@@ -31,7 +31,7 @@ const CurrentChain = () => {
         src={
           chain == undefined
             ? ""
-            : chain.name == "Polygon Mumbai"
+            : chain.name == "Viction Mainnet" || chain.name == "Viction Testnet"
             ? "/tech/viction.png"
             : "/wrong.png"
         }
@@ -58,8 +58,8 @@ const CurrentChain = () => {
       <p className="font-theme text-[#201c1c] text-md font-bold">
         {chain == undefined
           ? ""
-          : chain.name == "Polygon Mumbai"
-          ? "MATIC"
+          : chain.name == "Viction Mainnet" || chain.name == "Viction Testnet"
+          ? "VIC"
           : ""}
       </p>
     </div>

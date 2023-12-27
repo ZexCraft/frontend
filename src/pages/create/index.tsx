@@ -37,7 +37,7 @@ export default function Create() {
               </Link>
               <Link
                 href={`/create/testnet`}
-                className="border-[2px] border-[#3c3f41] flex flex-col justify-center items-center h-[300px] rounded-2xl opacity-50"
+                className="border-[2px] border-[#3c3f41] flex flex-col justify-center items-center h-[300px] rounded-2xl"
               >
                 <Image
                   src="/tech/viction.png"

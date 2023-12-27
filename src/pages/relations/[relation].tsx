@@ -3,7 +3,7 @@ import NFTCard from "@/components/NFTCard";
 import LoadingSpinner from "@/components/Spinner";
 import useWindowSize from "@/hooks/useWindowSize";
 import { shortenEthereumAddress } from "@/utils";
-import { abi, mumbaiDeployments } from "@/utils/constants";
+import { abi, mainnetDeployments, testnetDeployments } from "@/utils/constants";
 import resolveRarity from "@/utils/resolveRarity";
 import signCreateBaby from "@/utils/sign/signCreateBaby";
 import createBabyRequest from "@/utils/supabase/create-baby-request";
@@ -68,7 +68,10 @@ export default function Relation() {
   });
 
   const { write: mint } = useContractWrite({
-    address: mumbaiDeployments.craftToken as `0x${string}`,
+    address:
+      chain?.id == 88
+        ? (mainnetDeployments.craftToken as `0x${string}`)
+        : (testnetDeployments.craftToken as `0x${string}`),
     abi: abi.craftToken,
     functionName: "mint",
     onSuccess(data) {
@@ -157,14 +160,20 @@ export default function Relation() {
   }, [refreshBabyRequest]);
 
   const { data: balance, refetch: fetchBalance } = useContractRead({
-    address: mumbaiDeployments.craftToken as `0x${string}`,
+    address:
+      chain?.id == 88
+        ? (mainnetDeployments.craftToken as `0x${string}`)
+        : (testnetDeployments.craftToken as `0x${string}`),
     abi: abi.craftToken,
     functionName: "balanceOf",
     args: [relation],
   });
 
   useContractEvent({
-    address: mumbaiDeployments.zexCraft as `0x${string}`,
+    address:
+      chain?.id == 88
+        ? (mainnetDeployments.zexCraft as `0x${string}`)
+        : (testnetDeployments.zexCraft as `0x${string}`),
     abi: abi.zexCraft,
     eventName: "ZexCraftNFTBred",
     listener(log) {
@@ -328,7 +337,11 @@ export default function Relation() {
             <p className=" text-5xl font-semibold ">Relationship</p>
             <Link
               target="_blank"
-              href={`https://mumbai.polygonscan.com/address/${relation}`}
+              href={
+                chain?.id == 88
+                  ? `https://viction.xyz/address/${relation}`
+                  : `https://testnet.viction.xyz/address/${relation}`
+              }
               className="text-lg my-2 tracking-wider text-[#9c9e9e] font-semibold"
             >
               {shortenEthereumAddress(relation as string)}&nbsp;
@@ -441,7 +454,11 @@ export default function Relation() {
                   <div className="flex flex-col justify-center items-center text-sm text-[#9c9e9e] mt-4">
                     <p className="font-semibold text-white">Tx Hash</p>
                     <a
-                      href={"https://mumbai.polygonscan.com/tx/" + txHash}
+                      href={
+                        chain?.id == 88
+                          ? "https://viction.xyz/tx/" + txHash
+                          : "https://testnet.viction.xyz/tx/" + txHash
+                      }
                       target={"_blank"}
                     >
                       {txHash.substring(0, 10) +
@@ -546,6 +563,7 @@ export default function Relation() {
                                   babyRequest.parent1_sig as string,
                                 nft2Signature:
                                   babyRequest.parent2_sig as string,
+                                chainId: chain?.id,
                               }),
                             }
                           );

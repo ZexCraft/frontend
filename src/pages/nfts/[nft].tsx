@@ -1,7 +1,7 @@
 import Layout from "@/components/Layout";
 import NFTCard from "@/components/NFTCard";
 import LoadingSpinner from "@/components/Spinner";
-import { abi, mumbaiDeployments } from "@/utils/constants";
+import { abi, testnetDeployments, mainnetDeployments } from "@/utils/constants";
 import Confetti from "react-confetti";
 import resolveRarity from "@/utils/resolveRarity";
 import signCreateRelationship from "@/utils/sign/signCreateRelationship";
@@ -141,7 +141,10 @@ export default function Relation() {
   }, [address]);
 
   useContractEvent({
-    address: mumbaiDeployments.relRegistry as `0x${string}`,
+    address:
+      chain?.id == 88
+        ? (mainnetDeployments.relRegistry as `0x${string}`)
+        : (testnetDeployments.relRegistry as `0x${string}`),
     abi: abi.relRegistry,
     eventName: "RelationshipCreated",
     listener(log) {
@@ -202,7 +205,11 @@ export default function Relation() {
               <div className="flex flex-col justify-center items-center text-sm text-[#9c9e9e]">
                 <p className="font-semibold text-white">Tx Hash</p>
                 <a
-                  href={"https://mumbai.polygonscan.com/tx/" + txHash}
+                  href={
+                    chain?.id == 88
+                      ? "https://viction.xyz/tx/" + txHash
+                      : "https://testnet.viction.xyz/tx/" + txHash
+                  }
                   target={"_blank"}
                 >
                   {" "}
@@ -216,7 +223,11 @@ export default function Relation() {
                 </a>
                 <p className="mt-2 font-semibold  text-white ">Created with</p>
                 <a
-                  href={"https://mumbai.polygonscan.com/address/" + pairBred}
+                  href={
+                    chain?.id == 88
+                      ? "https://viction.xyz/address/" + pairBred
+                      : "https://testnet.viction.xyz/address/" + pairBred
+                  }
                   target={"_blank"}
                 >
                   {pairBred.substring(0, 10) +
@@ -338,7 +349,9 @@ export default function Relation() {
                         onClick={async () => {
                           const tx = await createRelationshipFunction({
                             args: [
-                              mumbaiDeployments.relRegistry,
+                              chain?.id == 88
+                                ? mainnetDeployments.relRegistry
+                                : testnetDeployments.relRegistry,
                               req.address,
                               req.signature,
                             ],

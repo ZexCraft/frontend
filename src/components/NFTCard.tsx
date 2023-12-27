@@ -85,7 +85,11 @@ export default function NFTCard({
           <div
             className="flex justify-center cursor-pointer"
             onClick={() => {
-              window.open(`https://mumbai.polygonscan.com/address/${address}`);
+              if (chain?.id == 88) {
+                window.open(`https://viction.xyz/address/${address}`);
+              } else {
+                window.open(`https://testnet.viction.xyz/address/${address}`);
+              }
             }}
           >
             <p className="text-sm font-semibold text-[#9c9e9e] my-2 mr-2">
@@ -99,7 +103,11 @@ export default function NFTCard({
           <div
             className="flex justify-center  cursor-pointer"
             onClick={() => {
-              window.open(`https://mumbai.polygonscan.com/address/${owner}`);
+              if (chain?.id == 88) {
+                window.open(`https://viction.xyz/address/${owner}`);
+              } else {
+                window.open(`https://testnet.viction.xyz/address/${owner}`);
+              }
             }}
           >
             <p className="text-sm font-semibold text-[#9c9e9e] my-2 mr-2">

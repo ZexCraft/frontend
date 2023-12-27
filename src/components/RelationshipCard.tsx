@@ -57,9 +57,13 @@ export default function RelationshipCard({
             <div
               className="flex justify-center  cursor-pointer"
               onClick={() => {
-                window.open(
-                  `https://mumbai.polygonscan.com/address/${relationship}`
-                );
+                if (chain?.id == 88) {
+                  window.open(`https://viction.xyz/address/${relationship}`);
+                } else {
+                  window.open(
+                    `https://testnet.viction.xyz/address/${relationship}`
+                  );
+                }
               }}
             >
               <p className="text-xs font-semibold text-[#9c9e9e] my-2 mr-2">
@@ -116,9 +120,13 @@ export default function RelationshipCard({
             <div
               className="flex justify-center cursor-pointer"
               onClick={() => {
-                window.open(
-                  `https://mumbai.polygonscan.com/address/${relationship}`
-                );
+                if (chain?.id == 88) {
+                  window.open(`https://viction.xyz/address/${relationship}`);
+                } else {
+                  window.open(
+                    `https://testnet.viction.xyz/address/${relationship}`
+                  );
+                }
               }}
             >
               <p className="text-xs font-semibold text-[#9c9e9e] my-2 mr-2">

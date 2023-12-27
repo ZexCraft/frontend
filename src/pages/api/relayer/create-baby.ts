@@ -1,8 +1,8 @@
-import { abi, mumbaiDeployments } from "@/utils/constants";
+import { abi, testnetDeployments, mainnetDeployments } from "@/utils/constants";
 import { NextApiRequest, NextApiResponse } from "next";
 import { Chain, createPublicClient, createWalletClient, http } from "viem";
 import { privateKeyToAccount } from "viem/accounts";
-import { polygonMumbai } from "viem/chains";
+import { victionMainnet, victionTestnet } from "@/utils/constants";
 
 export default async function handler(
   req: NextApiRequest,
@@ -10,9 +10,8 @@ export default async function handler(
 ) {
   const NEXT_PUBLIC_MIDJOURNEY_API_KEY =
     process.env.NEXT_PUBLIC_MIDJOURNEY_API_KEY;
-  const NEXT_PUBLIC_POLYGON_RPC_ENDPOINT =
-    process.env.NEXT_PUBLIC_POLYGON_RPC_ENDPOINT;
-
+  const VICTION_MAINNET_RPC_ENDPOINT = "https://rpc.viction.xyz";
+  const VICTION_TESTNET_RPC_ENDPOINT = "https://rpc-testnet.viction.xyz";
   const API_KEY =
     req.headers.authorization != null
       ? req.headers.authorization.replace("Bearer ", "")
@@ -20,8 +19,14 @@ export default async function handler(
   if (API_KEY === "" || API_KEY != NEXT_PUBLIC_MIDJOURNEY_API_KEY) {
     res.status(401).send({ error: "Unauthorized" });
   }
-  const { tokenUri, altImage, relationship, nft1Signature, nft2Signature } =
-    req.body;
+  const {
+    tokenUri,
+    altImage,
+    relationship,
+    nft1Signature,
+    nft2Signature,
+    chainId,
+  } = req.body;
   console.log(req.body);
   console.log(process.env.NEXT_PUBLIC_PRIVATE_KEY);
   try {
@@ -32,13 +37,21 @@ export default async function handler(
 
     const client = createWalletClient({
       account,
-      chain: polygonMumbai,
-      transport: http(NEXT_PUBLIC_POLYGON_RPC_ENDPOINT),
+      chain: chainId == 88 ? victionMainnet : victionTestnet,
+      transport: http(
+        chainId == 88
+          ? VICTION_MAINNET_RPC_ENDPOINT
+          : VICTION_TESTNET_RPC_ENDPOINT
+      ),
     });
 
     const publicClient = createPublicClient({
-      chain: polygonMumbai,
-      transport: http(NEXT_PUBLIC_POLYGON_RPC_ENDPOINT),
+      chain: chainId == 88 ? victionMainnet : victionTestnet,
+      transport: http(
+        chainId == 88
+          ? VICTION_MAINNET_RPC_ENDPOINT
+          : VICTION_TESTNET_RPC_ENDPOINT
+      ),
     });
 
     const { request } = await publicClient.simulateContract({

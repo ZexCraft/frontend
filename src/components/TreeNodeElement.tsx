@@ -111,9 +111,15 @@ export default function TreeNodeElement({
           <div
             className="flex justify-center  cursor-pointer"
             onClick={() => {
-              window.open(
-                `https://mumbai.polygonscan.com/address/${nodeDatum.attributes.relationship}`
-              );
+              if (chain?.id == 88) {
+                window.open(
+                  `https://viction.xyz/address/${nodeDatum.attributes.relationship}`
+                );
+              } else {
+                window.open(
+                  `https://testnet.viction.xyz/address/${nodeDatum.attributes.relationship}`
+                );
+              }
             }}
           >
             <p className="text-xs font-semibold text-[#9c9e9e] my-2 mr-2">

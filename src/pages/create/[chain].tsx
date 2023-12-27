@@ -1,7 +1,7 @@
 import Layout from "@/components/Layout";
 import LoadingSpinner from "@/components/Spinner";
 import { capitalizeString, shortenEthereumAddress } from "@/utils";
-import { abi, mumbaiDeployments } from "@/utils/constants";
+import { abi, testnetDeployments, mainnetDeployments } from "@/utils/constants";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -38,20 +38,29 @@ export default function Generate() {
   const [isMinting, setIsMinting] = useState(false);
 
   const { data: nonce } = useContractRead({
-    address: mumbaiDeployments.craftToken as `0x${string}`,
+    address:
+      chain?.id == 88
+        ? (mainnetDeployments.craftToken as `0x${string}`)
+        : (testnetDeployments.craftToken as `0x${string}`),
     abi: abi.craftToken,
     functionName: "nonces",
     args: [address],
   });
   const { data: balance, refetch: fetchBalance } = useContractRead({
-    address: mumbaiDeployments.craftToken as `0x${string}`,
+    address:
+      chain?.id == 88
+        ? (mainnetDeployments.craftToken as `0x${string}`)
+        : (testnetDeployments.craftToken as `0x${string}`),
     abi: abi.craftToken,
     functionName: "balanceOf",
     args: [address],
   });
 
   const { write: mint } = useContractWrite({
-    address: mumbaiDeployments.craftToken as `0x${string}`,
+    address:
+      chain?.id == 88
+        ? (mainnetDeployments.craftToken as `0x${string}`)
+        : (testnetDeployments.craftToken as `0x${string}`),
     abi: abi.craftToken,
     functionName: "mint",
     onSuccess(data) {
@@ -60,7 +69,10 @@ export default function Generate() {
   });
 
   useContractEvent({
-    address: mumbaiDeployments.zexCraft as `0x${string}`,
+    address:
+      chain?.id == 88
+        ? (mainnetDeployments.zexCraft as `0x${string}`)
+        : (testnetDeployments.zexCraft as `0x${string}`),
     abi: abi.zexCraft,
     eventName: "ZexCraftNFTCreated",
     listener(log) {
@@ -132,7 +144,8 @@ export default function Generate() {
               <div className="flex">
                 <Image
                   src={
-                    chain?.name == "Polygon Mumbai"
+                    chain?.name == "Viction Mainnet" ||
+                    chain?.name == "Viction Testnet"
                       ? "/tech/viction.png"
                       : "/tech/blue-ethereum.png"
                   }
@@ -210,7 +223,10 @@ export default function Generate() {
                       walletClient: walletClient as WalletClient,
                       owner: address as `0x${string}`,
                       nonce: (nonce as bigint).toString(),
-                      spender: mumbaiDeployments.zexCraft as `0x${string}`,
+                      spender:
+                        chain?.id == 88
+                          ? (mainnetDeployments.zexCraft as `0x${string}`)
+                          : (testnetDeployments.zexCraft as `0x${string}`),
                       amount: "100000000000000000",
                     });
                     setApproveSignature(approveSig);
@@ -290,6 +306,7 @@ export default function Generate() {
                         creator: address,
                         permitTokensSignature: approveSignature,
                         createNftSignature: createNftSig,
+                        chainId: chain?.id,
                       }),
                     });
                     const relayedTransaction = await relay.json();
@@ -342,7 +359,11 @@ export default function Generate() {
                 <p>Tx Hash</p>
                 <a
                   className="text-sm text-[#9c9e9e] "
-                  href={"https://mumbai.polygonscan.com/tx/" + txHash}
+                  href={
+                    chain?.id == 88
+                      ? "https://viction.xyz/tx/" + txHash
+                      : "https://testnet.viction.xyz/tx/" + txHash
+                  }
                   target={"_blank"}
                 >
                   {txHash.substring(0, 10) +

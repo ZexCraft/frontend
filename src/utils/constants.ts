@@ -7,8 +7,24 @@ const mumbaiDeployments = {
   mintFee: "100000000000000000",
   craftToken: "0x89d5da61548205E755874d7f67Ad00F90680440d",
 };
-const testnetDeployments = {};
-const mainnetDeployments = {};
+const testnetDeployments = {
+  implementation: "0x7125e097a72cCf547ED6e9e98bCc09BE3AC61997",
+  registry: "0x50751BD8d7b0a84c422DE96A56426a370F31a42D",
+  relImplementation: "0x08AC2b69feB202b34aD7c65E5Ac876E901CA6216",
+  relRegistry: "0x108A91edD1329e17409A86b54D4204A102534ec3",
+  zexCraft: "0xc6b011774FE1393AE254d19456e76F0f1b5B09Eb",
+  mintFee: "100000000000000000",
+  craftToken: "0xC044FCe37927A0Cb55C7e57425Fe3772181228a6",
+};
+const mainnetDeployments = {
+  implementation: "0x7125e097a72cCf547ED6e9e98bCc09BE3AC61997",
+  registry: "0x50751BD8d7b0a84c422DE96A56426a370F31a42D",
+  relImplementation: "0x08AC2b69feB202b34aD7c65E5Ac876E901CA6216",
+  relRegistry: "0x108A91edD1329e17409A86b54D4204A102534ec3",
+  zexCraft: "0xc6b011774FE1393AE254d19456e76F0f1b5B09Eb",
+  mintFee: "100000000000000000",
+  craftToken: "0xC044FCe37927A0Cb55C7e57425Fe3772181228a6",
+};
 const abi = {
   relationship: [
     {
@@ -601,114 +617,6 @@ const abi = {
       type: "error",
     },
     {
-      inputs: [
-        {
-          internalType: "address",
-          name: "spender",
-          type: "address",
-        },
-        {
-          internalType: "uint256",
-          name: "allowance",
-          type: "uint256",
-        },
-        {
-          internalType: "uint256",
-          name: "needed",
-          type: "uint256",
-        },
-      ],
-      name: "ERC20InsufficientAllowance",
-      type: "error",
-    },
-    {
-      inputs: [
-        {
-          internalType: "address",
-          name: "sender",
-          type: "address",
-        },
-        {
-          internalType: "uint256",
-          name: "balance",
-          type: "uint256",
-        },
-        {
-          internalType: "uint256",
-          name: "needed",
-          type: "uint256",
-        },
-      ],
-      name: "ERC20InsufficientBalance",
-      type: "error",
-    },
-    {
-      inputs: [
-        {
-          internalType: "address",
-          name: "approver",
-          type: "address",
-        },
-      ],
-      name: "ERC20InvalidApprover",
-      type: "error",
-    },
-    {
-      inputs: [
-        {
-          internalType: "address",
-          name: "receiver",
-          type: "address",
-        },
-      ],
-      name: "ERC20InvalidReceiver",
-      type: "error",
-    },
-    {
-      inputs: [
-        {
-          internalType: "address",
-          name: "sender",
-          type: "address",
-        },
-      ],
-      name: "ERC20InvalidSender",
-      type: "error",
-    },
-    {
-      inputs: [
-        {
-          internalType: "address",
-          name: "spender",
-          type: "address",
-        },
-      ],
-      name: "ERC20InvalidSpender",
-      type: "error",
-    },
-    {
-      inputs: [
-        {
-          internalType: "address",
-          name: "owner",
-          type: "address",
-        },
-      ],
-      name: "OwnableInvalidOwner",
-      type: "error",
-    },
-    {
-      inputs: [
-        {
-          internalType: "address",
-          name: "account",
-          type: "address",
-        },
-      ],
-      name: "OwnableUnauthorizedAccount",
-      type: "error",
-    },
-    {
       anonymous: false,
       inputs: [
         {
@@ -731,6 +639,50 @@ const abi = {
         },
       ],
       name: "Approval",
+      type: "event",
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: true,
+          internalType: "address",
+          name: "from",
+          type: "address",
+        },
+        {
+          indexed: true,
+          internalType: "address",
+          name: "to",
+          type: "address",
+        },
+        {
+          indexed: true,
+          internalType: "address",
+          name: "issuer",
+          type: "address",
+        },
+        {
+          indexed: false,
+          internalType: "uint256",
+          name: "value",
+          type: "uint256",
+        },
+      ],
+      name: "Fee",
+      type: "event",
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: false,
+          internalType: "uint256",
+          name: "fee",
+          type: "uint256",
+        },
+      ],
+      name: "FeeUpdated",
       type: "event",
     },
     {
@@ -778,6 +730,13 @@ const abi = {
       type: "event",
     },
     {
+      inputs: [],
+      name: "acceptOwnership",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
       inputs: [
         {
           internalType: "address",
@@ -810,7 +769,7 @@ const abi = {
         },
         {
           internalType: "uint256",
-          name: "value",
+          name: "amount",
           type: "uint256",
         },
       ],
@@ -829,7 +788,7 @@ const abi = {
       inputs: [
         {
           internalType: "address",
-          name: "account",
+          name: "owner",
           type: "address",
         },
       ],
@@ -842,6 +801,25 @@ const abi = {
         },
       ],
       stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "uint256",
+          name: "amount",
+          type: "uint256",
+        },
+      ],
+      name: "burn",
+      outputs: [
+        {
+          internalType: "bool",
+          name: "",
+          type: "bool",
+        },
+      ],
+      stateMutability: "nonpayable",
       type: "function",
     },
     {
@@ -859,12 +837,70 @@ const abi = {
     },
     {
       inputs: [],
+      name: "devWallet",
+      outputs: [
+        {
+          internalType: "address",
+          name: "",
+          type: "address",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "uint256",
+          name: "value",
+          type: "uint256",
+        },
+      ],
+      name: "estimateFee",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
       name: "i_zexCraftNftAddress",
       outputs: [
         {
           internalType: "address",
           name: "",
           type: "address",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "issuer",
+      outputs: [
+        {
+          internalType: "address",
+          name: "",
+          type: "address",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "minFee",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
         },
       ],
       stateMutability: "view",
@@ -962,10 +998,35 @@ const abi = {
       type: "function",
     },
     {
-      inputs: [],
-      name: "renounceOwnership",
+      inputs: [
+        {
+          internalType: "uint256",
+          name: "fee",
+          type: "uint256",
+        },
+      ],
+      name: "setFee",
       outputs: [],
       stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "bytes4",
+          name: "interfaceId",
+          type: "bytes4",
+        },
+      ],
+      name: "supportsInterface",
+      outputs: [
+        {
+          internalType: "bool",
+          name: "",
+          type: "bool",
+        },
+      ],
+      stateMutability: "view",
       type: "function",
     },
     {
@@ -998,12 +1059,12 @@ const abi = {
       inputs: [
         {
           internalType: "address",
-          name: "to",
+          name: "recipient",
           type: "address",
         },
         {
           internalType: "uint256",
-          name: "value",
+          name: "amount",
           type: "uint256",
         },
       ],
@@ -1022,17 +1083,17 @@ const abi = {
       inputs: [
         {
           internalType: "address",
-          name: "from",
+          name: "sender",
           type: "address",
         },
         {
           internalType: "address",
-          name: "to",
+          name: "recipient",
           type: "address",
         },
         {
           internalType: "uint256",
-          name: "value",
+          name: "amount",
           type: "uint256",
         },
       ],
@@ -1993,19 +2054,9 @@ const abi = {
     {
       inputs: [
         {
-          internalType: "contract IERC6551Registry",
-          name: "_accountRegistry",
-          type: "address",
-        },
-        {
           internalType: "address",
-          name: "_relationshipImplementation",
+          name: "implementation",
           type: "address",
-        },
-        {
-          internalType: "uint256",
-          name: "_mintFee",
-          type: "uint256",
         },
       ],
       stateMutability: "nonpayable",
@@ -2039,29 +2090,7 @@ const abi = {
     },
     {
       inputs: [],
-      name: "ECDSAInvalidSignature",
-      type: "error",
-    },
-    {
-      inputs: [
-        {
-          internalType: "uint256",
-          name: "length",
-          type: "uint256",
-        },
-      ],
-      name: "ECDSAInvalidSignatureLength",
-      type: "error",
-    },
-    {
-      inputs: [
-        {
-          internalType: "bytes32",
-          name: "s",
-          type: "bytes32",
-        },
-      ],
-      name: "ECDSAInvalidSignatureS",
+      name: "InitializationFailed",
       type: "error",
     },
     {
@@ -2070,52 +2099,108 @@ const abi = {
         {
           indexed: false,
           internalType: "address",
-          name: "parent1",
+          name: "account",
           type: "address",
         },
         {
           indexed: false,
           internalType: "address",
-          name: "parent2",
+          name: "implementation",
           type: "address",
         },
         {
           indexed: false,
-          internalType: "address",
-          name: "relationship",
-          type: "address",
+          internalType: "uint256",
+          name: "chainId",
+          type: "uint256",
         },
         {
           indexed: false,
           internalType: "address",
-          name: "signer1",
+          name: "tokenContract",
           type: "address",
         },
         {
           indexed: false,
-          internalType: "address",
-          name: "signer2",
-          type: "address",
+          internalType: "uint256",
+          name: "tokenId",
+          type: "uint256",
+        },
+        {
+          indexed: false,
+          internalType: "uint256",
+          name: "salt",
+          type: "uint256",
         },
       ],
-      name: "RelationshipCreated",
+      name: "AccountCreated",
       type: "event",
     },
     {
-      inputs: [],
-      name: "ZEXCRAFT_CREATE_RELATIONSHIP",
-      outputs: [
+      anonymous: false,
+      inputs: [
         {
-          internalType: "string",
-          name: "",
-          type: "string",
+          indexed: true,
+          internalType: "address",
+          name: "accountAddress",
+          type: "address",
+        },
+        {
+          indexed: true,
+          internalType: "address",
+          name: "caller",
+          type: "address",
+        },
+        {
+          indexed: true,
+          internalType: "uint256",
+          name: "chainId",
+          type: "uint256",
+        },
+        {
+          indexed: false,
+          internalType: "address",
+          name: "tokenContract",
+          type: "address",
+        },
+        {
+          indexed: false,
+          internalType: "uint256",
+          name: "tokenId",
+          type: "uint256",
+        },
+        {
+          indexed: false,
+          internalType: "uint256",
+          name: "salt",
+          type: "uint256",
         },
       ],
-      stateMutability: "view",
-      type: "function",
+      name: "AccountCreationFailed",
+      type: "event",
     },
     {
       inputs: [
+        {
+          internalType: "address",
+          name: "implementation",
+          type: "address",
+        },
+        {
+          internalType: "uint256",
+          name: "chainId",
+          type: "uint256",
+        },
+        {
+          internalType: "address",
+          name: "tokenContract",
+          type: "address",
+        },
+        {
+          internalType: "uint256",
+          name: "tokenId",
+          type: "uint256",
+        },
         {
           internalType: "uint256",
           name: "salt",
@@ -2134,26 +2219,19 @@ const abi = {
       type: "function",
     },
     {
-      inputs: [],
-      name: "accountRegistry",
-      outputs: [
-        {
-          internalType: "contract IERC6551Registry",
-          name: "",
-          type: "address",
-        },
-      ],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [],
-      name: "craftToken",
-      outputs: [
+      inputs: [
         {
           internalType: "address",
           name: "",
           type: "address",
+        },
+      ],
+      name: "accountExists",
+      outputs: [
+        {
+          internalType: "bool",
+          name: "",
+          type: "bool",
         },
       ],
       stateMutability: "view",
@@ -2163,16 +2241,36 @@ const abi = {
       inputs: [
         {
           internalType: "address",
-          name: "otherAccount",
+          name: "implementation",
           type: "address",
+        },
+        {
+          internalType: "uint256",
+          name: "chainId",
+          type: "uint256",
+        },
+        {
+          internalType: "address",
+          name: "tokenContract",
+          type: "address",
+        },
+        {
+          internalType: "uint256",
+          name: "tokenId",
+          type: "uint256",
+        },
+        {
+          internalType: "uint256",
+          name: "salt",
+          type: "uint256",
         },
         {
           internalType: "bytes",
-          name: "otherAccountsignature",
+          name: "initData",
           type: "bytes",
         },
       ],
-      name: "createRelationship",
+      name: "createAccount",
       outputs: [
         {
           internalType: "address",
@@ -2180,12 +2278,12 @@ const abi = {
           type: "address",
         },
       ],
-      stateMutability: "nonpayable",
+      stateMutability: "payable",
       type: "function",
     },
     {
       inputs: [],
-      name: "devWallet",
+      name: "i_implementation",
       outputs: [
         {
           internalType: "address",
@@ -2200,129 +2298,16 @@ const abi = {
       inputs: [
         {
           internalType: "address",
-          name: "_zexCraft",
-          type: "address",
-        },
-        {
-          internalType: "address",
-          name: "_craftToken",
+          name: "accountAddress",
           type: "address",
         },
       ],
-      name: "initialize",
-      outputs: [],
-      stateMutability: "nonpayable",
-      type: "function",
-    },
-    {
-      inputs: [
-        {
-          internalType: "address",
-          name: "_address",
-          type: "address",
-        },
-      ],
-      name: "isRelationship",
+      name: "isAccount",
       outputs: [
         {
           internalType: "bool",
           name: "",
           type: "bool",
-        },
-      ],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [],
-      name: "mintFee",
-      outputs: [
-        {
-          internalType: "uint256",
-          name: "",
-          type: "uint256",
-        },
-      ],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [],
-      name: "nonce",
-      outputs: [
-        {
-          internalType: "uint256",
-          name: "",
-          type: "uint256",
-        },
-      ],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [
-        {
-          internalType: "address",
-          name: "",
-          type: "address",
-        },
-        {
-          internalType: "address",
-          name: "",
-          type: "address",
-        },
-      ],
-      name: "pairs",
-      outputs: [
-        {
-          internalType: "bool",
-          name: "",
-          type: "bool",
-        },
-      ],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [
-        {
-          internalType: "address",
-          name: "",
-          type: "address",
-        },
-      ],
-      name: "relationshipExists",
-      outputs: [
-        {
-          internalType: "bool",
-          name: "",
-          type: "bool",
-        },
-      ],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [],
-      name: "relationshipImplementation",
-      outputs: [
-        {
-          internalType: "address",
-          name: "",
-          type: "address",
-        },
-      ],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [],
-      name: "zexCraft",
-      outputs: [
-        {
-          internalType: "address",
-          name: "",
-          type: "address",
         },
       ],
       stateMutability: "view",
@@ -2330,4 +2315,62 @@ const abi = {
     },
   ],
 };
-export { mumbaiDeployments, abi, testnetDeployments, mainnetDeployments };
+
+const victionTestnet = {
+  id: 89,
+  name: "Viction Testnet",
+  network: "viction-testnet",
+  nativeCurrency: { name: "VIC", symbol: "VIC", decimals: 18 },
+  rpcUrls: {
+    default: {
+      http: ["https://rpc-testnet.viction.xyz"],
+    },
+    public: {
+      http: ["https://rpc-testnet.viction.xyz"],
+    },
+  },
+  blockExplorers: {
+    etherscan: {
+      name: "VicScan",
+      url: "https://testnet.vicscan.xyz",
+    },
+    default: {
+      name: "VicScan",
+      url: "https://testnet.vicscan.xyz",
+    },
+  },
+  testnet: true,
+};
+const victionMainnet = {
+  id: 88,
+  name: "Viction Mainnet",
+  network: "viction-mainnet",
+  nativeCurrency: { name: "VIC", symbol: "VIC", decimals: 18 },
+  rpcUrls: {
+    default: {
+      http: ["https://rpc.viction.xyz"],
+    },
+    public: {
+      http: ["https://rpc.viction.xyz"],
+    },
+  },
+  blockExplorers: {
+    etherscan: {
+      name: "VicScan",
+      url: "https://vicscan.xyz",
+    },
+    default: {
+      name: "VicScan",
+      url: "https://vicscan.xyz",
+    },
+  },
+  testnet: false,
+};
+export {
+  mumbaiDeployments,
+  abi,
+  testnetDeployments,
+  mainnetDeployments,
+  victionMainnet,
+  victionTestnet,
+};
