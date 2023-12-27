@@ -1,12 +1,14 @@
 import Layout from "@/components/Layout";
-import createNft from "@/utils/supabase/create-nft";
-import createRelationship from "@/utils/supabase/create-relationship";
-import getRelationship from "@/utils/supabase/get-relationship";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { useNetwork } from "wagmi";
+import { useChainModal } from "@rainbow-me/rainbowkit";
+import { useRouter } from "next/router";
 export default function Create() {
-  const [prompt, setPrompt] = useState("");
+  const { openChainModal } = useChainModal();
+  const { chain } = useNetwork();
+  const router = useRouter();
 
   return (
     <Layout>
@@ -21,8 +23,14 @@ export default function Create() {
               Log in your wallet to craft CraftNFTs. 🪄
             </p>
             <div className="grid grid-cols-3 gap-3 mt-10">
-              <Link
-                href={`/create/testnet`}
+              <button
+                onClick={() => {
+                  if (chain?.id != 88) {
+                    openChainModal && openChainModal();
+                  } else {
+                    router.push(`/create/mainnet`);
+                  }
+                }}
                 className="border-[2px] border-[#3c3f41] flex flex-col justify-center items-center h-[300px] rounded-2xl"
               >
                 <Image
@@ -34,9 +42,15 @@ export default function Create() {
                 <p className="text-white font-bold text-2xl mt-4">
                   Viction Mainnet
                 </p>
-              </Link>
-              <Link
-                href={`/create/testnet`}
+              </button>
+              <button
+                onClick={() => {
+                  if (chain?.id != 89) {
+                    openChainModal && openChainModal();
+                  } else {
+                    router.push(`/create/testnet`);
+                  }
+                }}
                 className="border-[2px] border-[#3c3f41] flex flex-col justify-center items-center h-[300px] rounded-2xl"
               >
                 <Image
@@ -49,7 +63,7 @@ export default function Create() {
                 <p className="text-white font-bold text-2xl mt-4">
                   Viction Testnet
                 </p>
-              </Link>
+              </button>
 
               <div className="border-[2px] border-[#3c3f41] flex flex-col justify-center items-center h-[300px] rounded-2xl cursor-default opacity-50">
                 <Image

@@ -4,7 +4,7 @@ import { capitalizeString, shortenEthereumAddress } from "@/utils";
 import { abi, testnetDeployments, mainnetDeployments } from "@/utils/constants";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   useAccount,
   useContractEvent,
@@ -23,6 +23,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 export default function Generate() {
   const router = useRouter();
+  const { chain: chainQueryParam } = router.query;
   const { address } = useAccount();
   const { width, height } = useWindowSize();
   const { data: walletClient } = useWalletClient();
@@ -71,6 +72,19 @@ export default function Generate() {
   useContractEvent({
     address:
       chain?.id == 88
+        ? (mainnetDeployments.craftToken as `0x${string}`)
+        : (testnetDeployments.craftToken as `0x${string}`),
+    abi: abi.craftToken,
+    eventName: "Transfer",
+    listener(log) {
+      console.log("TRANSFER EVENT");
+      fetchBalance();
+    },
+  });
+
+  useContractEvent({
+    address:
+      chain?.id == 88
         ? (mainnetDeployments.zexCraft as `0x${string}`)
         : (testnetDeployments.zexCraft as `0x${string}`),
     abi: abi.zexCraft,
@@ -113,6 +127,17 @@ export default function Generate() {
       }
     },
   });
+
+  useEffect(() => {
+    console.log("WE ARE HERE");
+    console.log(chain?.id);
+    console.log(chainQueryParam);
+    if (chain?.id == 89) {
+      router.push("/create/testnet");
+    } else if (chain?.id == 88) {
+      router.push("/create/mainnet");
+    }
+  }, [chain?.id]);
 
   async function fetchImage(
     messageId: string
