@@ -38,13 +38,16 @@ export default async function handler(
   if (imagesResponseData.progress === 100) {
     const imageUrl = imagesResponseData.response.imageUrls[0];
     console.log("sending image to ipfs");
-    const ipfsUrl = await fetch(`https://zexcraft.adaptable.app/auth/image`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ image: imageUrl }),
-    });
+    const ipfsUrl = await fetch(
+      `https://zexcraft.adaptable.app/auth/image-pinata`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ image: imageUrl }),
+      }
+    );
 
     const responseData = await ipfsUrl.json();
     console.log(responseData);
