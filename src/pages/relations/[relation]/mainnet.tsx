@@ -83,7 +83,6 @@ export default function Relation() {
   }, [chain?.id, relation]);
 
   useEffect(() => {
-    if (relation == undefined) return;
     (async function () {
       const kids = await getNftsByOwner({
         address: relation as string,
@@ -91,7 +90,7 @@ export default function Relation() {
       });
       setBabes(kids.response);
     })();
-  }, [relation]);
+  }, []);
 
   useEffect(() => {
     // Fetch relationship
@@ -613,7 +612,7 @@ export default function Relation() {
               </div>
             )}
             {selected == 1 && (
-              <div className="grid grid-cols-3 space-x-8 space-y-8">
+              <div className="grid grid-cols-2 desktop:grid-cols-3 space-x-8 space-y-8">
                 {babes &&
                   babes.length > 0 &&
                   babes.map((nft: any, index: number) => {
