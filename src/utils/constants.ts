@@ -17,13 +17,13 @@ const testnetDeployments = {
   craftToken: "0xC044FCe37927A0Cb55C7e57425Fe3772181228a6",
 };
 const mainnetDeployments = {
-  implementation: "0x7125e097a72cCf547ED6e9e98bCc09BE3AC61997",
-  registry: "0x50751BD8d7b0a84c422DE96A56426a370F31a42D",
-  relImplementation: "0x08AC2b69feB202b34aD7c65E5Ac876E901CA6216",
-  relRegistry: "0x108A91edD1329e17409A86b54D4204A102534ec3",
-  zexCraft: "0xc6b011774FE1393AE254d19456e76F0f1b5B09Eb",
+  implementation: "0x16CBC6Cb38D19B73A3b545109c70b2031d20EA37",
+  registry: "0xd37ca03a13bD2725306Fec4071855EE556037e2e",
+  relImplementation: "0x4ab8f50796b059aE5C8b8534afC6bb4c84912ff6",
+  relRegistry: "0x7125e097a72cCf547ED6e9e98bCc09BE3AC61997",
+  zexCraft: "0x50751BD8d7b0a84c422DE96A56426a370F31a42D",
   mintFee: "100000000000000000",
-  craftToken: "0xC044FCe37927A0Cb55C7e57425Fe3772181228a6",
+  craftToken: "0x08AC2b69feB202b34aD7c65E5Ac876E901CA6216",
 };
 const abi = {
   relationship: [
