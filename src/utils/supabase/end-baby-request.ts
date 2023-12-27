@@ -26,6 +26,8 @@ export default async function endBabyRequest(req: {
         .delete()
         .eq("id", relationship)
         .eq("chain_id", chainId);
+      console.log("End Baby Response");
+      console.log({ updatedRequest, updateError });
       return {
         message: "Baby Request Deleted successfully",
         response: updatedRequest != null ? updatedRequest[0] : null,

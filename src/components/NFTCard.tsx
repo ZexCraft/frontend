@@ -61,7 +61,10 @@ export default function NFTCard({
       <p className="text-[#CCCCCC] font-semibold text-sm mt-2 mx-2 text-center">
         by {mode}
       </p>
-      <Link href={"/nfts/" + address} className="my-2">
+      <Link
+        href={"/nfts/" + address + (chain?.id == 88 ? "/mainnet" : "/testnet")}
+        className="my-2"
+      >
         <div className="flex justify-around mx-2">
           <div className="w-full">
             <p className="font-semibold text-center">Token Id</p>
@@ -86,9 +89,9 @@ export default function NFTCard({
             className="flex justify-center cursor-pointer"
             onClick={() => {
               if (chain?.id == 88) {
-                window.open(`https://viction.xyz/address/${address}`);
+                window.open(`https://vicscan.xyz/address/${address}`);
               } else {
-                window.open(`https://testnet.viction.xyz/address/${address}`);
+                window.open(`https://testnet.vicscan.xyz/address/${address}`);
               }
             }}
           >
@@ -104,9 +107,9 @@ export default function NFTCard({
             className="flex justify-center  cursor-pointer"
             onClick={() => {
               if (chain?.id == 88) {
-                window.open(`https://viction.xyz/address/${owner}`);
+                window.open(`https://vicscan.xyz/address/${owner}`);
               } else {
-                window.open(`https://testnet.viction.xyz/address/${owner}`);
+                window.open(`https://testnet.vicscan.xyz/address/${owner}`);
               }
             }}
           >

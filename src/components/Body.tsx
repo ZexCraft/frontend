@@ -17,7 +17,7 @@ export default function Body() {
 
       setNfts(res.response);
     })();
-  }, []);
+  }, [chain?.id]);
 
   return (
     <div className="my-8 rounded-xl border-[1px] border-[#3c3f41]">

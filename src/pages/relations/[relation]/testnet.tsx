@@ -3,7 +3,7 @@ import NFTCard from "@/components/NFTCard";
 import LoadingSpinner from "@/components/Spinner";
 import useWindowSize from "@/hooks/useWindowSize";
 import { shortenEthereumAddress } from "@/utils";
-import { abi, mainnetDeployments, testnetDeployments } from "@/utils/constants";
+import { abi, testnetDeployments } from "@/utils/constants";
 import resolveRarity from "@/utils/resolveRarity";
 import signCreateBaby from "@/utils/sign/signCreateBaby";
 import createBabyRequest from "@/utils/supabase/create-baby-request";
@@ -68,16 +68,19 @@ export default function Relation() {
   });
 
   const { write: mint } = useContractWrite({
-    address:
-      chain?.id == 88
-        ? (mainnetDeployments.craftToken as `0x${string}`)
-        : (testnetDeployments.craftToken as `0x${string}`),
+    address: testnetDeployments.craftToken as `0x${string}`,
     abi: abi.craftToken,
     functionName: "mint",
     onSuccess(data) {
       console.log("Hash: ", data.hash);
     },
   });
+
+  useEffect(() => {
+    if (relation == undefined) return;
+    if (chain?.id == 88) router.push("/nfts/" + relation + "/mainnet");
+    else if (chain?.id != 89) router.push("/");
+  }, [chain?.id, relation]);
 
   useEffect(() => {
     (async function () {
@@ -160,20 +163,24 @@ export default function Relation() {
   }, [refreshBabyRequest]);
 
   const { data: balance, refetch: fetchBalance } = useContractRead({
-    address:
-      chain?.id == 88
-        ? (mainnetDeployments.craftToken as `0x${string}`)
-        : (testnetDeployments.craftToken as `0x${string}`),
+    address: testnetDeployments.craftToken as `0x${string}`,
     abi: abi.craftToken,
     functionName: "balanceOf",
     args: [relation],
   });
 
   useContractEvent({
-    address:
-      chain?.id == 88
-        ? (mainnetDeployments.zexCraft as `0x${string}`)
-        : (testnetDeployments.zexCraft as `0x${string}`),
+    address: testnetDeployments.craftToken as `0x${string}`,
+    abi: abi.zexCraft,
+    eventName: "Transfer",
+    listener(log) {
+      console.log(log);
+      fetchBalance();
+    },
+  });
+
+  useContractEvent({
+    address: testnetDeployments.zexCraft as `0x${string}`,
     abi: abi.zexCraft,
     eventName: "ZexCraftNFTBred",
     listener(log) {
@@ -185,14 +192,14 @@ export default function Relation() {
       });
       console.log(event);
       const args = event.args as {
-        tokenId: string;
+        tokenId: BigInt;
         tokenUri: string;
         altImage: string;
         owner: string;
         parent1: string;
         parent2: string;
         account: string;
-        rarity: string;
+        rarity: BigInt;
       };
       console.log(args);
       setDisplayImage(true);
@@ -207,8 +214,8 @@ export default function Relation() {
         parent: args.owner,
         contractAddress: args.account,
         chainId: (chain?.id as number).toString(),
-        tokenId: Number(args.tokenId),
-        rarity: args.rarity,
+        tokenId: args.tokenId.toString(),
+        rarity: args.rarity.toString(),
       });
 
       endBabyRequest({
@@ -605,7 +612,7 @@ export default function Relation() {
               </div>
             )}
             {selected == 1 && (
-              <div className="grid grid-cols-3 space-x-8 space-y-8">
+              <div className="grid grid-cols-2 desktop:grid-cols-3 space-x-8 space-y-8">
                 {babes &&
                   babes.length > 0 &&
                   babes.map((nft: any, index: number) => {

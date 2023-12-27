@@ -10,7 +10,7 @@ export default async function createChild(req: {
   parent: string;
   contractAddress: string;
   rarity: string;
-  tokenId: number;
+  tokenId: string;
   chainId: string;
 }) {
   const {
@@ -30,7 +30,6 @@ export default async function createChild(req: {
       .select("*")
       .eq("address", address)
       .eq("chain_id", chainId);
-    console.log(fetchedNft);
 
     if (fetchError || fetchedNft == null || fetchedNft.length === 0) {
       const { data, error } = supabase
@@ -54,7 +53,8 @@ export default async function createChild(req: {
             data: null,
             error: new Error("Supabase client is not initialized"),
           };
-
+      console.log("Create child return data");
+      console.log({ data, error });
       if (error) {
         console.log(error);
 

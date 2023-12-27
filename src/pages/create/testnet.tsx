@@ -39,29 +39,20 @@ export default function Generate() {
   const [isMinting, setIsMinting] = useState(false);
 
   const { data: nonce } = useContractRead({
-    address:
-      chain?.id == 88
-        ? (mainnetDeployments.craftToken as `0x${string}`)
-        : (testnetDeployments.craftToken as `0x${string}`),
+    address: testnetDeployments.craftToken as `0x${string}`,
     abi: abi.craftToken,
     functionName: "nonces",
     args: [address],
   });
   const { data: balance, refetch: fetchBalance } = useContractRead({
-    address:
-      chain?.id == 88
-        ? (mainnetDeployments.craftToken as `0x${string}`)
-        : (testnetDeployments.craftToken as `0x${string}`),
+    address: testnetDeployments.craftToken as `0x${string}`,
     abi: abi.craftToken,
     functionName: "balanceOf",
     args: [address],
   });
 
   const { write: mint } = useContractWrite({
-    address:
-      chain?.id == 88
-        ? (mainnetDeployments.craftToken as `0x${string}`)
-        : (testnetDeployments.craftToken as `0x${string}`),
+    address: testnetDeployments.craftToken as `0x${string}`,
     abi: abi.craftToken,
     functionName: "mint",
     onSuccess(data) {
@@ -70,10 +61,7 @@ export default function Generate() {
   });
 
   useContractEvent({
-    address:
-      chain?.id == 88
-        ? (mainnetDeployments.craftToken as `0x${string}`)
-        : (testnetDeployments.craftToken as `0x${string}`),
+    address: testnetDeployments.craftToken as `0x${string}`,
     abi: abi.craftToken,
     eventName: "Transfer",
     listener(log) {
@@ -83,10 +71,7 @@ export default function Generate() {
   });
 
   useContractEvent({
-    address:
-      chain?.id == 88
-        ? (mainnetDeployments.zexCraft as `0x${string}`)
-        : (testnetDeployments.zexCraft as `0x${string}`),
+    address: testnetDeployments.zexCraft as `0x${string}`,
     abi: abi.zexCraft,
     eventName: "ZexCraftNFTCreated",
     listener(log) {
@@ -214,7 +199,7 @@ export default function Generate() {
                     ? formatUnits(balance as bigint, 18)
                     : 0
                   ).toString()}
-                  CFT
+                  &nbsp;CFT
                 </p>
               </div>
               <div className="flex flex-col my-auto justify-between items-center">
@@ -394,8 +379,8 @@ export default function Generate() {
                   className="text-sm text-[#9c9e9e] "
                   href={
                     chain?.id == 88
-                      ? "https://viction.xyz/tx/" + txHash
-                      : "https://testnet.viction.xyz/tx/" + txHash
+                      ? "https://vicscan.xyz/tx/" + txHash
+                      : "https://testnet.vicscan.xyz/tx/" + txHash
                   }
                   target={"_blank"}
                 >

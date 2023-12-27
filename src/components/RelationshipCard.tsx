@@ -23,7 +23,13 @@ export default function RelationshipCard({
     <div className="border-[1px] border-[#3c3f41] p-2 rounded-lg font-theme">
       <div className="flex">
         <div>
-          <Link href={"/relations/" + relationship}>
+          <Link
+            href={
+              "/relations/" +
+              relationship +
+              (chain?.id == 88 ? "/mainnet" : "/testnet")
+            }
+          >
             <Image
               src={nft1.image}
               width={200}
@@ -58,10 +64,10 @@ export default function RelationshipCard({
               className="flex justify-center  cursor-pointer"
               onClick={() => {
                 if (chain?.id == 88) {
-                  window.open(`https://viction.xyz/address/${relationship}`);
+                  window.open(`https://vicscan.xyz/address/${relationship}`);
                 } else {
                   window.open(
-                    `https://testnet.viction.xyz/address/${relationship}`
+                    `https://testnet.vicscan.xyz/address/${relationship}`
                   );
                 }
               }}
@@ -77,14 +83,26 @@ export default function RelationshipCard({
           </div>
         </div>
         <div className="relative">
-          <Link href={"/relations/" + relationship}>
+          <Link
+            href={
+              "/relations/" +
+              relationship +
+              (chain?.id == 88 ? "/mainnet" : "/testnet")
+            }
+          >
             <div className="absolute top-16 right-[30px]  w-full h-full">
               <p className="text-5xl">❤️</p>
             </div>
           </Link>
         </div>
         <div>
-          <Link href={"/relations/" + relationship}>
+          <Link
+            href={
+              "/relations/" +
+              relationship +
+              (chain?.id == 88 ? "/mainnet" : "/testnet")
+            }
+          >
             <Image
               src={nft2.image}
               width={200}
@@ -121,10 +139,10 @@ export default function RelationshipCard({
               className="flex justify-center cursor-pointer"
               onClick={() => {
                 if (chain?.id == 88) {
-                  window.open(`https://viction.xyz/address/${relationship}`);
+                  window.open(`https://vicscan.xyz/address/${relationship}`);
                 } else {
                   window.open(
-                    `https://testnet.viction.xyz/address/${relationship}`
+                    `https://testnet.vicscan.xyz/address/${relationship}`
                   );
                 }
               }}

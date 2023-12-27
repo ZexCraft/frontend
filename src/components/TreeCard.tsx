@@ -47,9 +47,9 @@ export default function TreeCard({
               className="flex justify-center  cursor-pointer"
               onClick={() => {
                 if (chain?.id == 88) {
-                  window.open(`https://viction.xyz/address/${family}`);
+                  window.open(`https://vicscan.xyz/address/${family}`);
                 } else {
-                  window.open(`https://testnet.viction.xyz/address/${family}`);
+                  window.open(`https://testnet.vicscan.xyz/address/${family}`);
                 }
               }}
             >
@@ -97,9 +97,9 @@ export default function TreeCard({
               className="flex justify-center cursor-pointer"
               onClick={() => {
                 if (chain?.id == 88) {
-                  window.open(`https://viction.xyz/address/${family}`);
+                  window.open(`https://vicscan.xyz/address/${family}`);
                 } else {
-                  window.open(`https://testnet.viction.xyz/address/${family}`);
+                  window.open(`https://testnet.vicscan.xyz/address/${family}`);
                 }
               }}
             >

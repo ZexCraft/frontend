@@ -23,7 +23,7 @@ export default function Nfts() {
       console.log(nfts.response);
       setNfts(nfts.response as any);
     })();
-  }, []);
+  }, [chain?.id]);
 
   return (
     <Layout>

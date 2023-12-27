@@ -39,7 +39,7 @@ export default function Trees() {
       }
       setTrees(tempRelationships);
     })();
-  }, []);
+  }, [chain?.id]);
   return (
     <Layout>
       <div className="min-h-[90vh] mt-20 ">

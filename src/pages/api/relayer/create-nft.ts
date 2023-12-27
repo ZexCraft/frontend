@@ -11,7 +11,7 @@ export default async function handler(
   const NEXT_PUBLIC_MIDJOURNEY_API_KEY =
     process.env.NEXT_PUBLIC_MIDJOURNEY_API_KEY;
   const VICTION_MAINNET_RPC_ENDPOINT = "https://rpc.viction.xyz";
-  const VICTION_TESTNET_RPC_ENDPOINT = "https://rpc-testnet.viction.xyz";
+  const VICTION_TESTNET_RPC_ENDPOINT = "https://rpc-testnet.vicscan.xyz";
 
   const API_KEY =
     req.headers.authorization != null

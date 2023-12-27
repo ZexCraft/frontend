@@ -40,12 +40,8 @@ export default function Relation() {
   const { chain } = useNetwork();
   const { data: walletClient } = useWalletClient();
   const [state, setState] = useState(0);
-  const [txHash, setTxHash] = useState(
-    "0x75d236b0c3933ed8b2b084b23b298fd16fe67739e0a403202e1872346aae6632"
-  );
-  const [pairBred, setPairBred] = useState(
-    "0x877ddc9b9751CB8A90de9A4f268D00246fb4172E"
-  );
+  const [txHash, setTxHash] = useState("");
+  const [pairBred, setPairBred] = useState("");
 
   const { writeAsync: createRelationshipFunction } = useContractWrite({
     address: nftData != null ? nftData.address : "",
@@ -57,6 +53,11 @@ export default function Relation() {
       setTxHash(data.hash);
     },
   });
+  useEffect(() => {
+    if (nft == undefined) return;
+    if (chain?.id == 89) router.push("/nfts/" + nft + "/testnet");
+    else if (chain?.id != 88) router.push("/");
+  }, [chain?.id, nft]);
 
   useEffect(() => {
     if (ownedNfts == null || ownedNfts.length == 0) {
@@ -141,10 +142,7 @@ export default function Relation() {
   }, [address]);
 
   useContractEvent({
-    address:
-      chain?.id == 88
-        ? (mainnetDeployments.relRegistry as `0x${string}`)
-        : (testnetDeployments.relRegistry as `0x${string}`),
+    address: mainnetDeployments.relRegistry as `0x${string}`,
     abi: abi.relRegistry,
     eventName: "RelationshipCreated",
     listener(log) {
@@ -207,8 +205,8 @@ export default function Relation() {
                 <a
                   href={
                     chain?.id == 88
-                      ? "https://viction.xyz/tx/" + txHash
-                      : "https://testnet.viction.xyz/tx/" + txHash
+                      ? "https://vicscan.xyz/tx/" + txHash
+                      : "https://testnet.vicscan.xyz/tx/" + txHash
                   }
                   target={"_blank"}
                 >
@@ -225,8 +223,8 @@ export default function Relation() {
                 <a
                   href={
                     chain?.id == 88
-                      ? "https://viction.xyz/address/" + pairBred
-                      : "https://testnet.viction.xyz/address/" + pairBred
+                      ? "https://vicscan.xyz/address/" + pairBred
+                      : "https://testnet.vicscan.xyz/address/" + pairBred
                   }
                   target={"_blank"}
                 >

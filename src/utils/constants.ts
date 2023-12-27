@@ -2323,10 +2323,10 @@ const victionTestnet = {
   nativeCurrency: { name: "VIC", symbol: "VIC", decimals: 18 },
   rpcUrls: {
     default: {
-      http: ["https://rpc-testnet.viction.xyz"],
+      http: ["https://rpc-testnet.vicscan.xyz"],
     },
     public: {
-      http: ["https://rpc-testnet.viction.xyz"],
+      http: ["https://rpc-testnet.vicscan.xyz"],
     },
   },
   blockExplorers: {

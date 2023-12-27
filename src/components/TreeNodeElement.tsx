@@ -113,11 +113,11 @@ export default function TreeNodeElement({
             onClick={() => {
               if (chain?.id == 88) {
                 window.open(
-                  `https://viction.xyz/address/${nodeDatum.attributes.relationship}`
+                  `https://vicscan.xyz/address/${nodeDatum.attributes.relationship}`
                 );
               } else {
                 window.open(
-                  `https://testnet.viction.xyz/address/${nodeDatum.attributes.relationship}`
+                  `https://testnet.vicscan.xyz/address/${nodeDatum.attributes.relationship}`
                 );
               }
             }}
