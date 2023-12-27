@@ -213,7 +213,7 @@ export default function Generate() {
                   {(balance
                     ? formatUnits(balance as bigint, 18)
                     : 0
-                  ).toString()}{" "}
+                  ).toString()}
                   CFT
                 </p>
               </div>
@@ -263,10 +263,16 @@ export default function Generate() {
                 // trigger Transactoin
 
                 disabled={
-                  count != 0 || Number(formatUnits(balance as bigint, 18)) < 0.1
+                  count != 0 ||
+                  Number(
+                    formatUnits(balance ? (balance as bigint) : BigInt(0), 18)
+                  ) < 0.1
                 }
                 className={`${
-                  count != 0 || Number(formatUnits(balance as bigint, 18)) < 0.1
+                  count != 0 ||
+                  Number(
+                    formatUnits(balance ? (balance as bigint) : BigInt(0), 18)
+                  ) < 0.1
                     ? "bg-[#25272b] text-[#5b5e5b]"
                     : "bg-white text-black"
                 } px-4 py-2 rounded-xl font-semibold `}
