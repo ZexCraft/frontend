@@ -1,7 +1,6 @@
 import Layout from "@/components/Layout";
 import NFTCard from "@/components/NFTCard";
-import LoadingSpinner from "@/components/Spinner";
-import { abi, testnetDeployments, mainnetDeployments } from "@/utils/constants";
+import { abi, mainnetDeployments } from "@/utils/constants";
 import Confetti from "react-confetti";
 import resolveRarity from "@/utils/resolveRarity";
 import signCreateRelationship from "@/utils/sign/signCreateRelationship";
@@ -54,6 +53,7 @@ export default function Relation() {
     },
   });
   useEffect(() => {
+    console.log(nft);
     if (nft == undefined) return;
     if (chain?.id == 89) router.push("/nfts/" + nft + "/testnet");
     else if (chain?.id != 88) router.push("/");
@@ -66,7 +66,7 @@ export default function Relation() {
     }
     if (nftData == null) return;
     console.log(ownedNfts);
-    setSelectedIndex(0);
+    if (selectedIndex == -1) setSelectedIndex(0);
     const requester =
       ownedNfts[selectedIndex == -1 ? 0 : selectedIndex].address;
     const receiver = nftData.address;
@@ -87,7 +87,7 @@ export default function Relation() {
       }
     })();
     // Check if the selected Index already sent breeding request
-  }, [selectedIndex, nftData, ownedNfts]);
+  }, [selectedIndex, nftData, ownedNfts, nft]);
 
   useEffect(() => {
     (async function () {
@@ -139,7 +139,7 @@ export default function Relation() {
         }
       }
     })();
-  }, [address]);
+  }, [address, nft]);
 
   useContractEvent({
     address: mainnetDeployments.relRegistry as `0x${string}`,
@@ -155,10 +155,12 @@ export default function Relation() {
       const args = event.args as {
         parent1: string;
         parent2: string;
+        relationship: string;
         signer1: string;
         signer2: string;
-        relationship: string;
       };
+      setPairBred(args.parent2);
+
       createRelationship({
         address: args.relationship,
         parent1: args.parent1,
@@ -172,9 +174,7 @@ export default function Relation() {
         id: args.parent1 + args.parent2,
         chainId: (chain?.id as number).toString(),
       });
-      setPairBred(args.parent2);
       setState(2);
-      // router.push(`/relations/${args.relationship}`)
     },
   });
 
@@ -219,23 +219,29 @@ export default function Relation() {
                     className="ml-2"
                   />
                 </a>
-                <p className="mt-2 font-semibold  text-white ">Created with</p>
-                <a
-                  href={
-                    chain?.id == 88
-                      ? "https://vicscan.xyz/address/" + pairBred
-                      : "https://testnet.vicscan.xyz/address/" + pairBred
-                  }
-                  target={"_blank"}
-                >
-                  {pairBred.substring(0, 10) +
-                    "...." +
-                    pairBred.substring(pairBred.length - 10)}
-                  <FontAwesomeIcon
-                    icon={faArrowUpRightFromSquare}
-                    className="ml-2"
-                  />
-                </a>
+                {pairBred.length > 0 && (
+                  <>
+                    <p className="mt-2 font-semibold  text-white ">
+                      Created with
+                    </p>
+                    <a
+                      href={
+                        chain?.id == 88
+                          ? "https://vicscan.xyz/address/" + pairBred
+                          : "https://testnet.vicscan.xyz/address/" + pairBred
+                      }
+                      target={"_blank"}
+                    >
+                      {pairBred.substring(0, 10) +
+                        "...." +
+                        pairBred.substring(pairBred.length - 10)}
+                      <FontAwesomeIcon
+                        icon={faArrowUpRightFromSquare}
+                        className="ml-2"
+                      />
+                    </a>
+                  </>
+                )}
               </div>
             )}
           </div>
@@ -347,9 +353,7 @@ export default function Relation() {
                         onClick={async () => {
                           const tx = await createRelationshipFunction({
                             args: [
-                              chain?.id == 88
-                                ? mainnetDeployments.relRegistry
-                                : testnetDeployments.relRegistry,
+                              mainnetDeployments.relRegistry,
                               req.address,
                               req.signature,
                             ],

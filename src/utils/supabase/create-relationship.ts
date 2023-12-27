@@ -53,6 +53,9 @@ export default async function createRelationship(req: {
             data: null,
             error: new Error("Supabase client is not initialized"),
           };
+
+      console.log("Create Relationship Response");
+      console.log({ data, error });
       if (error) {
         console.log(error);
 

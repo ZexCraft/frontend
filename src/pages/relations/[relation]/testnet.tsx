@@ -1,6 +1,5 @@
 import Layout from "@/components/Layout";
 import NFTCard from "@/components/NFTCard";
-import LoadingSpinner from "@/components/Spinner";
 import useWindowSize from "@/hooks/useWindowSize";
 import { shortenEthereumAddress } from "@/utils";
 import { abi, testnetDeployments } from "@/utils/constants";
@@ -8,7 +7,6 @@ import resolveRarity from "@/utils/resolveRarity";
 import signCreateBaby from "@/utils/sign/signCreateBaby";
 import createBabyRequest from "@/utils/supabase/create-baby-request";
 import createChild from "@/utils/supabase/create-child";
-import createNft from "@/utils/supabase/create-nft";
 import endBabyRequest from "@/utils/supabase/end-baby-request";
 import getBabyRequest from "@/utils/supabase/get-baby-request";
 import getNft from "@/utils/supabase/get-nft";
@@ -83,6 +81,7 @@ export default function Relation() {
   }, [chain?.id, relation]);
 
   useEffect(() => {
+    if (relation == undefined) return;
     (async function () {
       const kids = await getNftsByOwner({
         address: relation as string,
@@ -90,7 +89,7 @@ export default function Relation() {
       });
       setBabes(kids.response);
     })();
-  }, []);
+  }, [relation, chain?.id]);
 
   useEffect(() => {
     // Fetch relationship
@@ -589,6 +588,7 @@ export default function Relation() {
                         babyRequest.parent1_sig == null ||
                         babyRequest.parent2_sig == null ||
                         count != 0 ||
+                        isMinting ||
                         Number(formatUnits(balance as bigint, 18)) < 0.1
                           ? "bg-[#25272b] text-[#5b5e5b]"
                           : "bg-white text-black"
@@ -598,6 +598,7 @@ export default function Relation() {
                         babyRequest.parent1_sig == null ||
                         babyRequest.parent2_sig == null ||
                         count != 0 ||
+                        isMinting ||
                         Number(formatUnits(balance as bigint, 18)) < 0.1
                       }
                     >

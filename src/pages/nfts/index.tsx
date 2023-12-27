@@ -74,9 +74,10 @@ export default function Nfts() {
               } gap-3 mx-8`}
             >
               {nfts.length > 0 &&
-                nfts.map((nft: any) => {
+                nfts.map((nft: any, index: number) => {
                   return (
                     <NFTCard
+                      key={index}
                       image={nft.image}
                       imageAlt={nft.image_alt}
                       owner={nft.parent}

@@ -2054,9 +2054,19 @@ const abi = {
     {
       inputs: [
         {
-          internalType: "address",
-          name: "implementation",
+          internalType: "contract IERC6551Registry",
+          name: "_accountRegistry",
           type: "address",
+        },
+        {
+          internalType: "address",
+          name: "_relationshipImplementation",
+          type: "address",
+        },
+        {
+          internalType: "uint256",
+          name: "_mintFee",
+          type: "uint256",
         },
       ],
       stateMutability: "nonpayable",
@@ -2090,7 +2100,29 @@ const abi = {
     },
     {
       inputs: [],
-      name: "InitializationFailed",
+      name: "ECDSAInvalidSignature",
+      type: "error",
+    },
+    {
+      inputs: [
+        {
+          internalType: "uint256",
+          name: "length",
+          type: "uint256",
+        },
+      ],
+      name: "ECDSAInvalidSignatureLength",
+      type: "error",
+    },
+    {
+      inputs: [
+        {
+          internalType: "bytes32",
+          name: "s",
+          type: "bytes32",
+        },
+      ],
+      name: "ECDSAInvalidSignatureS",
       type: "error",
     },
     {
@@ -2099,108 +2131,52 @@ const abi = {
         {
           indexed: false,
           internalType: "address",
-          name: "account",
+          name: "parent1",
           type: "address",
         },
         {
           indexed: false,
           internalType: "address",
-          name: "implementation",
+          name: "parent2",
           type: "address",
-        },
-        {
-          indexed: false,
-          internalType: "uint256",
-          name: "chainId",
-          type: "uint256",
         },
         {
           indexed: false,
           internalType: "address",
-          name: "tokenContract",
+          name: "relationship",
           type: "address",
         },
         {
           indexed: false,
-          internalType: "uint256",
-          name: "tokenId",
-          type: "uint256",
+          internalType: "address",
+          name: "signer1",
+          type: "address",
         },
         {
           indexed: false,
-          internalType: "uint256",
-          name: "salt",
-          type: "uint256",
+          internalType: "address",
+          name: "signer2",
+          type: "address",
         },
       ],
-      name: "AccountCreated",
+      name: "RelationshipCreated",
       type: "event",
     },
     {
-      anonymous: false,
-      inputs: [
+      inputs: [],
+      name: "ZEXCRAFT_CREATE_RELATIONSHIP",
+      outputs: [
         {
-          indexed: true,
-          internalType: "address",
-          name: "accountAddress",
-          type: "address",
-        },
-        {
-          indexed: true,
-          internalType: "address",
-          name: "caller",
-          type: "address",
-        },
-        {
-          indexed: true,
-          internalType: "uint256",
-          name: "chainId",
-          type: "uint256",
-        },
-        {
-          indexed: false,
-          internalType: "address",
-          name: "tokenContract",
-          type: "address",
-        },
-        {
-          indexed: false,
-          internalType: "uint256",
-          name: "tokenId",
-          type: "uint256",
-        },
-        {
-          indexed: false,
-          internalType: "uint256",
-          name: "salt",
-          type: "uint256",
+          internalType: "string",
+          name: "",
+          type: "string",
         },
       ],
-      name: "AccountCreationFailed",
-      type: "event",
+      stateMutability: "view",
+      type: "function",
     },
     {
       inputs: [
-        {
-          internalType: "address",
-          name: "implementation",
-          type: "address",
-        },
-        {
-          internalType: "uint256",
-          name: "chainId",
-          type: "uint256",
-        },
-        {
-          internalType: "address",
-          name: "tokenContract",
-          type: "address",
-        },
-        {
-          internalType: "uint256",
-          name: "tokenId",
-          type: "uint256",
-        },
         {
           internalType: "uint256",
           name: "salt",
@@ -2219,71 +2195,21 @@ const abi = {
       type: "function",
     },
     {
-      inputs: [
-        {
-          internalType: "address",
-          name: "",
-          type: "address",
-        },
-      ],
-      name: "accountExists",
+      inputs: [],
+      name: "accountRegistry",
       outputs: [
         {
-          internalType: "bool",
+          internalType: "contract IERC6551Registry",
           name: "",
-          type: "bool",
+          type: "address",
         },
       ],
       stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [
-        {
-          internalType: "address",
-          name: "implementation",
-          type: "address",
-        },
-        {
-          internalType: "uint256",
-          name: "chainId",
-          type: "uint256",
-        },
-        {
-          internalType: "address",
-          name: "tokenContract",
-          type: "address",
-        },
-        {
-          internalType: "uint256",
-          name: "tokenId",
-          type: "uint256",
-        },
-        {
-          internalType: "uint256",
-          name: "salt",
-          type: "uint256",
-        },
-        {
-          internalType: "bytes",
-          name: "initData",
-          type: "bytes",
-        },
-      ],
-      name: "createAccount",
-      outputs: [
-        {
-          internalType: "address",
-          name: "",
-          type: "address",
-        },
-      ],
-      stateMutability: "payable",
       type: "function",
     },
     {
       inputs: [],
-      name: "i_implementation",
+      name: "craftToken",
       outputs: [
         {
           internalType: "address",
@@ -2298,16 +2224,166 @@ const abi = {
       inputs: [
         {
           internalType: "address",
-          name: "accountAddress",
+          name: "otherAccount",
+          type: "address",
+        },
+        {
+          internalType: "bytes",
+          name: "otherAccountsignature",
+          type: "bytes",
+        },
+      ],
+      name: "createRelationship",
+      outputs: [
+        {
+          internalType: "address",
+          name: "",
           type: "address",
         },
       ],
-      name: "isAccount",
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "devWallet",
+      outputs: [
+        {
+          internalType: "address",
+          name: "",
+          type: "address",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "address",
+          name: "_zexCraft",
+          type: "address",
+        },
+        {
+          internalType: "address",
+          name: "_craftToken",
+          type: "address",
+        },
+      ],
+      name: "initialize",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "address",
+          name: "_address",
+          type: "address",
+        },
+      ],
+      name: "isRelationship",
       outputs: [
         {
           internalType: "bool",
           name: "",
           type: "bool",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "mintFee",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "nonce",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "address",
+          name: "",
+          type: "address",
+        },
+        {
+          internalType: "address",
+          name: "",
+          type: "address",
+        },
+      ],
+      name: "pairs",
+      outputs: [
+        {
+          internalType: "bool",
+          name: "",
+          type: "bool",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "address",
+          name: "",
+          type: "address",
+        },
+      ],
+      name: "relationshipExists",
+      outputs: [
+        {
+          internalType: "bool",
+          name: "",
+          type: "bool",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "relationshipImplementation",
+      outputs: [
+        {
+          internalType: "address",
+          name: "",
+          type: "address",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "zexCraft",
+      outputs: [
+        {
+          internalType: "address",
+          name: "",
+          type: "address",
         },
       ],
       stateMutability: "view",

@@ -10,11 +10,14 @@ export default async function endBreedingRequest(req: {
   const { id, chainId } = req;
 
   try {
-    const { error: deleteError } = await supabase
+    const { data, error: deleteError } = await supabase
       .from("breeding_requests")
       .delete()
       .eq("id", id)
       .eq("chain_id", chainId);
+
+    console.log("Delete Breeding Request Response");
+    console.log({ data, deleteError });
     return {
       message: deleteError == null ? "Success" : "Error",
       response: deleteError != null ? deleteError : null,
