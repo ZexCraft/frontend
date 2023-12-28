@@ -31,29 +31,47 @@ The user can go to Power-ups section to purchase power-ups using any supported c
 ### Viction Mainnet Deployments
 
 **ERC6551 Account Implementation** => 0x16CBC6Cb38D19B73A3b545109c70b2031d20EA37
+
 **ERC6551 Account Registry** => 0xd37ca03a13bD2725306Fec4071855EE556037e2e
+
 **Relationship Implementation** => 0x4ab8f50796b059aE5C8b8534afC6bb4c84912ff6
+
 **Relationship Registry** => 0x7125e097a72cCf547ED6e9e98bCc09BE3AC61997
+
 **ZexCraft (Main Contract)** => 0x50751BD8d7b0a84c422DE96A56426a370F31a42D
+
 **CraftToken (VRC25)** => 0x08AC2b69feB202b34aD7c65E5Ac876E901CA6216
+
 
 ### Viction Testnet Deployments
 
 **ERC6551 Account Implementation** => 0x7125e097a72cCf547ED6e9e98bCc09BE3AC61997
+
 **ERC6551 Account Registry** => 0x50751BD8d7b0a84c422DE96A56426a370F31a42D
+
 **Relationship Implementation** => 0x08AC2b69feB202b34aD7c65E5Ac876E901CA6216
+
 **Relationship Registry** => 0x108A91edD1329e17409A86b54D4204A102534ec3
+
 **ZexCraft (Main Contract)** => 0xc6b011774FE1393AE254d19456e76F0f1b5B09Eb
+
 **CraftToken (VRC25)** => 0xC044FCe37927A0Cb55C7e57425Fe3772181228a6
+
 
 ### Important Links
 
 **Frontend** => https://github.com/ZexCraft/frontend
+
 **Backend** => https://github.com/ZexCraft/backend
+
 **Contracts** => https://github.com/ZexCraft/contracts
 
 **Pitch Deck** => https://www.canva.com/design/DAF4FCASRJQ/uTjvpJGtGXq4ZT8wNSp4Bw/view?utm_content=DAF4FCASRJQ&utm_campaign=designshare&utm_medium=link&utm_source=editor
+
 **Demo Video** => https://www.canva.com/design/DAF4Mg8UsgA/ZJwRXMWb33Pacbrzm8klQA/watch?utm_content=DAF4Mg8UsgA&utm_campaign=designshare&utm_medium=link&utm_source=editor
+
+**Website** => https://viction.zexcraft.xyz
+
 
 ### Screenshots
 
